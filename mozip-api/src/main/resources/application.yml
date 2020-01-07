@@ -1,1 +1,8 @@
-
+spring:
+  profiles:
+    active: local
+    include:
+      - domain
+---
+spring:
+  profiles: local
