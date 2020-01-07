@@ -1,0 +1,4 @@
+rootProject.name = "mozipmozip"
+
+include 'mozip-domain'
+include 'mozip-api'
