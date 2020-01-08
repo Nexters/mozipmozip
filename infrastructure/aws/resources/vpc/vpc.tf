@@ -1,5 +1,5 @@
 module "aws_vpc" {
-  source = "..\/..\/modules/vpc"
+  source = "../../modules/vpc"
 
   name = var.name
 
@@ -27,7 +27,7 @@ module "aws_vpc" {
 }
 
 module "aws_nat_instance_bastion" {
-  source = "..\/..\/modules/nat-instance-bastion"
+  source = "../../modules/nat-instance-bastion"
 
   name = var.bastion_name
 
