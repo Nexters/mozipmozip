@@ -43,3 +43,10 @@ package-lock.json
 
 ### direnv
 .envrc
+
+temp.tfvars
+.terraform
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.*
+.vagrant

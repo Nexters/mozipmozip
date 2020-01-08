@@ -55,6 +55,10 @@ Git-flow는 너무 복잡하니까.. 간단하게 아래 세 가지를 사용하
 
 > 가난하니까 하나의 환경만 운영한다. (`dev`, `prod` 등의 여러 환경을 구성하지 않는다.)
 
+인프라 구성은 아래 내용 참고
+
+[Infrastructure](https://github.com/tramyu/infrastructure-as-code-tramyu)
+
 ### Setup Guides
 
 ```bash
