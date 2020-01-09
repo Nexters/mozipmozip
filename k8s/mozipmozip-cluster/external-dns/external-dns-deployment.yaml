@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: external-dns
+  annotations:
+    external-dns/domain-filter: MY_DOMAIN
+spec:
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      containers:
+        - name: external-dns
+          image: registry.opensource.zalan.do/teapot/external-dns:latest
+          args:
+            - --source=service
+            - --source=ingress
+            - --domain-filter=$(DOMAIN_FILTER)
+            - --provider=aws
+            - --policy=sync
+            - --aws-zone-type=public
+            - --registry=txt

@@ -42,7 +42,7 @@ out/
 package-lock.json
 
 ### direnv
-.envrc
+k8s/.envrc
 
 temp.tfvars
 .terraform
