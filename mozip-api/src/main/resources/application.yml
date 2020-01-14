@@ -6,3 +6,6 @@ spring:
 ---
 spring:
   profiles: local
+---
+spring:
+  profiles: prod
