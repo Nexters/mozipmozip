@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: external-dns
   annotations:
-    external-dns/domain-filter: MY_DOMAIN
+    external-dns/domain-filter: mozipmozip.com
 spec:
   strategy:
     type: Recreate
