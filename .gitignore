@@ -50,3 +50,4 @@ temp.tfvars
 *.tfstate.backup
 *.tfstate.lock.*
 .vagrant
+.envrc

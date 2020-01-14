@@ -43,7 +43,7 @@ Git-flow는 너무 복잡하니까.. 간단하게 아래 세 가지를 사용하
 
 - `mozip-domain`
 
-도메인 모델, JPA 의존성을 가지며 Domain, Repository, Service 레이어가 정의 되는 모델
+JPA 의존성을 가지며 Domain, Repository, Service 레이어가 정의 되는 모델
 
 
 ### Infrastructure
