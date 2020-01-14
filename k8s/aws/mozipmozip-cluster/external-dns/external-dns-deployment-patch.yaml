@@ -2,15 +2,8 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: external-dns
-  annotations:
-    external-dns/domain-filter: mozipmozip.com
 spec:
-  strategy:
-    type: Recreate
   template:
-    metadata:
-      labels:
-        app: external-dns
     spec:
       containers:
         - name: external-dns
