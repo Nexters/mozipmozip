@@ -53,11 +53,36 @@ Git-flow는 너무 복잡하니까.. 간단하게 아래 세 가지를 사용하
 
 공부 목적으로 여러가지 서비스를 사용하더라도 실제 운영은 `EC2`를 public으로 노출해 제공할 예정.
 
-> 가난하니까 하나의 환경만 운영한다. (`dev`, `prod` 등의 여러 환경을 구성하지 않는다.)
+> 비용 문제 때문에 하나의 환경만 운영한다. (`dev`, `prod` 등의 여러 환경을 구성하지 않는다.)
 
-인프라 구성은 아래 내용 참고
+인프라는 Terraform을 이용해 코드로 구성되어 있다.
+
+- AWS 계정 내에 VPC 생성
+
+```bash
+$ cd infrastructure/aws/resources/vpc
+$ terraform init
+$ terraform apply -var-file=vpc.tfvars
+```
+- AWS 계정 내에 EKS 클러스터 생성 
+
+```bash
+$ cd infrastructure/aws/resources/eks
+$ terraform init
+$ terraform apply -var-file=eks.tfvars
+```
+
+Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용한 module 코드는 아래 레파지토리에 위치되어 있다.
 
 [Infrastructure](https://github.com/tramyu/infrastructure-as-code-tramyu)
+
+![Aws network diagram](./images/AWS%20Network%20Diagram.png)
+
+### Deploy
+
+```bash
+$
+```
 
 ### Setup Guides
 
