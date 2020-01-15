@@ -8,5 +8,4 @@ build:
     context: mozip-api
 deploy:
   kustomize:
-    path:
-    - .
+    path: "."

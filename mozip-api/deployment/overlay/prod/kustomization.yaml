@@ -3,7 +3,7 @@ commonLabels:
   phase: prod
 
 bases:
-  - ../base
+  - ../../base
 
 patchesStrategicMerge:
   - environment_variable_patch.yaml
