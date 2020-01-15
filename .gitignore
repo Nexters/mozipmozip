@@ -42,4 +42,12 @@ out/
 package-lock.json
 
 ### direnv
+k8s/.envrc
+
+temp.tfvars
+.terraform
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.*
+.vagrant
 .envrc

@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mozip-api
+spec:
+  selector:
+    matchLabels:
+      app: mozip-api
+  template:
+    spec:
+      containers:
+        - name: mozip-api
+          env:
+            - name: SPRING_PROFILE
+              value: prod
