@@ -1,0 +1,12 @@
+apiVersion: skaffold/v2alpha1
+kind: Config
+metadata:
+  name: mozipmozip
+build:
+  artifacts:
+  - image: 489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app
+    context: mozip-api
+deploy:
+  kustomize:
+    path:
+    - .

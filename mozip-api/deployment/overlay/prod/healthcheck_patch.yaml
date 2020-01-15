@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: mozip-api
 spec:
+  selector:
+    matchLabels:
+      app: mozip-api
   template:
     spec:
       containers:
