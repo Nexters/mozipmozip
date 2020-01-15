@@ -80,10 +80,10 @@ Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용�
 ### Deploy
 
 ```bash
-$
+$ skaffold run
 ```
 
-### Setup Guides
+### Local environment setup guides
 
 ```bash
 $ docker-compose up -d
