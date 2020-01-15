@@ -26,7 +26,7 @@ node_group_min_size = 1
 node_group_max_size = 1
 
 endpoint_private_access = true
-endpoint_public_access = false
+endpoint_public_access = true
 
 tags = {
   Name = "mozipmozip-k8s-cluster"
