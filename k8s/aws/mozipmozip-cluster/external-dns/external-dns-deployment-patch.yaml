@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: external-dns
+  annotations:
+    external-dns/domain-filter: mozipmozip.com
+spec:
+  template:
+    spec:
+      containers:
+        - name: external-dns
+          image: registry.opensource.zalan.do/teapot/external-dns:latest
+          args:
+            - --source=service
+            - --source=ingress
+            - --domain-filter=$(DOMAIN_FILTER)
+            - --provider=aws
+            - --policy=sync
+            - --aws-zone-type=public
+            - --registry=txt

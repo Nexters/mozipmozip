@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ingress-alb-cluster-role.yaml
+  - ingress-alb-cluster-role-binding.yaml
+  - ingress-alb-service-account.yaml
+  - alb-ingress-controller.yaml

@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mozip-api
+spec:
+  selector:
+    matchLabels:
+      app: mozip-api
+  template:
+    spec:
+      containers:
+        - name: mozip-api
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 300

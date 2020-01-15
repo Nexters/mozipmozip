@@ -1,0 +1,17 @@
+commonLabels:
+  app: mozip-api
+  phase: prod
+
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - environment_variable_patch.yaml
+  - healthcheck_patch.yaml
+
+resources:
+  - namespace.yaml
+
+namePrefix: prod-
+
+namespace: prod-mozipmozip

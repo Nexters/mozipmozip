@@ -1,0 +1,12 @@
+on: [push]
+
+name: Build test
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build, spring application
+        run: |
+          ./gradlew clean build

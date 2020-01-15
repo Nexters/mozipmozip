@@ -1,8 +1,24 @@
 spring:
+  jpa:
+    open-in-view: false
   profiles:
     active: local
     include:
       - domain
+  jackson:
+    serialization:
+      WRITE_NULL_MAP_VALUES: false
+    default-property-inclusion: non_null
+server:
+  tomcat:
+    max-threads: 500
+    uri-encoding: UTF-8
+  error:
+    whitelabel:
+      enabled: false
 ---
 spring:
   profiles: local
+---
+spring:
+  profiles: prod

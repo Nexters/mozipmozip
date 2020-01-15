@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mozip-api-ingress
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  labels:
+    app: mozip-api
+spec:
+  rules:
+    - host: mozipmozip.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: mozip-api-svc
+              servicePort: 80

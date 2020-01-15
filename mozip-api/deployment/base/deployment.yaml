@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mozip-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mozip-api
+  template:
+    metadata:
+      labels:
+        app: mozip-api
+    spec:
+      containers:
+        - name: mozip-api
+          image: 489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
