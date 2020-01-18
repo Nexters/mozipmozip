@@ -202,3 +202,5 @@ tmp/
 temp/
 
 # End of https://www.gitignore.io/api/node,react,macos,intellij
+
+yarn-v1.19.1

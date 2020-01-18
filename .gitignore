@@ -51,3 +51,5 @@ temp.tfvars
 *.tfstate.lock.*
 .vagrant
 .envrc
+
+/mozip-server/mozip-api/src/main/resources/public
