@@ -12,7 +12,7 @@ node {
 
 def profile = System.getProperties()["spring.profiles.active"] ?: "local"
 
-task yarnBuild(type: YarnTask) {
+task yarnBuild(type: YarnTask, dependsOn: yarn) {
     args = ['run', "build", '--verbose']
     doLast {
         copy {
