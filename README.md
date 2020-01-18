@@ -80,6 +80,12 @@ Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용�
 ### Deploy
 
 ```bash
+$ brew install kubectl
+$ brew install skaffold
+```
+
+```bash
+$ $(aws ecr get-login --no-include-email --region ap-northeast-2)
 $ skaffold run
 ```
 

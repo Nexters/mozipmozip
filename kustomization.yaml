@@ -1,2 +1,2 @@
 resources:
-  - mozip-api/deployment/overlay/prod
+  - mozip-api/deployment/overlays/prod
