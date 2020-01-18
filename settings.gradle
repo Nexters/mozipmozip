@@ -1,4 +1,5 @@
 rootProject.name = "mozipmozip"
 
-include 'mozip-domain'
-include 'mozip-api'
+include 'mozip-server:mozip-api'
+include 'mozip-server:mozip-domain'
+include 'mozip-client'

@@ -18,8 +18,8 @@ test {
 }
 
 def javaProjects = [
-        project(':mozip-api'),
-        project(':mozip-domain')
+        project(':mozip-server:mozip-api'),
+        project(':mozip-server:mozip-domain')
 ]
 
 configure(javaProjects) {
