@@ -12,7 +12,7 @@ spec:
     - host: mozipmozip.com
       http:
         paths:
-          - path: /
+          - path: /*
             backend:
               serviceName: mozip-api-svc
               servicePort: 80

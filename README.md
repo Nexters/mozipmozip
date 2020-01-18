@@ -29,13 +29,23 @@
 
 ### Github branching 
 
-Git-flow는 너무 복잡하니까.. 간단하게 아래 세 가지를 사용하자
+- server
 
-`feature/issue-number` -> `develop` -> `master`
+서버 개발자의 경우 위 브랜치에서 feature 브랜치를 생성한다.
+
+- client
+
+프론트 개발자의 경우 위 브랜치에서 feature 브랜치를 생성한다.
+
+`feature/issue-number` -> `server or client` -> `develop` -> `master`
 
 ### Project structure 
 
-`mozip-api`, `mozip-domain` 모듈로 구성되어 있다.
+`mozip-client` `mozip-api`, `mozip-domain` 모듈로 구성되어 있다.
+
+- `mozip-client`
+
+프론트 프로젝트, React + typescript로 구성되어 있다.
 
 - `mozip-api`
 
@@ -75,17 +85,58 @@ Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용�
 
 ### CI / CD
 
-`Github Action` 을 사용해 CI/CD를 구성한다.
+`Github Action` 을 사용해 CI를 구성한다.
 
 ### Deploy
 
+로컬에서 배포를 위해 아래 유틸들이 설치되어 있어야 한다.
+
+- direnv
+- docker
+- docker-compose
+- kubectl
+- kustomize
+- skaffold
+
+그리고 kubectl 명령어 호출을 위해 아래 파일을 수정한다.
+
+`~/.kube/config`
+
 ```bash
-$ brew install kubectl
-$ brew install skaffold
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: {문의}
+    server: {문의}
+  name: mozipmozip-k8s-cluster
+contexts:
+- context:
+    cluster: mozipmozip-k8s-cluster
+    namespace: prod-mozipmozip
+    user: mozipmozip-k8s-cluster
+  name: mozipmozip-k8s-cluster
+current-context: mozipmozip-k8s-cluster
+kind: Config
+preferences: {}
+users:
+- name: mozipmozip-k8s-cluster
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - --region
+      - ap-northeast-2
+      - eks
+      - get-token
+      - --cluster-name
+      - mozipmozip-k8s-cluster
+      command: aws
+      env: null
 ```
 
 ```bash
 $ $(aws ecr get-login --no-include-email --region ap-northeast-2)
+$ ./gradlew clean :mozip-server:mozip-api:build
 $ skaffold run
 ```
 
