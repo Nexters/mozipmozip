@@ -5,7 +5,9 @@ metadata:
 build:
   artifacts:
   - image: 489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app
-    context: mozip-api
+    context: mozip-server/mozip-api
+    docker:
+      noCache: true
 deploy:
   kustomize:
     path: "."
