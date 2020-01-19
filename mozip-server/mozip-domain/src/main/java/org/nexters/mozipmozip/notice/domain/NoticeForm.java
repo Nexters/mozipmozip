@@ -35,7 +35,7 @@ public class NoticeForm extends JpaBasePersistable {
     @JoinColumn(name = "notice_id")
     private Notice notice;
 
-    @OneToMany(mappedBy = "noticeForm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "noticeForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<NoticeFormQuestionItem> noticeFormQuestionItems = new ArrayList<>();
 
     @Builder
