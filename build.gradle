@@ -43,21 +43,22 @@ configure(javaProjects) {
     }
 
     dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation('org.springframework.boot:spring-boot-starter-web')
 
-        developmentOnly 'org.springframework.boot:spring-boot-devtools'
+        developmentOnly('org.springframework.boot:spring-boot-devtools')
 
-        annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+        annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 
-        compileOnly 'org.projectlombok:lombok'
-        annotationProcessor 'org.projectlombok:lombok'
-        testCompileOnly 'org.projectlombok:lombok'
-        testAnnotationProcessor 'org.projectlombok:lombok'
+        compileOnly('org.projectlombok:lombok')
+        annotationProcessor('org.projectlombok:lombok')
+        testCompileOnly('org.projectlombok:lombok')
+        testAnnotationProcessor('org.projectlombok:lombok')
 
         testImplementation('org.springframework.boot:spring-boot-starter-test') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation('org.junit.jupiter:junit-jupiter-api')
         testImplementation('org.junit.jupiter:junit-jupiter-params')
+        testImplementation('org.jeasy:easy-random-core:4.0.0')
     }
 }
