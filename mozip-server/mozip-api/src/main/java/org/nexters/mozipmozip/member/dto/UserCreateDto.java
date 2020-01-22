@@ -30,7 +30,7 @@ public class UserCreateDto {
         this.isAdmin = isAdmin;
     }
 
-    //dto를 entity로 변환
+    //엔티티로 변환
     public static User of(UserCreateDto userCreateDto) {
         return User.builder()
                 .name(userCreateDto.name)
