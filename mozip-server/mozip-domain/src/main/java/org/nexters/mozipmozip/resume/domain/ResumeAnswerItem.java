@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class ResumeAnswerItem extends JpaBasePersistable {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resume_id")
+    @JoinColumn(name = "resume_id", nullable = false)
     private Resume resume;
 
     @Column(name = "answer", nullable = false)
