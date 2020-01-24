@@ -42,6 +42,4 @@ class UserServiceTest {
         assertThat(savedUser.getPhoneNumber()).isEqualTo(userFixture.getPhoneNumber());
         assertThat(savedUser.getPassword()).isEqualTo(userFixture.getPassword());
     }
-
-
 }
