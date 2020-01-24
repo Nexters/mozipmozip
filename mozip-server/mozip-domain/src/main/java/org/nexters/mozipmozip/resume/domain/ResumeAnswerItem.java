@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "resume_answer_item", indexes = { @Index(columnList = "resume_id", name = "IDX_RESUME_ID")})
 @AttributeOverride(name = "id", column = @Column(name = "resume_answer_item_id"))
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class ResumeAnswerItem extends JpaBasePersistable {
 
     @ManyToOne(fetch = FetchType.LAZY)
