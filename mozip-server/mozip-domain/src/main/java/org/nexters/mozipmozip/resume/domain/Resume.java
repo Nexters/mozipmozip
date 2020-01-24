@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "resume", indexes = { @Index(columnList = "user_id", name = "IDX_USER_ID")})
 @AttributeOverride(name = "id", column = @Column(name = "resume_id"))
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class Resume extends JpaBasePersistable {
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -27,10 +28,10 @@ public class Resume extends JpaBasePersistable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
-    private ResumeState state = ResumeState.DRAFT;
+    private ResumeState state;
 
     @Column(name = "job_type")
-    private List<String> jobTypes = new ArrayList<>();
+    private List<String> jobTypes;
 
     @Column(name = "blog_url")
     private String blogURL;
@@ -42,7 +43,7 @@ public class Resume extends JpaBasePersistable {
     private String portFolioURL;
 
     @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ResumeAnswerItem> resumeAnswerItems = new ArrayList<>();
+    private List<ResumeAnswerItem> resumeAnswerItems;
 
     public void addResumeAnswerItem(final ResumeAnswerItem resumeAnswerItem) {
         this.resumeAnswerItems.add(resumeAnswerItem);
