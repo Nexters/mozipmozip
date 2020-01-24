@@ -17,7 +17,7 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     @Transactional(readOnly = true)
-    public List<Resume> getAll(final Long resumeId) {
+    public List<Resume> getAll() {
         return this.resumeRepository.findAll();
     }
 
@@ -29,10 +29,6 @@ public class ResumeService {
     }
 
     public Resume create(final Resume resume) {
-        return this.resumeRepository.save(resume);
-    }
-
-    public Resume modify(final Resume resume) {
         return this.resumeRepository.save(resume);
     }
 
