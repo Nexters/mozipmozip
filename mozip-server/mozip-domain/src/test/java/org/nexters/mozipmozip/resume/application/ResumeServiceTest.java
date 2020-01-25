@@ -47,7 +47,7 @@ public class ResumeServiceTest {
 
     @Test
     @DisplayName("특정 넥스터즈 지원서를 조회한다.")
-    void getAllResumeTest() {
+    void getByIdResumeTest() {
         Long resumeIdFixture = 1L;
         given(resumeRepository.findById(resumeIdFixture)).willReturn(Optional.of(resumeFixture));
 
