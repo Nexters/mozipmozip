@@ -1,4 +1,4 @@
-package org.nexters.mozipmozip.notice;
+package org.nexters.mozipmozip.notice.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,16 +16,6 @@ public class NoticeFormCreateDto {
     private Occupation occupation;
     private List<String> jobTypes;
     private List<NoticeFormQuestionItemCreateDto> noticeFormQuestionItems;
-
-    public NoticeFormCreateDto(
-            final Occupation occupation,
-            final List<String> jobTypes,
-            final List<NoticeFormQuestionItemCreateDto> noticeFormQuestionItems
-    ) {
-        this.occupation = occupation;
-        this.jobTypes = jobTypes;
-        this.noticeFormQuestionItems = noticeFormQuestionItems;
-    }
 
     public NoticeForm of() {
         return NoticeForm.builder()

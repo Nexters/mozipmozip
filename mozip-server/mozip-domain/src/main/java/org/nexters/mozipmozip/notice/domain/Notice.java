@@ -42,14 +42,17 @@ public class Notice extends JpaBasePersistable {
     private List<NoticeForm> noticeForms = new ArrayList<>();
 
     @Builder
-    public Notice(final String title,
-                  final String displayImagePath,
-                  final String description,
-                  final LocalDateTime startDateTime,
-                  final LocalDateTime endDateTime,
-                  final NoticeStatus noticeStatus,
-                  final List<NoticeForm> noticeForms
+    public Notice(
+            final Long id,
+            final String title,
+            final String displayImagePath,
+            final String description,
+            final LocalDateTime startDateTime,
+            final LocalDateTime endDateTime,
+            final NoticeStatus noticeStatus,
+            final List<NoticeForm> noticeForms
     ) {
+        this.id = id;
         this.title = title;
         this.displayImagePath = displayImagePath;
         this.description = description;

@@ -1,5 +1,6 @@
-package org.nexters.mozipmozip.notice;
+package org.nexters.mozipmozip.notice.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,20 +16,6 @@ public class NoticeFormQuestionItemCreateDto {
     private Integer questionScore = 10;
     private String content;
     private NoticeFormQuestionItemType type;
-
-    public NoticeFormQuestionItemCreateDto(
-            final String title,
-            final Integer maxLength,
-            final Integer questionScore,
-            final String content,
-            final NoticeFormQuestionItemType type
-    ) {
-        this.setTitle(title);
-        this.setMaxLength(maxLength);
-        this.setQuestionScore(questionScore);
-        this.setContent(content);
-        this.setType(type);
-    }
 
     public NoticeFormQuestionItem of() {
         return NoticeFormQuestionItem.builder()
