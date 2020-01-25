@@ -61,12 +61,4 @@ public class Notice extends JpaBasePersistable {
         this.noticeStatus = noticeStatus;
         this.noticeForms = noticeForms;
     }
-
-    public void updateNoticeStatus(NoticeStatus noticeStatus) {
-        this.noticeStatus = noticeStatus;
-    }
-
-    public void addNoticeForm(NoticeForm noticeForm) {
-        this.noticeForms.add(noticeForm);
-    }
 }
