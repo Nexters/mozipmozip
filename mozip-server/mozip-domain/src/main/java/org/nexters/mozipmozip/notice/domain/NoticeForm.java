@@ -39,9 +39,14 @@ public class NoticeForm extends JpaBasePersistable {
     private List<NoticeFormQuestionItem> noticeFormQuestionItems = new ArrayList<>();
 
     @Builder
-    public NoticeForm(final String occupation, final List<String> jobTypes) {
-        NoticeForm noticeForm = new NoticeForm();
-        noticeForm.setJobTypes(jobTypes);
+    public NoticeForm(
+            final Occupation occupation,
+            final List<String> jobTypes,
+            final List<NoticeFormQuestionItem> noticeFormQuestionItems
+    ) {
+        this.occupation = occupation;
+        this.jobTypes = jobTypes;
+        this.noticeFormQuestionItems = noticeFormQuestionItems;
     }
 
     public void addNoticeFormQuestionItem(NoticeFormQuestionItem noticeFormQuestionItem) {

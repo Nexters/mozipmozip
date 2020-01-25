@@ -46,14 +46,17 @@ public class Notice extends JpaBasePersistable {
                   final String displayImagePath,
                   final String description,
                   final LocalDateTime startDateTime,
-                  final LocalDateTime endDateTime) {
-
-        Notice notice = new Notice();
-        notice.setTitle(title);
-        notice.setDisplayImagePath(displayImagePath);
-        notice.setDescription(description);
-        notice.setStartDateTime(startDateTime);
-        notice.setEndDateTime(endDateTime);
+                  final LocalDateTime endDateTime,
+                  final NoticeStatus noticeStatus,
+                  final List<NoticeForm> noticeForms
+    ) {
+        this.title = title;
+        this.displayImagePath = displayImagePath;
+        this.description = description;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.noticeStatus = noticeStatus;
+        this.noticeForms = noticeForms;
     }
 
     public void updateNoticeStatus(NoticeStatus noticeStatus) {
