@@ -1,7 +1,7 @@
 package org.nexters.mozipmozip.member.domain;
 
 import lombok.*;
-import org.nexters.mozipmozip.JpaBasePersistable;
+import org.nexters.mozipmozip.member.JpaBasePersistable;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
