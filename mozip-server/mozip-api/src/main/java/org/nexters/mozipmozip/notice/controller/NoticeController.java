@@ -27,7 +27,6 @@ public class NoticeController {
     @PatchMapping
     public ResponseEntity updateNotice(@RequestBody @Valid NoticeUpdateDto noticeUpdateDto) {
         Notice savedNotice = noticeService.create(noticeUpdateDto.of());
-        return ResponseEntity.created(URI.create("/api/v1/notices/" + savedNotice.getId()))
-                .body(savedNotice);
+        return ResponseEntity.ok().body(savedNotice);
     }
 }

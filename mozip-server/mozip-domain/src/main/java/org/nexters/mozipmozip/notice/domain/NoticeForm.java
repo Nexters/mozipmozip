@@ -50,4 +50,9 @@ public class NoticeForm extends JpaBasePersistable {
         this.jobTypes = jobTypes;
         this.noticeFormQuestionItems = noticeFormQuestionItems;
     }
+
+    public void addNoticeFormQuestionItem(NoticeFormQuestionItem noticeFormQuestionItem) {
+        this.noticeFormQuestionItems.add(noticeFormQuestionItem);
+        noticeFormQuestionItem.setNoticeForm(this);
+    }
 }

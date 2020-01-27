@@ -6,8 +6,8 @@ import lombok.Setter;
 import org.nexters.mozipmozip.notice.domain.NoticeForm;
 import org.nexters.mozipmozip.notice.domain.Occupation;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -15,16 +15,18 @@ import java.util.stream.Collectors;
 public class NoticeFormCreateDto {
     private Occupation occupation;
     private List<String> jobTypes;
-    private List<NoticeFormQuestionItemCreateDto> noticeFormQuestionItems;
+    private List<NoticeFormQuestionItemCreateDto> noticeFormQuestionItems = new ArrayList();
 
     public NoticeForm of() {
-        return NoticeForm.builder()
+        NoticeForm noticeForm = NoticeForm.builder()
                 .occupation(this.occupation)
                 .jobTypes(this.jobTypes)
-                .noticeFormQuestionItems(
-                        this.noticeFormQuestionItems.stream()
-                                .map(NoticeFormQuestionItemCreateDto::of)
-                                .collect(Collectors.toList())
-                ).build();
+                .build();
+
+        this.noticeFormQuestionItems.stream()
+                .map(NoticeFormQuestionItemCreateDto::of)
+                .forEach((noticeFormQuestionItem) -> noticeForm.addNoticeFormQuestionItem(noticeFormQuestionItem));
+
+        return noticeForm;
     }
 }

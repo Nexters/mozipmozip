@@ -61,7 +61,23 @@ class NoticeControllerTest {
                         .content(
                                 objectMapper.writeValueAsString(noticeCreateDto)
                         )
-        ).andExpect(status().isCreated());
+        )
+                .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("모집 공고 생성 시 잘못된 파라미터가 포함된 경우 400 Bad Request를 리턴한다")
+    void createNoticeInvalidParameterResponseBadRequest() throws Exception {
+        noticeCreateDto.setDescription("");
+
+        mockMvc.perform(
+                post("/api/v1/notices")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                objectMapper.writeValueAsString(noticeCreateDto)
+                        )
+        )
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -76,7 +92,8 @@ class NoticeControllerTest {
                         .content(
                                 objectMapper.writeValueAsString(noticeUpdateDto)
                         )
-        ).andExpect(status().isCreated());
+        )
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -91,6 +108,7 @@ class NoticeControllerTest {
                         .content(
                                 objectMapper.writeValueAsString(noticeUpdateDto)
                         )
-        ).andExpect(status().isBadRequest());
+        )
+                .andExpect(status().isBadRequest());
     }
 }

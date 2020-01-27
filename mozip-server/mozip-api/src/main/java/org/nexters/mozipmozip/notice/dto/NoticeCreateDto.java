@@ -10,8 +10,8 @@ import org.nexters.mozipmozip.notice.domain.NoticeStatus;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -29,20 +29,22 @@ public class NoticeCreateDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime endDateTime;
     private NoticeStatus noticeStatus;
-    private List<NoticeFormCreateDto> noticeForms;
+    private List<NoticeFormCreateDto> noticeForms = new ArrayList();
 
     public Notice of() {
-        return Notice.builder()
+        Notice notice = Notice.builder()
                 .description(this.description)
                 .title(this.title)
                 .startDateTime(this.startDateTime)
                 .endDateTime(this.endDateTime)
                 .noticeStatus(this.noticeStatus)
                 .displayImagePath(this.displayImagePath)
-                .noticeForms(
-                        this.noticeForms.stream()
-                                .map(NoticeFormCreateDto::of)
-                                .collect(Collectors.toList())
-                ).build();
+                .build();
+
+        this.noticeForms.stream()
+                .map(NoticeFormCreateDto::of)
+                .forEach((noticeForm) -> notice.addNoticeForm(noticeForm));
+
+        return notice;
     }
 }
