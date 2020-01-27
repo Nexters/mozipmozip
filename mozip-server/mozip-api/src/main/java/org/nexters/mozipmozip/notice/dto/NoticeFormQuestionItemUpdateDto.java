@@ -12,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class NoticeFormQuestionItemUpdateDto {
-    @NotNull(message = "업데이트 시 아이디 정보가 반드시 포함되어야 합니다")
     private Long id;
     private String title;
     private Integer maxLength;

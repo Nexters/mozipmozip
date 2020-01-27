@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 public class NoticeFormUpdateDto {
-    @NotNull(message = "업데이트 시 아이디 정보가 반드시 포함되어야 합니다")
     private Long id;
     private Occupation occupation;
     private List<String> jobTypes;

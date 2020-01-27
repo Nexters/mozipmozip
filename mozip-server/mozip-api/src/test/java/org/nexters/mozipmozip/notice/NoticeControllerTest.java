@@ -14,11 +14,13 @@ import org.nexters.mozipmozip.notice.application.NoticeService;
 import org.nexters.mozipmozip.notice.controller.NoticeController;
 import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.dto.NoticeCreateDto;
+import org.nexters.mozipmozip.notice.dto.NoticeUpdateDto;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,6 +41,7 @@ class NoticeControllerTest {
             .registerModule(new JavaTimeModule());
 
     private NoticeCreateDto noticeCreateDto = new EasyRandom().nextObject(NoticeCreateDto.class);
+    private NoticeUpdateDto noticeUpdateDto = new EasyRandom().nextObject(NoticeUpdateDto.class);
 
     @BeforeEach
     public void setUp() {
@@ -59,5 +62,35 @@ class NoticeControllerTest {
                                 objectMapper.writeValueAsString(noticeCreateDto)
                         )
         ).andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("모집 공고 업데이트 api 테스트")
+    void updateNotice() throws Exception {
+        Notice updateNoticeFixture = noticeUpdateDto.of();
+        given(noticeService.create(updateNoticeFixture)).willReturn(updateNoticeFixture);
+
+        mockMvc.perform(
+                patch("/api/v1/notices")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                objectMapper.writeValueAsString(noticeUpdateDto)
+                        )
+        ).andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("모집 공고 업데이트시 id가 포함되지 않은 경우 400 Bad Request를 리턴한다")
+    void updateNoticeMissingIdResponseBadRequest() throws Exception {
+        Notice updateNoticeFixture = noticeUpdateDto.of();
+        noticeUpdateDto.setId(null);
+
+        mockMvc.perform(
+                patch("/api/v1/notices")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(
+                                objectMapper.writeValueAsString(noticeUpdateDto)
+                        )
+        ).andExpect(status().isBadRequest());
     }
 }
