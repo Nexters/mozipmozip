@@ -2,6 +2,7 @@ package org.nexters.mozipmozip.member.dto;
 
 import lombok.*;
 import org.nexters.mozipmozip.member.domain.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -29,8 +30,7 @@ public class UserCreateDto {
         this.isAdmin = isAdmin;
     }
 
-    //dto를 entity로 변환
-    public static User of(UserCreateDto userCreateDto) {
+    public static User toEntity(UserCreateDto userCreateDto) {
         return User.builder()
                 .name(userCreateDto.name)
                 .email(userCreateDto.email)

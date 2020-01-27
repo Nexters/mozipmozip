@@ -8,33 +8,43 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.member.domain.User;
 import org.nexters.mozipmozip.member.domain.UserRepositoy;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpSession;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mockitoSession;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("유저 테스트")
 class UserServiceTest {
 
     @Mock
-    private UserRepositoy memberRepository;
+    private UserRepositoy userRepositoy;
     @InjectMocks
-    private UserService memberService;
+    private UserService userService;
 
     private User userFixture = User.builder()
             .email("test@naver.com")
-            .name("kyunam")
-            .phoneNumber("010-4453-8737")
+            .name("라영지")
+            .phoneNumber("010-9707-6936")
             .password("1111").build();
 
+    private MockHttpSession mockSession;
+    private MockHttpServletRequest request;
+
     @Test
-    @DisplayName("유저를 저장하는데 성공한다")
+    @DisplayName("회원가입 성공")
     void createUserTest() {
         // given
-        given(memberRepository.save(userFixture)).willReturn(userFixture);
+        given(userRepositoy.save(userFixture)).willReturn(userFixture);
 
         // when
-        User savedUser = memberService.createUser(userFixture);
+        User savedUser = userService.createUser(userFixture);
 
         // then
         assertThat(savedUser.getName()).isEqualTo(userFixture.getName());
@@ -42,4 +52,61 @@ class UserServiceTest {
         assertThat(savedUser.getPhoneNumber()).isEqualTo(userFixture.getPhoneNumber());
         assertThat(savedUser.getPassword()).isEqualTo(userFixture.getPassword());
     }
+
+    @Test
+    @DisplayName("유저 로그인 성공")
+    void loginUserTest() {
+
+        //given
+        User login = User.builder()
+                .name("라영지")
+                .password("1111")
+                .build();
+        given(userRepositoy.findByName(login.getName())).willReturn(userFixture);
+
+        //when
+        User loginUser = userService.signInUser(login);
+
+        //then
+        assertThat(loginUser.getName()).isEqualTo(userFixture.getName());
+        assertThat(loginUser.getEmail()).isEqualTo(userFixture.getEmail());
+        assertThat(loginUser.getPhoneNumber()).isEqualTo(userFixture.getPhoneNumber());
+        assertThat(loginUser.getPassword()).isEqualTo(userFixture.getPassword());
+
+    }
+
+    @Test
+    @DisplayName("로그아웃 테스트")
+    void logoutUser() {
+        //컨트롤러에서 test 해야될듯?
+    }
+
+    @Test
+    @DisplayName("유저 정보 수정 테스트 하는중->실패뜸 ㅜㅜ")
+    void updateUserTest() {
+
+        //given - 테스트 준비
+        Long userFixtureId = 1L;
+        User updateInfo = User.builder()
+                .email("qqq@naver.com")
+                .password("2222")
+                .phoneNumber("123-456-789").build();
+//        mockSession = (MockHttpSession) request.getSession(true);
+//        mockSession.setAttribute("userInfo",userFixture);
+//        mockSession.getAttribute("userInfo");
+
+        mockSession = null;
+        given(userRepositoy.findById(userFixtureId)).willReturn(Optional.of(userFixture));
+
+        //when
+        User updateUser = userService.updateUser(mockSession, updateInfo);
+
+        //that
+        assertThat(updateUser.getPassword()).isEqualTo(updateInfo.getPassword());
+        assertThat(updateUser.getEmail()).isEqualTo(updateInfo.getEmail());
+        assertThat(updateUser.getPhoneNumber()).isEqualTo(updateInfo.getPhoneNumber());
+        //assertThat(mockSession.getAttribute("userInfo")).isEqualTo(updateUser);
+    }
+
+    //회원 조회,수정,탈퇴는 세션있어서 알아보고 다시 해볼예정//
 }
