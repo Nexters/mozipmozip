@@ -4,7 +4,7 @@ import {Layout} from "../components/common/Admin"
 function AdminPage(){
   return(
     <Layout>
-      <div>Hi...</div>
+      <div></div>
     </Layout>
   )
 }

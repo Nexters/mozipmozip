@@ -1,0 +1,47 @@
+.header_layout{
+  max-width: 1440px;
+  width: 100%;
+  display: flex;
+  padding: 55px 200px;
+  .header_half{
+    width: calc(50% - 200px);
+    display: flex;
+    .header_title{
+      font-family: Roboto, sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 35px;
+      margin-right: 5%;
+    }
+    & > ul{
+      list-style: none;
+      display: flex;
+      padding : 0;
+      margin : 0 0 0 auto;
+      .header_category{
+        font-family: Roboto, sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+      }
+      .header_category + .header_category{
+        margin-left : 30px;
+      }
+    }
+    .header_name{
+      margin-left : auto;
+      font-family: Roboto, sans-serif;
+      font-size : 19px;
+      line-height : 40px;
+      text-align : center;
+      margin-right : 3%;
+    }
+    .header_profile{
+      background : #C4C4C4;
+      width : 40px;
+      height : 40px;
+      border-radius : 50%;
+    }
+  }
+}

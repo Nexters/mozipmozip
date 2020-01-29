@@ -26,6 +26,7 @@ export const Category = styled.ul`
   margin: 0 0 0 auto;
 `
 export const CategoryItem = styled.li`
+  // position : relative;
   font-family: Roboto, sans-serif;
   font-weight: 900;
   font-size: 20px;
@@ -39,7 +40,7 @@ export const Name = styled.span`
   font-size : 19px;
   line-height : 40px;
   text-align : center;
-  margin-right : 1%;
+  margin-right : 3%;
 `
 
 export const Profile = styled.span`
