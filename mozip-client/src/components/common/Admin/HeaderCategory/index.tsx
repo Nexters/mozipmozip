@@ -2,12 +2,17 @@ import React from 'react'
 import './HeaderCategory.scss'
 // import *as Styled from './style'
 
-function HeaderCategory(){
+type HeaderCategoryProps = {
+  item : string[]
+}
+
+function HeaderCategory(props: HeaderCategoryProps){
+  const { item } = props
   return(
     <div className="category_layout">
       <ul className="category_ul">
-        <li className="category_li">개발자 디자이너</li>&nbsp;&nbsp;|&nbsp;&nbsp;
-        <li className="category_li">면접</li>
+        <li className="category_li">{item[0]}</li>&nbsp;&nbsp;|&nbsp;&nbsp;
+        <li className="category_li">{item[1]}</li>
       </ul>
     </div>
   )

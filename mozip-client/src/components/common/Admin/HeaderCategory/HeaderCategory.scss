@@ -1,4 +1,5 @@
 .category_layout{
+  position : absolute;
   padding : 1px;
   margin-top : 5px;
   .category_ul{
@@ -14,9 +15,6 @@
       line-height: 25px;
       color : black;
       opacity: 0.3;
-    }
-    .category_li + .category_li{
-
     }
   }
 }
