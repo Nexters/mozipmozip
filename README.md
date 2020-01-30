@@ -1,6 +1,8 @@
-# Getting Started
+# 모집모집
 
-### Code Convention
+모집 공고 관리를 위한 서비스
+
+## :baby: Code Convention
 
 - IntelliJ lint에 의해 체크되는 경우 수정한다. (별도의 lint는 귀찮으니까 넣지 말자)
 
@@ -12,9 +14,11 @@
 
 - Build가 실패한 경우 절대 `develop`, `master`에 머지할 수 없다.
 
-### Commit Message Conventions
+## :facepunch: Commit Message Conventions
 
 커밋 시 아래 규칙을 참고해 메세지를 작성하자, 영어로 작성할 필요는 없다.
+
+`issue-number`는 Github의 issue를 발급하고, 생성된 번호를 사용한다.
 
 ```bash
 [#{issue-number}] feat (feature)
@@ -27,36 +31,34 @@
 
 [Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
 
-### Github branching 
+## :pouting_cat: Github branching 
 
-- server
-
-서버 개발자의 경우 위 브랜치에서 feature 브랜치를 생성한다.
-
-- client
-
-프론트 개발자의 경우 위 브랜치에서 feature 브랜치를 생성한다.
+- `master`
+- `develop`
+- `feature/{issue-number}`
 
 `feature/issue-number` -> `server or client` -> `develop` -> `master`
 
-### Project structure 
-
-`mozip-client` `mozip-api`, `mozip-domain` 모듈로 구성되어 있다.
+## :open_file_folder: Project structure 
 
 - `mozip-client`
 
 프론트 프로젝트, React + typescript로 구성되어 있다.
 
-- `mozip-api`
+- `mozip-server`
+
+서버 프로젝트, Java Spring Boot 2.xx 버전으로 구성되어 있다.
+
+- `mozip-server/mozip-api`
 
 외부에 노출되는 api가 제공되는 모듈, `mozip-domain` 모듈 의존성을 가진다.
 
-- `mozip-domain`
+- `mozip-server/mozip-domain`
 
 JPA 의존성을 가지며 Domain, Repository, Service 레이어가 정의 되는 모델
 
 
-### Infrastructure
+## :space_invader: Infrastructure
 
 `AWS`를 이용해 인프라를 구성한다.
 
@@ -83,20 +85,20 @@ Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용�
 
 [Terraform module repository](https://github.com/tramyu/infrastructure-as-code-tramyu)
 
-### CI / CD
+## :roller_coaster: CI / CD
 
 `Github Action` 을 사용해 CI를 구성한다.
 
-### Deploy
+## :airplane: Deploy
 
 로컬에서 배포를 위해 아래 유틸들이 설치되어 있어야 한다.
 
-- direnv
-- docker
-- docker-compose
-- kubectl
-- kustomize
-- skaffold
+- `direnv`
+- `docker`
+- `docker-compose`
+- `kubectl`
+- `kustomize`
+- `skaffold`
 
 그리고 kubectl 명령어 호출을 위해 아래 파일을 수정한다.
 
@@ -134,19 +136,23 @@ users:
       env: null
 ```
 
+위 설정이 완료되고 난 후 아래 명령어를 통해 AWS에 배포할 수 있다.
+
 ```bash
 $ $(aws ecr get-login --no-include-email --region ap-northeast-2)
 $ ./gradlew clean :mozip-server:mozip-api:build
 $ skaffold run
 ```
 
-### Local environment setup guides
+## :whale: Local environment setup guides
+
+`local` profile에서 MySQL을 사용하기 때문에 Spring Boot 어플리케이션 실행 전 아래 명령어를 실행한다.
 
 ```bash
 $ docker-compose up -d
 ```
 
-### References
+## :baby_chick: References
 These additional references should also help you:
 
 - [Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
