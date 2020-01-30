@@ -1,13 +1,14 @@
-import React from 'react';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
+import {TodoPage, MainPage, NotFoundPage, EmployPage} from "./pages"
 
-const App: React.FC = () => {
-    return (
-        <div className="App">
-            <>
-                모집모집모집모집
-            </>
-        </div>
-    );
-};
-
-export default App;
+export default function App() {
+  return(
+    <Switch>
+      <Route exact path={'/'} component={MainPage}/>
+      <Route path={'/todo'} component={TodoPage}/>
+      <Route path={'/employees'} component={EmployPage}/>
+      <Route component={NotFoundPage}/>
+    </Switch>
+  )
+}

@@ -40,16 +40,18 @@ public class NoticeFormQuestionItem extends JpaBasePersistable {
     private NoticeFormQuestionItemType type;
 
     @Builder
-    public NoticeFormQuestionItem(final String title,
-                                  final Integer maxLength,
-                                  final Integer questionScore,
-                                  final String content,
-                                  final NoticeFormQuestionItemType type) {
-        NoticeFormQuestionItem noticeFormQuestionItem = new NoticeFormQuestionItem();
-        noticeFormQuestionItem.setTitle(title);
-        noticeFormQuestionItem.setMaxLength(maxLength);
-        noticeFormQuestionItem.setQuestionScore(questionScore);
-        noticeFormQuestionItem.setContent(content);
-        noticeFormQuestionItem.setType(type);
+    public NoticeFormQuestionItem(
+            final Long id,
+            final String title,
+            final Integer maxLength,
+            final Integer questionScore,
+            final String content,
+            final NoticeFormQuestionItemType type) {
+        this.id = id;
+        this.title = title;
+        this.maxLength = maxLength;
+        this.questionScore = questionScore;
+        this.content = content;
+        this.type = type;
     }
 }
