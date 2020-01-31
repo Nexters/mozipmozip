@@ -1,10 +1,11 @@
 .header_layout{
-  max-width: 1440px;
-  width: 100%;
+  max-width: 1440px !important;
+  width: 72%; // 100% - 28%
+  height : 20%;
   display: flex;
-  padding: 55px 200px;
+  padding: 5% 14%;
   .header_half{
-    width: calc(50% - 200px);
+    width: calc(50%);
     display: flex;
     .header_title{
       font-family: Roboto, sans-serif;
