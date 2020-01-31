@@ -10,7 +10,7 @@ export default function App() {
   return(
     <Switch>
       <Route exact path={'/'} component={MainPage}/>
-      <Route path={'/admin'} component={AdminPage}/>
+      <Route path={'/Admin'} component={AdminPage}/>
       <Route path={'/todo'} component={TodoPage}/>
       <Route path={'/employees'} component={EmployPage}/>
       <Route component={NotFoundPage}/>
