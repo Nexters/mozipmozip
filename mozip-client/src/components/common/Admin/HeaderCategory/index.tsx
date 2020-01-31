@@ -1,5 +1,5 @@
 import React from 'react'
-import './HeaderCategory.scss'
+import './index.scss'
 // import *as Styled from './style'
 
 type HeaderCategoryProps = {

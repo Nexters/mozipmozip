@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import './Header.scss'
+import './index.scss'
 import HeaderCategory from "../HeaderCategory"
 // import *as Styled from './style'
 

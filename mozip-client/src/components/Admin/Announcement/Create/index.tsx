@@ -1,5 +1,7 @@
 import React from 'react'
+import './index.scss'
 import Intro from "./Intro"
+import ProgressBar from "../../../common/Admin/ProgressBar"
 
 type CreateProps = {
   subPath: string
@@ -8,9 +10,12 @@ type CreateProps = {
 function Create(props: CreateProps){
   const { subPath } = props
   return(
-   <>
-     {subPath === 'intro' && <Intro/>}
-   </>
+    <>
+      <ProgressBar subPath={subPath}/>
+      <div className="cr_layout">
+        {subPath === 'intro' && <Intro/>}
+      </div>
+    </>
   )
 }
 
