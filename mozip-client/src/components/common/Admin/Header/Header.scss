@@ -1,8 +1,9 @@
 .header_layout{
   max-width: 1440px !important;
-  width: calc(100% - 28%);
+  width: 72%; // 100% - 28%
+  height : 20%;
   display: flex;
-  padding: 55px 14%;
+  padding: 5% 14%;
   .header_half{
     width: calc(50%);
     display: flex;
