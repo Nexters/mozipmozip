@@ -32,7 +32,7 @@ public class ResumeServiceTest {
     void createResumeTest() {
         given(resumeRepository.save(resumeFixture)).willReturn(resumeFixture);
 
-        Resume createdResume = resumeService.create(resumeFixture);
+        Resume createdResume = resumeService.save(resumeFixture);
 
         assertThat(createdResume.getOccupation()).isEqualTo(resumeFixture.getOccupation());
         assertThat(createdResume.getState()).isEqualTo(resumeFixture.getState());
@@ -69,7 +69,7 @@ public class ResumeServiceTest {
 
         given(resumeRepository.save(tempResumeFixture)).willReturn(tempResumeFixture);
 
-        Resume modifiedResume = resumeService.create(tempResumeFixture);
+        Resume modifiedResume = resumeService.save(tempResumeFixture);
 
         assertThat(modifiedResume.getBlogURL()).isEqualTo(tempResumeFixture.getBlogURL());
         assertThat(modifiedResume.getGithubURL()).isEqualTo(tempResumeFixture.getGithubURL());

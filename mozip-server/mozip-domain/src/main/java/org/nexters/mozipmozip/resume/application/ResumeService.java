@@ -28,7 +28,7 @@ public class ResumeService {
                 .orElseThrow(() -> new NoSuchElementException("존재 하지 않는 지원서입니다."));
     }
 
-    public Resume create(final Resume resume) {
+    public Resume save(final Resume resume) {
         return this.resumeRepository.save(resume);
     }
 
