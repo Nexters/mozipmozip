@@ -1,0 +1,20 @@
+.category_layout{
+  position : absolute;
+  padding : 1px;
+  margin-top : 5px;
+  .category_ul{
+    display: flex;
+    padding : 10px;
+    list-style: none;
+    background: #F4F4F4;
+    opacity: 0.5;
+    border-radius: 5px;
+    .category_li{
+      font-family: Noto Snas Kr, Roboto, sans-serif;
+      font-size: 17px;
+      line-height: 25px;
+      color : black;
+      opacity: 0.3;
+    }
+  }
+}
