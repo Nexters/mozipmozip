@@ -1,42 +1,43 @@
-package org.nexters.mozipmozip.resume.vo;
+package org.nexters.mozipmozip.resume.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.nexters.mozipmozip.member.domain.User;
+import lombok.NoArgsConstructor;
 import org.nexters.mozipmozip.resume.domain.Resume;
-import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
 import org.nexters.mozipmozip.resume.domain.ResumeOccupation;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
-public class ResumeVO {
+@NoArgsConstructor
+public class ResumeCreateDto {
 
-    private User user;
-    private ResumeOccupation resumeOccupation;
-    private ResumeState resumeState;
-    private List<String> jobTypes;
+    private ResumeOccupation occupation;
+    private ResumeState state;
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
-    private List<ResumeAnswerItem> resumeAnswerItems;
+    private List<String> jobTypes;
+    private List<ResumeAnswerItemCreateDto> resumeAnswerItems = new ArrayList<>();
 
-    public Resume toEntity() {
-        return Resume.builder()
-                .user(this.user)
-                .occupation(this.resumeOccupation)
-                .state(this.resumeState)
-                .jobTypes(this.jobTypes)
+    public Resume of() {
+        Resume resume = Resume.builder()
+                .occupation(this.occupation)
+                .state(this.state)
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
                 .portFolioURL(this.portfolioURL)
-                .resumeAnswerItems(this.resumeAnswerItems)
+                .jobTypes(this.jobTypes)
                 .build();
+
+        this.resumeAnswerItems.stream()
+                .map(ResumeAnswerItemCreateDto::of)
+                .forEach(resume::addResumeAnswerItem);
+
+        return resume;
     }
 
 }
