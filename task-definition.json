@@ -33,7 +33,7 @@
             "secrets": [
             ],
             "dockerSecurityOptions": null,
-            "memory": 2048,
+            "memory": 1024,
             "memoryReservation": null,
             "volumesFrom": [],
             "stopTimeout": null,
@@ -46,7 +46,7 @@
             "healthCheck": {
                 "retries": 2,
                 "command": [
-                    "curl -f http://localhost:8080/actuator/health"
+                    "curl -f http://localhost:8080"
                 ],
                 "timeout": 60,
                 "interval": 5,
