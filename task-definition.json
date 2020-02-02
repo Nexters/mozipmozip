@@ -1,18 +1,24 @@
 {
-    "family": "first-run-task-definition",
+    "ipcMode": "none",
     "executionRoleArn": "arn:aws:iam::489943625912:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
     "containerDefinitions": [
         {
-            "name": "mozipmozip-api",
-            "image": "489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app:latest",
-            "repositoryCredentials": {
-                "credentialsParameter": ""
+            "dnsSearchDomains": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": [
+                    {
+                        "name": "",
+                        "valueFrom": ""
+                    }
+                ],
+                "options": {
+                    "awslogs-group": "/ecs/first-run-task-definition",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
             },
-            "cpu": 1024,
-            "memory": 0,
-            "memoryReservation": 2048,
-            "links": [],
+            "entryPoint": [],
             "portMappings": [
                 {
                     "hostPort": 8080,
@@ -20,45 +26,92 @@
                     "containerPort": 8080
                 }
             ],
-            "essential": true,
-            "entryPoint": [],
             "command": [],
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        ""
+                    ],
+                    "drop": [
+                        ""
+                    ]
+                },
+                "devices": [
+                    {
+                        "hostPath": "",
+                        "containerPath": "",
+                        "permissions": [
+                            "read"
+                        ]
+                    }
+                ],
+                "initProcessEnabled": true,
+                "sharedMemorySize": 0,
+                "tmpfs": [
+                    {
+                        "containerPath": "",
+                        "size": 0,
+                        "mountOptions": [
+                            ""
+                        ]
+                    }
+                ],
+                "maxSwap": 0,
+                "swappiness": 0
+            },
+            "cpu": 1024,
             "environment": [],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "linuxParameters": null,
-            "secrets": null,
-            "startTimeout": 0,
-            "stopTimeout": 0,
-            "hostname": "",
-            "user": "",
-            "workingDirectory": "",
-            "disableNetworking": true,
-            "privileged": true,
-            "readonlyRootFilesystem": true,
-            "dnsServers": [],
-            "dnsSearchDomains": [],
-            "extraHosts": [],
-            "dockerSecurityOptions": [],
-            "interactive": true,
-            "pseudoTerminal": true,
-            "dockerLabels": {},
+            "resourceRequirements": [
+                {
+                    "value": "",
+                    "type": "InferenceAccelerator"
+                }
+            ],
             "ulimits": [
                 {
-                    "name": "core",
+                    "name": "rss",
                     "softLimit": 0,
                     "hardLimit": 0
                 }
             ],
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "secretOptions": null,
-                "options": {
-                    "awslogs-group": "/ecs/first-run-task-definition",
-                    "awslogs-region": "ap-northeast-2",
-                    "awslogs-stream-prefix": "ecs"
+            "dnsServers": [
+                ""
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "",
+                    "containerPath": "",
+                    "readOnly": true
                 }
-            },
+            ],
+            "workingDirectory": "",
+            "secrets": [
+                {
+                    "name": "",
+                    "valueFrom": ""
+                }
+            ],
+            "dockerSecurityOptions": [],
+            "memory": 2048,
+            "memoryReservation": 2048,
+            "volumesFrom": [
+                {
+                    "sourceContainer": "",
+                    "readOnly": true
+                }
+            ],
+            "stopTimeout": null,
+            "image": "489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app:latest",
+            "startTimeout": null,
+            "firelensConfiguration": null,
+            "dependsOn": [
+                {
+                    "containerName": "",
+                    "condition": "SUCCESS"
+                }
+            ],
+            "disableNetworking": true,
+            "interactive": true,
             "healthCheck": {
                 "command": [
                     ""
@@ -68,24 +121,49 @@
                 "retries": 0,
                 "startPeriod": 0
             },
-            "systemControls": [],
-            "resourceRequirements": [],
-            "firelensConfiguration": {}
+            "essential": true,
+            "links": [],
+            "hostname": null,
+            "extraHosts": null,
+            "pseudoTerminal": null,
+            "user": null,
+            "readonlyRootFilesystem": true,
+            "dockerLabels": null,
+            "systemControls": null,
+            "privileged": true,
+            "name": "mozipmozip-api"
         }
     ],
-    "volumes": [],
     "placementConstraints": [
         {
             "type": "memberOf",
             "expression": ""
         }
     ],
+    "memory": "2048",
+    "taskRoleArn": "",
+    "family": "first-run-task-definition",
+    "pidMode": "host",
     "requiresCompatibilities": [
         "FARGATE"
     ],
+    "networkMode": "awsvpc",
     "cpu": "1024",
-    "pidMode": null,
-    "ipcMode": null,
-    "proxyConfiguration": null,
-    "inferenceAccelerators": null
+    "inferenceAccelerators": [
+        {
+            "deviceName": "",
+            "deviceType": ""
+        }
+    ],
+    "proxyConfiguration": {
+        "type": "APPMESH",
+        "containerName": "",
+        "properties": [
+            {
+                "name": "",
+                "value": ""
+            }
+        ]
+    },
+    "volumes": []
 }
