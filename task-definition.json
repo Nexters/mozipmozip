@@ -92,7 +92,7 @@
                 }
             ],
             "dockerSecurityOptions": [],
-            "memory": "",
+            "memory": 2048,
             "memoryReservation": 2048,
             "volumesFrom": [
                 {
@@ -142,10 +142,6 @@
     ],
     "memory": "2048",
     "taskRoleArn": "",
-    "compatibilities": [
-        "FARGATE"
-    ],
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:489943625912:task-definition/first-run-task-definition:4",
     "family": "first-run-task-definition",
     "pidMode": "host",
     "requiresCompatibilities": [
@@ -153,8 +149,6 @@
     ],
     "networkMode": "awsvpc",
     "cpu": "1024",
-    "revision": 4,
-    "status": "ACTIVE",
     "inferenceAccelerators": [
         {
             "deviceName": "",
