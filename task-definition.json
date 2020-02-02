@@ -1,12 +1,19 @@
 {
-    "ipcMode": null,
+    "ipcMode": "none",
     "executionRoleArn": "arn:aws:iam::489943625912:role/ecsTaskExecutionRole",
     "containerDefinitions": [
         {
-            "dnsSearchDomains": null,
+            "dnsSearchDomains": [
+                ""
+            ],
             "logConfiguration": {
                 "logDriver": "awslogs",
-                "secretOptions": null,
+                "secretOptions": [
+                    {
+                        "name": "",
+                        "valueFrom": ""
+                    }
+                ]
                 "options": {
                     "awslogs-group": "/ecs/first-run-task-definition",
                     "awslogs-region": "ap-northeast-2",
@@ -22,15 +29,75 @@
                 }
             ],
             "command": [],
-            "linuxParameters": null,
+            "linuxParameters": {
+                "capabilities": {
+                    "add": [
+                        ""
+                    ],
+                    "drop": [
+                        ""
+                    ]
+                },
+                "devices": [
+                    {
+                        "hostPath": "",
+                        "containerPath": "",
+                        "permissions": [
+                            "read"
+                        ]
+                    }
+                ],
+                "initProcessEnabled": true,
+                "sharedMemorySize": 0,
+                "tmpfs": [
+                    {
+                        "containerPath": "",
+                        "size": 0,
+                        "mountOptions": [
+                            ""
+                        ]
+                    }
+                ],
+                "maxSwap": 0,
+                "swappiness": 0
+            },
             "cpu": 1024,
-            "environment": [],
-            "resourceRequirements": null,
-            "ulimits": null,
-            "dnsServers": null,
-            "mountPoints": [],
-            "workingDirectory": null,
-            "secrets": null,
+            "environment": [
+                {
+                    "name": "",
+                    "value": ""
+                }
+            ],
+            "resourceRequirements": [
+                {
+                    "value": "",
+                    "type": "InferenceAccelerator"
+                }
+            ],
+            "ulimits": [
+                {
+                    "name": "rss",
+                    "softLimit": 0,
+                    "hardLimit": 0
+                }
+            ],
+            "dnsServers": [
+                ""
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "",
+                    "containerPath": "",
+                    "readOnly": true
+                }
+            ],
+            "workingDirectory": "",
+            "secrets": [
+                {
+                    "name": "",
+                    "valueFrom": ""
+                }
+            ],
             "dockerSecurityOptions": null,
             "memory": null,
             "memoryReservation": 2048,
@@ -48,7 +115,7 @@
             "hostname": null,
             "extraHosts": null,
             "pseudoTerminal": null,
-            "user": null,
+            "user": "",
             "readonlyRootFilesystem": null,
             "dockerLabels": null,
             "systemControls": null,
@@ -56,74 +123,54 @@
             "name": "mozipmozip-api"
         }
     ],
-    "placementConstraints": [],
-    "memory": "2048",
-    "taskRoleArn": null,
-    "compatibilities": [
-        "EC2",
-        "FARGATE"
-    ],
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:489943625912:task-definition/first-run-task-definition:4",
-    "family": "first-run-task-definition",
-    "requiresAttributes": [
+    "placementConstraints": [
         {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "ecs.capability.execution-role-awslogs"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "com.amazonaws.ecs.capability.ecr-auth"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "ecs.capability.execution-role-ecr-pull"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-        },
-        {
-            "targetId": null,
-            "targetType": null,
-            "value": null,
-            "name": "ecs.capability.task-eni"
+            "type": "memberOf",
+            "expression": ""
         }
     ],
-    "pidMode": null,
+    "memory": "2048",
+    "taskRoleArn": "",
+    "family": "first-run-task-definition",
+    "pidMode": "host",
     "requiresCompatibilities": [
         "FARGATE"
     ],
     "networkMode": "awsvpc",
     "cpu": "1024",
-    "revision": 4,
-    "status": "ACTIVE",
-    "inferenceAccelerators": null,
-    "proxyConfiguration": null,
-    "volumes": []
+    "inferenceAccelerators": [
+        {
+            "deviceName": "",
+            "deviceType": ""
+        }
+    ],
+    "volumes": [
+        {
+            "name": "",
+            "host": {
+                "sourcePath": ""
+            },
+            "dockerVolumeConfiguration": {
+                "scope": "task",
+                "autoprovision": true,
+                "driver": "",
+                "driverOpts": {
+                    "KeyName": ""
+                },
+                "labels": {
+                    "KeyName": ""
+                }
+            }
+        }
+    ],
+    "proxyConfiguration": {
+        "type": "APPMESH",
+        "containerName": "",
+        "properties": [
+            {
+                "name": "",
+                "value": ""
+            }
+        ]
+    }
 }
