@@ -29,7 +29,7 @@
             "ulimits": null,
             "dnsServers": null,
             "mountPoints": [],
-            "workingDirectory": null,
+            "workingDirectory": "/home/mozipmozip",
             "secrets": [
             ],
             "dockerSecurityOptions": null,
@@ -43,7 +43,15 @@
             "dependsOn": null,
             "disableNetworking": null,
             "interactive": null,
-            "healthCheck": [ "CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"],
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"
+                ],
+                "interval": 300,
+                "timeout": 30,
+                "retries": 3,
+                "startPeriod": 0
+            },
             "essential": true,
             "links": null,
             "hostname": null,
