@@ -16,8 +16,11 @@ import java.util.List;
 public class ResumeUpdateDto {
 
     private Long id;
-    private ResumeOccupation occupation;
     private ResumeState state;
+    private String name;
+    private String phoneNumber;
+    private String email;
+    private ResumeOccupation occupation;
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
@@ -27,6 +30,9 @@ public class ResumeUpdateDto {
     public Resume of() {
         Resume resume = Resume.builder()
                 .id(this.id)
+                .name(this.name)
+                .phoneNumber(this.phoneNumber)
+                .email(this.email)
                 .state(this.state)
                 .occupation(this.occupation)
                 .blogURL(this.blogURL)

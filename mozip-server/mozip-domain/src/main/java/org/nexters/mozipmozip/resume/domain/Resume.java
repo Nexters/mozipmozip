@@ -10,22 +10,27 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "resume",
-        indexes = {
-                @Index(columnList = "user_id", name = "IDX_USER_ID")
-        }
-)
+@Table(name = "resume")
 @AttributeOverride(name = "id", column = @Column(name = "resume_id"))
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Resume extends JpaBasePersistable {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "occupation", nullable = false)
-    private ResumeOccupation occupation;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     private ResumeState state;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "occupation", nullable = false)
+    private ResumeOccupation occupation;
 
     @Column(name = "blog_url")
     private String blogURL;
@@ -49,16 +54,22 @@ public class Resume extends JpaBasePersistable {
 
     @Builder
     public Resume(final Long id,
-                  final ResumeOccupation occupation,
                   final ResumeState state,
+                  final String name,
+                  final String phoneNumber,
+                  final String email,
+                  final ResumeOccupation occupation,
                   final String blogURL,
                   final String githubURL,
                   final String portFolioURL,
                   final List<String> jobTypes,
                   final List<ResumeAnswerItem> resumeAnswerItems) {
         this.id = id;
-        this.occupation = occupation;
         this.state = state;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.occupation = occupation;
         this.blogURL = blogURL;
         this.githubURL = githubURL;
         this.portFolioURL = portFolioURL;

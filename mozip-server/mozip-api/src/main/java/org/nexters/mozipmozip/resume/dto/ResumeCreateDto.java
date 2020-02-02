@@ -15,8 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 public class ResumeCreateDto {
 
-    private ResumeOccupation occupation;
     private ResumeState state;
+    private String name;
+    private String phoneNumber;
+    private String email;
+    private ResumeOccupation occupation;
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
@@ -25,8 +28,11 @@ public class ResumeCreateDto {
 
     public Resume of() {
         Resume resume = Resume.builder()
-                .occupation(this.occupation)
                 .state(this.state)
+                .name(this.name)
+                .phoneNumber(this.phoneNumber)
+                .email(this.email)
+                .occupation(this.occupation)
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
                 .portFolioURL(this.portfolioURL)
