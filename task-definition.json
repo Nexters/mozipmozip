@@ -31,10 +31,6 @@
             "mountPoints": [],
             "workingDirectory": null,
             "secrets": [
-                {
-                    "valueFrom": "arn:aws:ssm:ap-northeast-2:211566437540:parameter/dev_mongo_url",
-                    "name": "MONGO_URL"
-                }
             ],
             "dockerSecurityOptions": null,
             "memory": 2048,
