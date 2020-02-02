@@ -43,7 +43,7 @@
             "dependsOn": null,
             "disableNetworking": null,
             "interactive": null,
-            "healthCheck": null,
+            "healthCheck": [ "CMD-SHELL", "curl -f http://localhost:8080 || exit 1"],
             "essential": true,
             "links": null,
             "hostname": null,
