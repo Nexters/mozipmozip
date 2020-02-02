@@ -7,6 +7,6 @@ RUN mkdir -p $WORKSPACE
 WORKDIR $WORKSPACE
 
 ADD setenv.sh setenv.sh
-COPY build/libs/mozip-api.jar app.jar
+COPY ./build/libs/mozip-api.jar app.jar
 
 CMD ["/bin/sh", "setenv.sh"]
