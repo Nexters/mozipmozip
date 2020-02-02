@@ -30,6 +30,11 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: install kustomize
+        uses: imranismail/setup-kustomize@master
+        with:
+          kustomize-version: "3.1.0"
+
       - name: kubectl-eks-cmd
         uses: robatwave/github-action-eks-kubectl@0.1
         env:
