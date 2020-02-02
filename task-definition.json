@@ -1,0 +1,78 @@
+{
+    "family": "first-run-task-definition",
+    "executionRoleArn": "arn:aws:iam::489943625912:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "mozipmozip-api",
+            "image": "489943625912.dkr.ecr.ap-northeast-2.amazonaws.com/mozipmozip/app:latest",
+            "repositoryCredentials": {
+                "credentialsParameter": ""
+            },
+            "cpu": 1024,
+            "memory": 0,
+            "memoryReservation": 2048,
+            "links": [],
+            "portMappings": [
+                {
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "containerPort": 8080
+                }
+            ],
+            "essential": true,
+            "entryPoint": [],
+            "command": [],
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "linuxParameters": null,
+            "secrets": null,
+            "startTimeout": 0,
+            "stopTimeout": 0,
+            "hostname": "",
+            "user": "",
+            "workingDirectory": "",
+            "disableNetworking": true,
+            "privileged": true,
+            "readonlyRootFilesystem": true,
+            "dnsServers": [],
+            "dnsSearchDomains": [],
+            "extraHosts": [],
+            "dockerSecurityOptions": [],
+            "interactive": true,
+            "pseudoTerminal": true,
+            "dockerLabels": {},
+            "ulimits": [
+                {
+                    "name": "core",
+                    "softLimit": 0,
+                    "hardLimit": 0
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "secretOptions": null,
+                "options": {
+                    "awslogs-group": "/ecs/first-run-task-definition",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "healthCheck": {},
+            "systemControls": [],
+            "resourceRequirements": [],
+            "firelensConfiguration": {}
+        }
+    ],
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": 1024,
+    "pidMode": null,
+    "ipcMode": null,
+    "proxyConfiguration": null,
+    "inferenceAccelerators": null
+}
