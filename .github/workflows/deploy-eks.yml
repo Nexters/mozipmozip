@@ -30,11 +30,6 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: install kustomize
-        uses: imranismail/setup-kustomize@master
-        with:
-          kustomize-version: "3.1.0"
-
       - name: kubectl-eks-cmd
         uses: robatwave/github-action-eks-kubectl@0.1
         env:
@@ -48,5 +43,5 @@ jobs:
           curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
           chmod +x skaffold
           sudo mv skaffold /usr/local/bin
-          skaffold run
+          sudo skaffold run
 
