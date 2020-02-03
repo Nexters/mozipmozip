@@ -1,19 +1,21 @@
-package org.nexters.mozipmozip.member.controller;
+package org.nexters.mozipmozip.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.nexters.mozipmozip.member.application.UserService;
-import org.nexters.mozipmozip.member.domain.User;
-import org.nexters.mozipmozip.member.dto.UserCreateDto;
-import org.nexters.mozipmozip.member.dto.UserGetDto;
-import org.nexters.mozipmozip.member.dto.UserLoginDto;
-import org.nexters.mozipmozip.member.dto.UserUpdateDto;
+import org.nexters.mozipmozip.user.application.UserService;
+import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.user.dto.UserCreateDto;
+import org.nexters.mozipmozip.user.dto.UserGetDto;
+import org.nexters.mozipmozip.user.dto.UserLoginDto;
+import org.nexters.mozipmozip.user.dto.UserUpdateDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
@@ -30,6 +32,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity createUser(@RequestBody @Valid UserCreateDto userCreateDto, BindingResult error) {
 
+        //Valid검증
         if (error.hasErrors()) {
             error.getAllErrors()
                     .forEach(objectError -> {
@@ -40,22 +43,38 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
+        //비밀번호 확인
+        if (userCreateDto.passwordConfirm().equals("incorrect")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        //관리자 인증번호 처리
+        if (userCreateDto.getAdminCode().equals("임시관라지인증번호")) {
+            userCreateDto.setAdmin(true);
+        }
+
         return ResponseEntity.created(URI.create("users"))
                 .body(userService.createUser(UserCreateDto.toEntity(userCreateDto)));
     }
 
     //로그인 api
     @PostMapping(value = "/login")
-    public String loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
+    public ResponseEntity loginUser(@RequestBody UserLoginDto userLoginDto, HttpSession httpSession, HttpServletResponse response) {
         //리턴받은 회원정보로 세션 생성 후 회원정보 저장하기
         User user = userService.signInUser(UserLoginDto.toEntity(userLoginDto));
-        HttpSession httpSession = request.getSession(true);
         httpSession.setAttribute("userInfo", user);
+        httpSession.getId();
+        log.info(httpSession.getId());
+        //쿠키 생성 후 세션아이디 저장
+        Cookie cookie = new Cookie("loginCookie", httpSession.getId());
+        cookie.setPath("/");
+        cookie.setMaxAge(60*60*24*7);
+        response.addCookie(cookie);
         User userInfo = (User) httpSession.getAttribute("userInfo");
         log.info(userInfo.getName());
         log.info(userInfo.getEmail());
         final String isLogin = "로그인 성공!!!";
-        return isLogin;
+        return ResponseEntity.ok().build();
     }
 
     //로그아웃 api
@@ -76,7 +95,6 @@ public class UserController {
         UserGetDto userGetDto = UserGetDto.builder()
                 .name(userInfo.getName())
                 .email(userInfo.getEmail())
-                .phoneNumber(userInfo.getPhoneNumber())
                 .isAdmin(userInfo.getIsAdmin())
                 .build();
         return userGetDto;
@@ -88,13 +106,12 @@ public class UserController {
         User updateInfo = userService.updateUser(session, UserUpdateDto.toEntity(userUpdateDto));
         UserUpdateDto updateDto = UserUpdateDto.builder()
                 .email(updateInfo.getEmail())
-                .password(updateInfo.getPassword())
-                .phoneNumber(updateInfo.getPhoneNumber()).build();
+                .password(updateInfo.getPassword()).build();
         return updateDto;
     }
 
     //회원탈퇴 api
-    @DeleteMapping(value = "/deleteUser")
+    @DeleteMapping(value = "/deleteUser/{id}")
     public String deleteUser(HttpSession session) {
         session.invalidate();
         userService.deleteUser(session);

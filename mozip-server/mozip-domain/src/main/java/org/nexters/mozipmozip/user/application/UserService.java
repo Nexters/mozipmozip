@@ -1,9 +1,9 @@
-package org.nexters.mozipmozip.member.application;
+package org.nexters.mozipmozip.user.application;
 
 import lombok.RequiredArgsConstructor;
-import org.nexters.mozipmozip.member.domain.User;
-import org.nexters.mozipmozip.member.domain.UserRepositoy;
-import org.nexters.mozipmozip.member.exception.UserDefineException;
+import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.exception.UserDefineException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,19 +25,19 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    //로그인(이름, 비밀번호)
+    //로그인(이메일, 비밀번호)
     public User signInUser(User user) {
 
-        User userInfo = userRepository.findByName(user.getName());
+        User userInfo = userRepository.findByEmail(user.getEmail());
 
         //예외처리
-        if (userInfo.getName() == null) {
-            logger.info("존재하지 않는 회원입니다");
-            throw new UserDefineException("이름을 입력하세요");
+        if (userInfo.getEmail() == null) {
+            logger.info("이메일을 입력해주세");
+            throw new UserDefineException("이메일을 입력해주세요");
         }
-        if (!userInfo.getName().equals(user.getName())) {
+        if (!userInfo.getEmail().equals(user.getEmail())) {
             logger.info("존재하지 않는 회원입니다");
-            throw new UserDefineException("존재하지 않는 회원입니다");
+            throw new UserDefineException("존재하지 않는 이메일입니다");
         }
         if (!userInfo.getPassword().equals(user.getPassword())) {
             logger.info("비밀번호가 틀렸습니다");
@@ -71,7 +71,6 @@ public class UserService {
         //데이터 수정 후 db에 저장
         updateInfo.setPassword(user.getPassword());
         updateInfo.setEmail(user.getEmail());
-        updateInfo.setPhoneNumber(user.getPhoneNumber());
         userRepository.save(updateInfo);
         //세션의 정보도 수정
         session.setAttribute("userInfo", updateInfo);

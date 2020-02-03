@@ -6,18 +6,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.nexters.mozipmozip.member.domain.User;
-import org.nexters.mozipmozip.member.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.application.UserService;
+import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.user.domain.UserRepositoy;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mockitoSession;
 
 @ExtendWith(MockitoExtension.class)
 @DisplayName("유저 테스트")
@@ -31,7 +29,6 @@ class UserServiceTest {
     private User userFixture = User.builder()
             .email("test@naver.com")
             .name("라영지")
-            .phoneNumber("010-9707-6936")
             .password("1111").build();
 
     private MockHttpSession mockSession;
@@ -49,7 +46,6 @@ class UserServiceTest {
         // then
         assertThat(savedUser.getName()).isEqualTo(userFixture.getName());
         assertThat(savedUser.getEmail()).isEqualTo(userFixture.getEmail());
-        assertThat(savedUser.getPhoneNumber()).isEqualTo(userFixture.getPhoneNumber());
         assertThat(savedUser.getPassword()).isEqualTo(userFixture.getPassword());
     }
 
@@ -62,7 +58,7 @@ class UserServiceTest {
                 .name("라영지")
                 .password("1111")
                 .build();
-        given(userRepositoy.findByName(login.getName())).willReturn(userFixture);
+        given(userRepositoy.findByEmail(login.getEmail())).willReturn(userFixture);
 
         //when
         User loginUser = userService.signInUser(login);
@@ -70,7 +66,6 @@ class UserServiceTest {
         //then
         assertThat(loginUser.getName()).isEqualTo(userFixture.getName());
         assertThat(loginUser.getEmail()).isEqualTo(userFixture.getEmail());
-        assertThat(loginUser.getPhoneNumber()).isEqualTo(userFixture.getPhoneNumber());
         assertThat(loginUser.getPassword()).isEqualTo(userFixture.getPassword());
 
     }
@@ -89,8 +84,7 @@ class UserServiceTest {
         Long userFixtureId = 1L;
         User updateInfo = User.builder()
                 .email("qqq@naver.com")
-                .password("2222")
-                .phoneNumber("123-456-789").build();
+                .password("2222").build();
 //        mockSession = (MockHttpSession) request.getSession(true);
 //        mockSession.setAttribute("userInfo",userFixture);
 //        mockSession.getAttribute("userInfo");
@@ -104,7 +98,6 @@ class UserServiceTest {
         //that
         assertThat(updateUser.getPassword()).isEqualTo(updateInfo.getPassword());
         assertThat(updateUser.getEmail()).isEqualTo(updateInfo.getEmail());
-        assertThat(updateUser.getPhoneNumber()).isEqualTo(updateInfo.getPhoneNumber());
         //assertThat(mockSession.getAttribute("userInfo")).isEqualTo(updateUser);
     }
 

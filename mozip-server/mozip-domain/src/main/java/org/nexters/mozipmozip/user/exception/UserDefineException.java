@@ -1,4 +1,4 @@
-package org.nexters.mozipmozip.member.exception;
+package org.nexters.mozipmozip.user.exception;
 
 public class UserDefineException extends RuntimeException {
 
