@@ -10,7 +10,7 @@ export default function MainPage(){
           <Link to={'/Admin'}>모집모집 관리자 페이지</Link>
         </li>
         <li>
-          <Link to={'/todo'}>투두 페이지</Link>
+          <Link to={'/todo'}>TODO 페이지</Link>
         </li>
         <li>
           <Link to={'/employees'}>Go Employees Page</Link>
