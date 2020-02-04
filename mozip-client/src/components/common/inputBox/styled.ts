@@ -21,6 +21,20 @@ export const InputBox = styled.div`
     align-items: center;
     height: 50px;
   }
+  .radio-group-bg {
+    display: flex;
+    list-style-type: none;
+    padding-inline-start: 0;
+    .radio-bg {
+      display: flex;
+      flex: 1;
+      justify-content: flex-start;
+      input[type='radio'] {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
   input {
     width: 90%;
     height: 50%;
