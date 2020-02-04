@@ -1,6 +1,7 @@
 package org.nexters.mozipmozip.notice.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.nexters.mozipmozip.JpaBasePersistable;
@@ -39,6 +40,7 @@ public class Notice extends JpaBasePersistable {
     private NoticeStatus noticeStatus = NoticeStatus.DRAFT;
 
     @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<NoticeForm> noticeForms = new ArrayList<>();
 
     @Builder
