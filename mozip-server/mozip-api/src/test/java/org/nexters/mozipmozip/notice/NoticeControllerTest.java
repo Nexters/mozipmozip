@@ -13,16 +13,21 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.notice.application.NoticeService;
 import org.nexters.mozipmozip.notice.controller.NoticeController;
 import org.nexters.mozipmozip.notice.domain.Notice;
+import org.nexters.mozipmozip.notice.domain.NoticeForm;
 import org.nexters.mozipmozip.notice.dto.NoticeCreateDto;
 import org.nexters.mozipmozip.notice.dto.NoticeUpdateDto;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
+
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,6 +47,7 @@ class NoticeControllerTest {
 
     private NoticeCreateDto noticeCreateDto = new EasyRandom().nextObject(NoticeCreateDto.class);
     private NoticeUpdateDto noticeUpdateDto = new EasyRandom().nextObject(NoticeUpdateDto.class);
+    private Notice noticeFixture = new EasyRandom().nextObject(Notice.class);
 
     @BeforeEach
     public void setUp() {
@@ -63,6 +69,43 @@ class NoticeControllerTest {
                         )
         )
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("모집 공고 전체를 받아오는 api 테스트")
+    void getNotices() throws Exception {
+        Notice noticeFixture = noticeCreateDto.of();
+        given(noticeService.getNotices()).willReturn(Arrays.asList(noticeFixture));
+
+        mockMvc.perform(
+                get("/api/v1/notices")
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value(noticeFixture.getTitle()))
+                .andExpect(jsonPath("$[0].displayImagePath").value(noticeFixture.getDisplayImagePath()))
+                .andExpect(jsonPath("$[0].startDateTime").exists())
+                .andExpect(jsonPath("$[0].endDateTime").exists());
+    }
+
+    @Test
+    @DisplayName("모집 공고 아이디를 통해 상세 내용을 불러오는 api 테스트")
+    void getNotice() throws Exception {
+        Long noticeIdFixture = 1L;
+        NoticeForm noticeFormFixture = new EasyRandom().nextObject(NoticeForm.class);
+        noticeFormFixture.setNotice(noticeFixture);
+        noticeFixture.setNoticeForms(Arrays.asList(noticeFormFixture));
+        given(noticeService.getById(noticeIdFixture)).willReturn(noticeFixture);
+
+        mockMvc.perform(
+                get("/api/v1/notices/{id}", noticeIdFixture)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(noticeFixture.getTitle()))
+                .andExpect(jsonPath("$.displayImagePath").value(noticeFixture.getDisplayImagePath()))
+                .andExpect(jsonPath("$.startDateTime").exists())
+                .andExpect(jsonPath("$.endDateTime").exists());
     }
 
     @Test
