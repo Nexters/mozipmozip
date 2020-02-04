@@ -6,8 +6,6 @@ import lombok.Setter;
 import org.nexters.mozipmozip.notice.domain.NoticeFormQuestionItem;
 import org.nexters.mozipmozip.notice.domain.NoticeFormQuestionItemType;
 
-import javax.validation.constraints.NotNull;
-
 @Getter
 @Setter
 @NoArgsConstructor

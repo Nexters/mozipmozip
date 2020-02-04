@@ -1,6 +1,7 @@
 package org.nexters.mozipmozip.notice.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.nexters.mozipmozip.JpaBasePersistable;
 
@@ -20,6 +21,7 @@ public class NoticeFormQuestionItem extends JpaBasePersistable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_form_id")
+    @JsonBackReference
     private NoticeForm noticeForm;
 
     @Column(name = "title", nullable = false)

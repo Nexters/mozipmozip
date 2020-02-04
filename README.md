@@ -62,7 +62,9 @@ JPA 의존성을 가지며 Domain, Repository, Service 레이어가 정의 되�
 
 `AWS`를 이용해 인프라를 구성한다.
 
-![Aws network diagram](./images/AWS%20Network%20Diagram.png)
+`AWS Ecs` 와 `AWS Fargate`를 이용해 배포한다.
+
+> 아래 내용은 초기에 사용했던 내용으로, 지금은 사용하지 않는다.
 
 인프라는 Terraform 코드로 구성되어 있다.
 
@@ -87,9 +89,17 @@ Terraform resource는 /infrastructure/aws/resources 아래에, 생성에 사용�
 
 ## :roller_coaster: CI / CD
 
-`Github Action` 을 사용해 CI를 구성한다.
+`Github Action` 을 사용해 CI/CD를 구성한다.
+
+`develop` `master` 브랜치에 PR을 날린 뒤 커밋, 푸시가 발생하면 CI/CD가 돌면서 운영 리소스에 배포가 된다.
+
+[모집모집 운영 주소](http://mozipmozip.com)
 
 ## :airplane: Deploy
+
+CI/CD를 이용해 배포한다.
+
+> 아래 내용은 초기에 사용했던 내용으로, 지금은 사용하지 않는다.
 
 로컬에서 배포를 위해 아래 유틸들이 설치되어 있어야 한다.
 
