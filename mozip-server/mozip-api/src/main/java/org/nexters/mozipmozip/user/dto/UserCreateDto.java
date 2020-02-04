@@ -17,16 +17,13 @@ public class UserCreateDto {
     private String email;
     @NotBlank(message = "비밀번호는 필수 입력입니다")
     private String password;
-    private String passwordConfirm;
-    private String adminCode;
-    protected boolean isAdmin;
+    private String adminCode = "관리자가 아닙니다";
 
     @Builder
-    public UserCreateDto(final String name, final String email, final String password, final String adminCode) {
+    public UserCreateDto(final String name, final String email, final String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.adminCode = adminCode;
     }
 
     public static User toEntity(UserCreateDto userCreateDto) {
@@ -34,15 +31,6 @@ public class UserCreateDto {
                 .name(userCreateDto.name)
                 .email(userCreateDto.email)
                 .password(userCreateDto.password)
-                .isAdmin(userCreateDto.isAdmin)
                 .build();
     }
-
-    public String passwordConfirm() {
-        if (password.equals(passwordConfirm)) {
-            return "confirm";
-        }
-        return "incorrect";
-    }
-
 }

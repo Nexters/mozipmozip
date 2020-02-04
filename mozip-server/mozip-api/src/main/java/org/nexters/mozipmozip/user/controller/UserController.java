@@ -13,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
@@ -25,8 +22,8 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class UserController {
 
-    final private UserService userService;
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    final private UserService userService;
 
     //회원가입 api
     @PostMapping
@@ -43,54 +40,34 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        //비밀번호 확인
-        if (userCreateDto.passwordConfirm().equals("incorrect")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        //관리자 인증번호 처리
-        if (userCreateDto.getAdminCode().equals("임시관라지인증번호")) {
-            userCreateDto.setAdmin(true);
-        }
-
         return ResponseEntity.created(URI.create("users"))
-                .body(userService.createUser(UserCreateDto.toEntity(userCreateDto)));
+                .body(userService.createUser(UserCreateDto.toEntity(userCreateDto), userCreateDto.getAdminCode().equals("임시관리자인증번호")));
     }
 
-    //로그인 api
+    //로그인 api (+ 쿠키로 세션아이디 전달)->톰캣이 세션만들때 자동으로 세션쿠키를 만들어서 전달한다!!
     @PostMapping(value = "/login")
-    public ResponseEntity loginUser(@RequestBody UserLoginDto userLoginDto, HttpSession httpSession, HttpServletResponse response) {
+    public ResponseEntity loginUser(@RequestBody UserLoginDto userLoginDto, HttpSession session) {
         //리턴받은 회원정보로 세션 생성 후 회원정보 저장하기
         User user = userService.signInUser(UserLoginDto.toEntity(userLoginDto));
-        httpSession.setAttribute("userInfo", user);
-        httpSession.getId();
-        log.info(httpSession.getId());
-        //쿠키 생성 후 세션아이디 저장
-        Cookie cookie = new Cookie("loginCookie", httpSession.getId());
-        cookie.setPath("/");
-        cookie.setMaxAge(60*60*24*7);
-        response.addCookie(cookie);
-        User userInfo = (User) httpSession.getAttribute("userInfo");
+        session.setAttribute("userInfo", user);
+        log.info(session.getId());
+        User userInfo = (User) session.getAttribute("userInfo");
         log.info(userInfo.getName());
         log.info(userInfo.getEmail());
-        final String isLogin = "로그인 성공!!!";
         return ResponseEntity.ok().build();
     }
 
-    //로그아웃 api
+    //로그아웃 api ->  쿠키값 초기화
     @PostMapping(value = "/logout")
-    public String logoutUser(HttpServletRequest request) {
-        request.getSession();
-        //세션 초기화
-        request.getSession().invalidate();
-        request.getSession();
-        return userService.logoutUser();
+    public ResponseEntity logoutUser(HttpSession session) {
+        session.removeAttribute("userInfo");
+        return ResponseEntity.ok().build();
     }
 
-    //회원조회 api
-    @GetMapping(value = "/getUser")
-    public UserGetDto getUser(HttpSession session) {
-        User userInfo = userService.getUser(session);
+    //회원조회 api(쿠키로 세션아이디 값 찾고 세션아이디값으로 객체 찾기)
+    @GetMapping(value = "/getUser/{id}")
+    public UserGetDto getUser(@PathVariable Long id) {
+        User userInfo = userService.getUser(id);
         //세션에 저장되어있던 회원정보 dto로 변환하여 응답하기
         UserGetDto userGetDto = UserGetDto.builder()
                 .name(userInfo.getName())
@@ -101,22 +78,20 @@ public class UserController {
     }
 
     //회원정보 수정(수정된 회원정보(비밀번호,이메일,전화번호)와 기존 session 요청) api
-    @PutMapping(value = "/updateUser")
-    public UserUpdateDto updateUser(HttpSession session, @RequestBody UserUpdateDto userUpdateDto) {
+    @PatchMapping(value = "/updateUser")
+    public ResponseEntity updateUser(HttpSession session, @RequestBody UserUpdateDto userUpdateDto) {
         User updateInfo = userService.updateUser(session, UserUpdateDto.toEntity(userUpdateDto));
         UserUpdateDto updateDto = UserUpdateDto.builder()
                 .email(updateInfo.getEmail())
                 .password(updateInfo.getPassword()).build();
-        return updateDto;
+        return ResponseEntity.ok().build();
     }
 
     //회원탈퇴 api
-    @DeleteMapping(value = "/deleteUser/{id}")
-    public String deleteUser(HttpSession session) {
-        session.invalidate();
-        userService.deleteUser(session);
-        String delete = "탈퇴하였습니다";
-        return delete;
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
 

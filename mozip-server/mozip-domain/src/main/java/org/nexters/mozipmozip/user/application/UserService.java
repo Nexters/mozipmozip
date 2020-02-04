@@ -20,8 +20,8 @@ public class UserService {
     private final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     //회원가입
-    public User createUser(User user) {
-
+    public User createUser(User user, Boolean isAdmin) {
+        user.setIsAdmin(isAdmin);
         return userRepository.save(user);
     }
 
@@ -32,7 +32,7 @@ public class UserService {
 
         //예외처리
         if (userInfo.getEmail() == null) {
-            logger.info("이메일을 입력해주세");
+            logger.info("이메일을 입력해주세요");
             throw new UserDefineException("이메일을 입력해주세요");
         }
         if (!userInfo.getEmail().equals(user.getEmail())) {
@@ -47,17 +47,10 @@ public class UserService {
         return userInfo;
     }
 
-    //로그아웃
-    public String logoutUser() {
-        final String logout = "정상적으로 로그아웃되었습니다";
-        return logout;
-    }
-
     //회원조회
     @Transactional(readOnly = true)
-    public User getUser(HttpSession session) {
-        User userInfo = (User) session.getAttribute("userInfo");
-        User getUSer = userRepository.findById(userInfo.getId())
+    public User getUser(Long id) {
+        User getUSer = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("해당 회원이 없습니다"));
         return getUSer;
     }
@@ -82,9 +75,8 @@ public class UserService {
     }
 
     //회원탈퇴
-    public User deleteUser(HttpSession session) {
-        User sessionInfo = (User) session.getAttribute("userInfo");
-        User deleteUser = userRepository.findById(sessionInfo.getId())
+    public User deleteUser(Long id) {
+        User deleteUser = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("해당 회원이 없습니다"));
         deleteUser.delete();
         return deleteUser;

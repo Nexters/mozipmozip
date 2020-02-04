@@ -41,7 +41,7 @@ class UserServiceTest {
         given(userRepositoy.save(userFixture)).willReturn(userFixture);
 
         // when
-        User savedUser = userService.createUser(userFixture);
+        User savedUser = userService.createUser(userFixture, true);
 
         // then
         assertThat(savedUser.getName()).isEqualTo(userFixture.getName());
