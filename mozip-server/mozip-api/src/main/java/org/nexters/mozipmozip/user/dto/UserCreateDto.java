@@ -1,10 +1,10 @@
-package org.nexters.mozipmozip.member.dto;
+package org.nexters.mozipmozip.user.dto;
 
 import lombok.*;
-import org.nexters.mozipmozip.member.domain.User;
+import org.nexters.mozipmozip.user.domain.User;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
@@ -15,27 +15,25 @@ public class UserCreateDto {
     private String name;
     @Email(message = "이메일 형식을 맞춰주세요")
     private String email;
-    private String phoneNumber;
     @NotBlank(message = "비밀번호는 필수 입력입니다")
     private String password;
+    private String adminCode;
     private boolean isAdmin;
 
     @Builder
-    public UserCreateDto(final String name, final String email, final String phoneNumber, final String password, final boolean isAdmin) {
+    public UserCreateDto(final String name, final String email, final String password, final String adminCode, final boolean isAdmin) {
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.password = password;
+        this.adminCode = adminCode;
         this.isAdmin = isAdmin;
     }
 
-    //dto를 entity로 변환
-    public static User of(UserCreateDto userCreateDto) {
+    public static User toEntity(UserCreateDto userCreateDto) {
         return User.builder()
                 .name(userCreateDto.name)
                 .email(userCreateDto.email)
                 .password(userCreateDto.password)
-                .phoneNumber(userCreateDto.phoneNumber)
                 .isAdmin(userCreateDto.isAdmin)
                 .build();
     }

@@ -2,7 +2,6 @@ package org.nexters.mozipmozip.resume.domain;
 
 import lombok.*;
 import org.nexters.mozipmozip.JpaBasePersistable;
-import org.nexters.mozipmozip.member.domain.User;
 
 import javax.persistence.*;
 import java.util.List;
