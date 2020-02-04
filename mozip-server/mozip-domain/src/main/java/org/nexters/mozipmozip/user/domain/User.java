@@ -1,4 +1,4 @@
-package org.nexters.mozipmozip.member.domain;
+package org.nexters.mozipmozip.user.domain;
 
 import lombok.*;
 import org.nexters.mozipmozip.JpaBasePersistable;
@@ -19,18 +19,15 @@ public class User extends JpaBasePersistable {
     private String name;
     @Column(name = "email", length = 50, nullable = false)
     private String email;
-    @Column(name = "phone_number", length = 30, nullable = false)
-    private String phoneNumber;
     @Column(name = "password", length = 30, nullable = false)
     private String password;
     @Column(name = "isAdmin", nullable = false, columnDefinition = "BIT default 0")
-    protected Boolean isAdmin = false;
+    protected Boolean isAdmin = false;  //원래는 모두 지원자 인증번호받으면 관리자로 플래그값 변경
 
     @Builder
-    public User(final String name, final String email, final String phoneNumber, final String password, final boolean isAdmin) {
+    public User(final String name, final String email, final String password, final Boolean isAdmin) {
         this.name = name;
         this.email = email;
-        this.phoneNumber = phoneNumber;
         this.password = password;
         this.isAdmin = isAdmin;
     }
