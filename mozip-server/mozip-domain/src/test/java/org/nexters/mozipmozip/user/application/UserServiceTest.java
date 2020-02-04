@@ -1,15 +1,14 @@
-package org.nexters.mozipmozip.member.application;
+package org.nexters.mozipmozip.user.application;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.nexters.mozipmozip.user.application.UserService;
 import org.nexters.mozipmozip.user.domain.User;
 import org.nexters.mozipmozip.user.domain.UserRepositoy;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 
 import java.util.Optional;
@@ -32,7 +31,6 @@ class UserServiceTest {
             .password("1111").build();
 
     private MockHttpSession mockSession;
-    private MockHttpServletRequest request;
 
     @Test
     @DisplayName("회원가입 성공")
@@ -41,7 +39,7 @@ class UserServiceTest {
         given(userRepositoy.save(userFixture)).willReturn(userFixture);
 
         // when
-        User savedUser = userService.createUser(userFixture, true);
+        User savedUser = userService.createUser(userFixture, false);
 
         // then
         assertThat(savedUser.getName()).isEqualTo(userFixture.getName());
@@ -55,8 +53,8 @@ class UserServiceTest {
 
         //given
         User login = User.builder()
-                .name("라영지")
-                .password("1111")
+                .email(userFixture.getEmail())
+                .password(userFixture.getPassword())
                 .build();
         given(userRepositoy.findByEmail(login.getEmail())).willReturn(userFixture);
 
@@ -84,13 +82,14 @@ class UserServiceTest {
         Long userFixtureId = 1L;
         User updateInfo = User.builder()
                 .email("qqq@naver.com")
-                .password("2222").build();
-//        mockSession = (MockHttpSession) request.getSession(true);
-//        mockSession.setAttribute("userInfo",userFixture);
-//        mockSession.getAttribute("userInfo");
+                .password("2222")
+                .build();
 
-        mockSession = null;
-        given(userRepositoy.findById(userFixtureId)).willReturn(Optional.of(userFixture));
+        mockSession = new MockHttpSession();
+
+        mockSession.setAttribute("userInfo", userFixture);
+
+        given(userRepositoy.findById(Mockito.any())).willReturn(Optional.of(userFixture));
 
         //when
         User updateUser = userService.updateUser(mockSession, updateInfo);
@@ -98,7 +97,6 @@ class UserServiceTest {
         //that
         assertThat(updateUser.getPassword()).isEqualTo(updateInfo.getPassword());
         assertThat(updateUser.getEmail()).isEqualTo(updateInfo.getEmail());
-        //assertThat(mockSession.getAttribute("userInfo")).isEqualTo(updateUser);
     }
 
     //회원 조회,수정,탈퇴는 세션있어서 알아보고 다시 해볼예정//
