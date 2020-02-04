@@ -7,14 +7,14 @@ import {
   TodoPage,
   EmployPage,
 } from './pages';
-import User from './pages/user';
+import UserInfoForm from './pages/user/infoform';
 
 export default function App() {
   return (
     <Switch>
       <Route exact path={'/'} component={MainPage} />
       <Route path={'/admin/:path?/:subPath?'} component={AdminPage} />
-      <Route path={'/user'} component={User} />
+      <Route path={'/user/infoform'} component={UserInfoForm} />
 
       <Route path={'/todo'} component={TodoPage} />
       <Route path={'/employees'} component={EmployPage} />
