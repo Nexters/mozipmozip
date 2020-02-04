@@ -1,6 +1,5 @@
 package org.nexters.mozipmozip.notice.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
