@@ -70,7 +70,7 @@ export const NameLayer = styled.div`
 export const TextArea = styled.textarea.attrs({
   maxLength: 500
 })`
-  width: 70%;
+  width: calc(70% - 42px);
   height: 181px;
   padding: 25px;
   font-family: Roboto, Noto Sans Kr, sans-serif;

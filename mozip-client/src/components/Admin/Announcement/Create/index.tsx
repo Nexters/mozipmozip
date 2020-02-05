@@ -8,7 +8,7 @@ type CreateProps = {
 }
 
 function Create(props: CreateProps){
-  const { subPath } = props
+  const { subPath } = props;
   return(
     <>
       <ProgressBar subPath={subPath}/>
