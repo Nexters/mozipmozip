@@ -1,4 +1,5 @@
 import styled, {css} from 'styled-components';
+import moment from "moment";
 
 const imageCss = css`
   width: 215px;
@@ -82,13 +83,14 @@ export const TextArea = styled.textarea.attrs({
 `;
 
 export const CalendarInput = styled.input.attrs({
+  type: 'text',
   readOnly: true,
-  disabled: true,
-  value: '2020-01-31'
+  // value: moment(new Date).format('YYYY-MM-DD')
 })`
   width: 100px;
   font-family: Roboto, Noto Sans Kr, sans-serif;
   font-size: 17px;
   line-height: 20px;
   padding: 9px 11px;
+  cursor: pointer;
 `;

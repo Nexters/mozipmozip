@@ -1,24 +1,30 @@
 import React, {useState} from 'react';
 import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
+import {useAdmin} from "../../../../../hooks";
 import {Ul, Li, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create Common Styled Component
 import * as Styled from './styled';
+import moment, {Moment} from "moment";
 
 
 function Intro() {
-  const [state, setState] = useState({
-    title: '',
-    image: {
-      name: '',
-      imageData: '' // imagePreview data
-    },
-    description: '',
-    calendarVisible: {
-      start: false,
-      end: false,
-    },
+  const [visible, setVisible] = useState({
+    startVisible: false,
+    endVisible: false,
   });
-  const {title, image: {name, imageData}, description, calendarVisible: {start, end}} = state;
+  const {startVisible, endVisible} = visible;
+  const {recruit, onSetFormValues} = useAdmin();
+  const {startDate, endDate} = recruit;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
+  const handleVisible = (name: string) => name === 'startVisible' ?
+    setVisible({startVisible: !startVisible, endVisible: false})
+    :
+    setVisible({startVisible: false, endVisible: !endVisible});
+
+  const handleDate = (name:string, date: Moment) => {
+    if(name === 'startDate'){
+
+    }//validation
+  }
 
   return (
     <>
@@ -30,7 +36,7 @@ function Intro() {
         <Li>
           <Styled.Title>메인 이미지</Styled.Title>
           <SubLayer>
-            {imageData ?
+            {false ?
               <Styled.ImagePreview src="" alt=""/>
               :
               <>
@@ -54,18 +60,30 @@ function Intro() {
           <SubLayer style={{alignItems: 'center'}}>
             <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
             <div>
-              <Styled.CalendarInput/>
-              {start && <CalendarComponent
+              <Styled.CalendarInput
+                onClick={() => handleVisible('startVisible')}
+                value={startDate ? moment(startDate).format('YYYY-MM-DD') : ''}
+              />
+              {startVisible &&
+              <CalendarComponent
+                name="startDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
+                onSetFormValues={onSetFormValues}
               />}
             </div>
             <Between>~</Between>
             <div>
-              <Styled.CalendarInput/>
-              {end && <CalendarComponent
+              <Styled.CalendarInput
+                onClick={() => handleVisible('endVisible')}
+                value={endDate ? moment(endDate).format('YYYY-MM-DD') : ''}
+              />
+              {endVisible &&
+              <CalendarComponent
+                name="endDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
+                onSetFormValues={onSetFormValues}
               />}
             </div>
           </SubLayer>

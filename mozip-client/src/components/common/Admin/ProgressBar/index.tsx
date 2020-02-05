@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, Fragment} from 'react'
 import './index.scss'
 
 
@@ -33,12 +33,12 @@ function ProgressBar(props: {subPath: string}){
     const arr = ['','','','']
     return arr.map( (v,i) => {
       const targetIndex = getProgressNumber(subPath)
-      if(i === 3) return <div className="pr_circle" style={targetIndex === 3 ? divStyle : undefined}/>
+      if(i === 3) return <div className="pr_circle" key={i} style={targetIndex === 3 ? divStyle : undefined}/>
       return(
-        <>
+        <Fragment key={i}>
           <div className="pr_circle" style={targetIndex === i ? divStyle : undefined}/>
           <div className="pr_line"/>
-        </>
+        </Fragment>
       )
     })
   },[subPath])
@@ -48,9 +48,11 @@ function ProgressBar(props: {subPath: string}){
     return arr.map((v,i)=>{
       const targetIndex = getProgressNumber(subPath)
       const text = getProgressTitle(i)
-      if(i === 3) return <div className="pr_text" style={targetIndex === 3 ? textStyle : undefined}>{text}<br/>&nbsp;</div>
+      if(i === 3) return <div className="pr_text" key={i} style={targetIndex === 3 ? textStyle : undefined}>{text}<br/>&nbsp;</div>
       return(
-        <div className="pr_text" style={targetIndex === i ? textStyle : undefined}>
+        <div key={i}
+             className="pr_text"
+             style={targetIndex === i ? textStyle : undefined}>
           {text}<br/>작성</div>
       )
     })

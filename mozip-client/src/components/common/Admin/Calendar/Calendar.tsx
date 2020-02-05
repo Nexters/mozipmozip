@@ -16,8 +16,10 @@ function getFormat(time: boolean) {
 const defaultCalendarValue = now.clone();
 
 type CalendarProps = {
+  name: 'startDate' | 'endDate'
   style: object
   defaultDate: Date
+  onSetFormValues: (name: string, value: any) => void
 }
 
 export default function CalendarComponent(props: CalendarProps) {
@@ -28,10 +30,13 @@ export default function CalendarComponent(props: CalendarProps) {
     open: false,
     value: props.defaultDate,
   });
+  const disabledTime = (date: Date) => {
 
-  const {style} = props;
+  }
+  const {name, style, onSetFormValues} = props;
   const calendar = (<Calendar
     style={style}
+    onChange={date => onSetFormValues(name, date)}
     format={getFormat(state.showTime)}
     defaultValue={defaultCalendarValue}
   />);

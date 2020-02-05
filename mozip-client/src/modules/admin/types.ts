@@ -12,7 +12,7 @@ export type CreateRecruit = {
 }
 
 export type AdminState = {
-  create: CreateRecruit
+  recruit: CreateRecruit
 }
 
 export type AdminAction =
