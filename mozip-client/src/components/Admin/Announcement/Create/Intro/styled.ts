@@ -38,11 +38,13 @@ export const DefaultImage = styled.div`
   ${imageCss};
   text-align: center;
   line-height: 114px;
+  cursor: pointer;
 `;
 
 export const FileInput = styled.input.attrs({
   type: 'file',
-  id: 'intro-file-input'
+  id: 'intro-file-input',
+  accept: 'image/*'
 })`
   display: none;
 `;

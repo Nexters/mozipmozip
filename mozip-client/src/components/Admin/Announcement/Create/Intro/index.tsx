@@ -1,31 +1,25 @@
-import React, {useReducer} from 'react';
+import React, {useState} from 'react';
 import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
 import {Ul, Li, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create Common Styled Component
 import * as Styled from './styled';
 
-type IntroState = {
-  imageData: string
-}
-type Action = { type: 'SET_IMAGE_DATA' }
-
-function reducer(state: IntroState, action: Action) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}
 
 function Intro() {
-  const [state, dispatch] = useReducer(reducer, {
-    imageData: '' // imagePreview data
+  const [state, setState] = useState({
+    title: '',
+    image: {
+      name: '',
+      imageData: '' // imagePreview data
+    },
+    description: '',
+    calendarVisible: {
+      start: false,
+      end: false,
+    },
   });
-  const {imageData} = state;
-  const calendarStyle = {
-    marginLeft: 'none',
-    position: 'absolute',
-    zIndex: '1001',
-    marginTop: '5px'
-  };
+  const {title, image: {name, imageData}, description, calendarVisible: {start, end}} = state;
+  const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
+
   return (
     <>
       <Ul>
@@ -43,7 +37,7 @@ function Intro() {
                 <label htmlFor="intro-file-input">
                   <Styled.DefaultImage>+</Styled.DefaultImage>
                 </label>
-                <Styled.FileInput/>
+                <Styled.FileInput name="description"/>
               </>}
             <Styled.NameLayer>
               <span>이미지 업로드</span>
@@ -61,7 +55,7 @@ function Intro() {
             <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
             <div>
               <Styled.CalendarInput/>
-              {<CalendarComponent
+              {start && <CalendarComponent
                 style={calendarStyle}
                 defaultDate={new Date()}
               />}
@@ -69,10 +63,10 @@ function Intro() {
             <Between>~</Between>
             <div>
               <Styled.CalendarInput/>
-              {/*{<CalendarComponent*/}
-              {/*  style={calendarStyle}*/}
-              {/*  defaultDate={new Date()}*/}
-              {/*/>}*/}
+              {end && <CalendarComponent
+                style={calendarStyle}
+                defaultDate={new Date()}
+              />}
             </div>
           </SubLayer>
         </Li>

@@ -16,6 +16,7 @@
     "@types/styled-components": "^4.4.2",
     "axios": "^0.19.1",
     "dotenv": "^8.2.0",
+    "jimp": "^0.9.3",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "rc-calendar": "^9.15.9",
