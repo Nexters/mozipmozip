@@ -6,6 +6,7 @@ import org.nexters.mozipmozip.notice.domain.NoticeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -22,6 +23,12 @@ public class NoticeService {
     public Notice getById(Long noticeId) {
         return noticeRepository.findById(noticeId)
                 .orElseThrow(() -> new NoSuchElementException("해당 모집 공고가 없습니다"));
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<Notice> getNotices() {
+        return noticeRepository.findAll();
     }
 
     public Notice delete(Long noticeId) {

@@ -13,7 +13,7 @@ export default function MainPage() {
           <Link to={'/user/infoform'}>모집모집 사용자 서류작성 페이지</Link>
         </li>
         <li>
-          <Link to={'/todo'}>Go Todo Page</Link>
+          <Link to={'/todo'}>TODO 페이지</Link>
         </li>
         <li>
           <Link to={'/employees'}>Go Employees Page</Link>
