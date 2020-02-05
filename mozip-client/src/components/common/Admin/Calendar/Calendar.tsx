@@ -19,7 +19,7 @@ type CalendarProps = {
   name: 'startDate' | 'endDate'
   style: object
   defaultDate: Date
-  onSetFormValues: (name: string, value: any) => void
+  onDate: (name: string, date: Moment | null) => void,
 }
 
 export default function CalendarComponent(props: CalendarProps) {
@@ -33,10 +33,10 @@ export default function CalendarComponent(props: CalendarProps) {
   const disabledTime = (date: Date) => {
 
   }
-  const {name, style, onSetFormValues} = props;
+  const {name, style, onDate} = props;
   const calendar = (<Calendar
     style={style}
-    onChange={date => onSetFormValues(name, date)}
+    onChange={date => onDate(name, date)}
     format={getFormat(state.showTime)}
     defaultValue={defaultCalendarValue}
   />);

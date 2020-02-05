@@ -20,11 +20,27 @@ function Intro() {
     :
     setVisible({startVisible: false, endVisible: !endVisible});
 
-  const handleDate = (name:string, date: Moment) => {
+  const handleDate = (name: string, date: any) => { // date type is Moment
     if(name === 'startDate'){
-
-    }//validation
-  }
+      if(endDate){
+        const endTime = new Date(endDate).getTime();
+        const startValue = new Date(date._d).getTime();
+        if(endTime <= startValue) alert('시작 날짜가 종료 날짜보다 늦어요.');
+        else onSetFormValues('startDate', date._d);
+      }//validation
+      else onSetFormValues('startDate', date._d); // endDate no exist
+    }
+    else{
+      if(startDate){
+        const startTime = new Date(startDate).getTime();
+        const endValue = new Date(date._d).getTime();
+        if(startTime >= endValue) return alert('종료 날짜가 시작 날짜보다 빨라요.');
+        else onSetFormValues('endDate', date._d);
+      }//validation
+      else onSetFormValues('endDate', date._d); // endDate no exist
+    }
+    handleVisible(name); // calendar off
+  };
 
   return (
     <>
@@ -69,7 +85,7 @@ function Intro() {
                 name="startDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
-                onSetFormValues={onSetFormValues}
+                onDate={handleDate}
               />}
             </div>
             <Between>~</Between>
@@ -83,7 +99,7 @@ function Intro() {
                 name="endDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
-                onSetFormValues={onSetFormValues}
+                onDate={handleDate}
               />}
             </div>
           </SubLayer>

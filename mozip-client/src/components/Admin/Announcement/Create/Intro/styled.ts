@@ -85,7 +85,7 @@ export const TextArea = styled.textarea.attrs({
 export const CalendarInput = styled.input.attrs({
   type: 'text',
   readOnly: true,
-  // value: moment(new Date).format('YYYY-MM-DD')
+  placeholder: moment(new Date).format('YYYY-MM-DD')
 })`
   width: 100px;
   font-family: Roboto, Noto Sans Kr, sans-serif;
