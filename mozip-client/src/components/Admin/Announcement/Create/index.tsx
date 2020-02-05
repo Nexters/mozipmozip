@@ -1,5 +1,5 @@
 import React from 'react'
-import './index.scss'
+import *as Styled from './styled'
 import Intro from "./Intro"
 import ProgressBar from "../../../common/Admin/ProgressBar"
 
@@ -12,9 +12,9 @@ function Create(props: CreateProps){
   return(
     <>
       <ProgressBar subPath={subPath}/>
-      <div className="cr_layout">
+      <Styled.Layout>
         {subPath === 'intro' && <Intro/>}
-      </div>
+      </Styled.Layout>
     </>
   )
 }

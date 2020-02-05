@@ -68,7 +68,6 @@ function ProgressBar(props: {subPath: string}){
         </div>
       </div>
     </div>
-    
   )
 }
 
