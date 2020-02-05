@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, {css} from 'styled-components';
 
 const imageCss = css`
   width: 215px;
@@ -28,22 +28,23 @@ export const InputText = styled.input`
   padding-bottom: 7px;
 `;
 
-export const ImageLayer = styled.div`
-  width: 70%;
-  display: flex;
-  align-items: flex-end;
-`;
-
 export const ImagePreview = styled.img`
   ${imageCss};
   text-align: center;
   line-height: 114px;
 `;
 
-export const DefaultImage  = styled.div`
+export const DefaultImage = styled.div`
   ${imageCss};
   text-align: center;
   line-height: 114px;
+`;
+
+export const FileInput = styled.input.attrs({
+  type: 'file',
+  id: 'intro-file-input'
+})`
+  display: none;
 `;
 
 export const NameLayer = styled.div`
@@ -66,4 +67,26 @@ export const NameLayer = styled.div`
   }
 `;
 
+export const TextArea = styled.textarea.attrs({
+  maxLength: 500
+})`
+  width: 70%;
+  height: 181px;
+  padding: 25px;
+  font-family: Roboto, Noto Sans Kr, sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.075em;
+`;
 
+export const CalendarInput = styled.input.attrs({
+  readOnly: true,
+  disabled: true,
+  value: '2020-01-31'
+})`
+  width: 100px;
+  font-family: Roboto, Noto Sans Kr, sans-serif;
+  font-size: 17px;
+  line-height: 20px;
+  padding: 9px 11px;
+`;

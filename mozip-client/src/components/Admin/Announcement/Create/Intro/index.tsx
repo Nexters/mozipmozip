@@ -1,5 +1,5 @@
 import React, {useReducer} from 'react';
-import { Ul, Li } from "../styled"; // Create Common Styled Component
+import { Ul, Li, SubLayer, SubTitle } from "../styled"; // Create Common Styled Component
 import * as Styled from './styled';
 
 type IntroState = {
@@ -28,17 +28,34 @@ function Intro() {
         </Li>
         <Li>
           <Styled.Title>메인 이미지</Styled.Title>
-          <Styled.ImageLayer>
+          <SubLayer>
             {imageData ?
               <Styled.ImagePreview src="" alt=""/>
               :
-              <Styled.DefaultImage>+</Styled.DefaultImage>
-            }
+              <>
+                <label htmlFor="intro-file-input">
+                  <Styled.DefaultImage>+</Styled.DefaultImage>
+                </label>
+                <Styled.FileInput/>
+              </>}
             <Styled.NameLayer>
               <span>이미지 업로드</span>
               <input type="text" value="" readOnly disabled/>
             </Styled.NameLayer>
-          </Styled.ImageLayer>
+          </SubLayer>
+        </Li>
+        <Li>
+          <Styled.Title>설명</Styled.Title>
+          <Styled.TextArea/>
+        </Li>
+        <Li style={{alignItems: 'center'}}>
+          <Styled.Title>기간</Styled.Title>
+          <SubLayer style={{alignItems: 'center'}}>
+            <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
+            <Styled.CalendarInput/>
+              &nbsp;&nbsp;-&nbsp;&nbsp;
+            <Styled.CalendarInput/>
+          </SubLayer>
         </Li>
       </Ul>
   );
