@@ -20,27 +20,63 @@ export const InputBox = styled.div`
     justify-content: center;
     align-items: center;
     height: 50px;
+    input {
+      width: 90%;
+      height: 50%;
+      border: none;
+      font-size: 19px;
+      line-height: 28px;
+      color: #000000;
+    }
   }
   .radio-group-bg {
     display: flex;
     list-style-type: none;
     padding-inline-start: 0;
+    margin-top: 0.5rem;
     .radio-bg {
-      display: flex;
-      flex: 1;
-      justify-content: flex-start;
-      input[type='radio'] {
+      .radio-custom {
+        opacity: 0;
+        position: absolute;
+        width: 60px;
+        height: 40px;
+        cursor: pointer;
+      }
+      .radio-custom-label {
+        font-family: Noto Sans KR;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 19px;
+        line-height: 28px;
+      }
+      .radio-custom,
+      .radio-custom-label {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 5px;
+      }
+      .radio-custom + .radio-custom-label:before {
+        content: '';
+        background: #fff;
+        border: 1px solid #c4c4c4;
+        border-radius: 6px;
+        display: inline-block;
+        vertical-align: middle;
         width: 22px;
         height: 22px;
+        padding: 2px;
+        margin-right: 10px;
+        text-align: center;
+      }
+      .radio-custom:checked + .radio-custom-label:before {
+        content: '✔';
+        font-family: 'Font Awesome 5 Free';
+        background: #6d6d6d;
+        color: #ffffff;
       }
     }
-  }
-  input {
-    width: 90%;
-    height: 50%;
-    border: none;
-    font-size: 19px;
-    line-height: 28px;
-    color: #000000;
+    .radio-bg + .radio-bg {
+      margin-left: 3rem;
+    }
   }
 `;

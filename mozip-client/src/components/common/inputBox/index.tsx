@@ -30,8 +30,16 @@ export function RadioBox({ name, valueList }: RadioBoxProps) {
       <ul className="radio-group-bg">
         {valueList.map(value => (
           <li className="radio-bg">
-            <input type="radio" value={value} name={name} id={value} />
-            <label htmlFor="value">{value}</label>
+            <input
+              type="radio"
+              value={value}
+              name={name}
+              id={value}
+              className="radio-custom"
+            />
+            <label htmlFor="value" className="radio-custom-label">
+              {value}
+            </label>
           </li>
         ))}
       </ul>
