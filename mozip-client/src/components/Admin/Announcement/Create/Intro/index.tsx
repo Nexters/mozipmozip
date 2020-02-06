@@ -32,8 +32,8 @@ function Intro(props: IntroProps) {
   });
   const {startVisible, endVisible} = visible;
   const {data, resizeData, fileName} = image;
-  const {recruit, onSetFormValues} = useAdmin();
-  const {title, description, startDate, endDate} = recruit;
+  const {admin, onSetFormValues} = useAdmin();
+  const {title, description, startDate, endDate} = admin;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
     setVisible({startVisible: !startVisible, endVisible: false})

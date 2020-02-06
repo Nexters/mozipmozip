@@ -10,7 +10,7 @@ type QuestionProps = {
 
 function Question(props: QuestionProps) {
   const { index, total } = props
-  const { recruit } = useAdmin();
+  const { admin } = useAdmin();
   return (
     <>
       <Li style={{alignItems: 'center'}}>

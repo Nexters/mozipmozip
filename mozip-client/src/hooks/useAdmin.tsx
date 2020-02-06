@@ -5,10 +5,10 @@ import {setFormValues} from "../modules/admin";
 
 export default function useAdmin() {
   const dispatch = useDispatch();
-  const {recruit} = useSelector((state: RootState) => state.admin);
+  const admin = useSelector((state: RootState) => state.admin);
   const onSetFormValues = useCallback((name: string, value: any) => dispatch(setFormValues(name, value)),[dispatch])
   return {
-    recruit,
+    admin,
     onSetFormValues
   };
 }

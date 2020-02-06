@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useAdmin} from "../../../../../hooks";
 import Question from "../Question";
 import {Ul, Li} from '../styled';
 import styled from "styled-components";
@@ -18,7 +19,8 @@ const QuestionAddButton = styled.button`
 
 function CommonQuestion(props: CommonQuestionProps) {
   const [total, setTotal] = useState(0);
-
+  const { admin } = useAdmin();
+  const { questions } = admin;
   return (
     <Ul>
       <Question total={total} index={1}/>
