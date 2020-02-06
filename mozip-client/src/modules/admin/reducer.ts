@@ -11,7 +11,7 @@ const initialState: AdminState = {
     description: '',
     startDate: '',
     endDate: ''
-  }
+  }// recruit create state
 };
 
 export default function (state: AdminState = initialState, action: AdminAction) {

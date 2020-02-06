@@ -1,20 +1,39 @@
 import React, {useState} from 'react';
 import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
 import {useAdmin} from "../../../../../hooks";
-import moment, {Moment} from "moment";
-import { convertToJimpObject, imageResize, getBase64fromJimp } from "../../../../../lib/jimp";
+import moment from "moment";
+import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
 import {Ul, Li, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create Common Styled Component
 import * as Styled from './styled';
 
-function Intro() {
+
+type IntroProps = {
+  history: {
+    push: (url: string) => void
+  }
+}
+
+type Image = {
+  data: string | null | ArrayBuffer
+  resizeData: string | null
+  fileName: string | null
+}
+
+function Intro(props: IntroProps) {
+  const {history} = props;
   const [visible, setVisible] = useState({
     startVisible: false,
     endVisible: false,
   });
-  const [ preview, setPreview ] = useState('');
+  const [image, setImage] = useState<Image>({
+    data: '', //original base64
+    resizeData: '',//resize base64
+    fileName: ''
+  });
   const {startVisible, endVisible} = visible;
+  const {data, resizeData, fileName} = image;
   const {recruit, onSetFormValues} = useAdmin();
-  const {startDate, endDate, image: {name, imageData}} = recruit;
+  const {title, description, startDate, endDate} = recruit;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
     setVisible({startVisible: !startVisible, endVisible: false})
@@ -22,20 +41,19 @@ function Intro() {
     setVisible({startVisible: false, endVisible: !endVisible}); // calendar visible
 
   const handleDate = (name: string, date: any) => { // date type is Moment
-    if(name === 'startDate'){
-      if(endDate){
+    if (name === 'startDate') {
+      if (endDate) {
         const endTime = new Date(endDate).getTime();
         const startValue = new Date(date._d).getTime();
-        if(endTime < startValue) alert('시작 날짜가 종료 날짜보다 늦어요.');
+        if (endTime < startValue) alert('시작 날짜가 종료 날짜보다 늦어요.');
         else onSetFormValues('startDate', date._d);
       }//validation
       else onSetFormValues('startDate', date._d); // endDate no exist
-    }
-    else{ // endDate
-      if(startDate){
+    } else { // endDate
+      if (startDate) {
         const startTime = new Date(startDate).getTime();
         const endValue = new Date(date._d).getTime();
-        if(startTime > endValue) return alert('종료 날짜가 시작 날짜보다 빨라요.');
+        if (startTime > endValue) return alert('종료 날짜가 시작 날짜보다 빨라요.');
         else onSetFormValues('endDate', date._d);
       }//validation
       else onSetFormValues('endDate', date._d); // endDate no exist
@@ -45,24 +63,40 @@ function Intro() {
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
-    const { name, files } = e.target;
-    if(files && files.length > 0){
+    const {name, files} = e.target;
+    if (files && files.length > 0) {
       const file = files[0];
       const reader = new FileReader();
       reader.onload = async () => {
         try {
-          if(typeof reader.result === 'string'){ // reader.result 다른 type 방지..
+          if (typeof reader.result === 'string') { // reader.result 다른 type 방지..
             const jimpObj = await convertToJimpObject(reader.result);
             await imageResize(jimpObj, 215, 114)
               .then(getBase64fromJimp)
-              .then((base64: string | undefined) => base64 ? setPreview(base64) : '')
-              .catch(console.log)
+              .then((base64: string | undefined) => base64 ? setImage({
+                data: reader.result,
+                resizeData: base64,
+                fileName: file.name
+              }) : '')
+              .catch(console.log);
           }
         } catch (err) {
-          throw err
+          throw err;
         }
-      }
-      reader.readAsDataURL(file)
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleNextPage = () => {// next page > preview base64 data must save in store
+    if (!title) return alert('제목을 입력해 주세요.');
+    else if (!data) return alert('배너 이미지를 선택해 주세요.');
+    else if (!description) return alert('리쿠르팅 설명을 입력해 주세요.');
+    else if (!startDate) return alert('시작 기간을 선택해 주세요.');
+    else if (!endDate) return alert('종료 기간을 선택해 주세요.');
+    else {
+      onSetFormValues('image', image);
+      history.push('/admin/create/common');
     }
   };
 
@@ -71,13 +105,13 @@ function Intro() {
       <Ul>
         <Li>
           <Styled.Title>제목</Styled.Title>
-          <Styled.InputText/>
+          <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)}/>
         </Li>
         <Li>
           <Styled.Title>메인 이미지</Styled.Title>
           <SubLayer>
-            {preview ?
-              <Styled.ImagePreview src={preview} alt=""/>
+            {resizeData ?
+              <Styled.ImagePreview src={resizeData} alt=""/>
               :
               <>
                 <label htmlFor="intro-file-input">
@@ -87,13 +121,13 @@ function Intro() {
               </>}
             <Styled.NameLayer>
               <span>이미지 업로드</span>
-              <input type="text" value="" readOnly disabled/>
+              <input type="text" readOnly disabled value={fileName ? fileName : ''}/>
             </Styled.NameLayer>
           </SubLayer>
         </Li>
         <Li>
           <Styled.Title>설명</Styled.Title>
-          <Styled.TextArea/>
+          <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)}/>
         </Li>
         <Li style={{alignItems: 'center', marginBottom: '350px'}}>
           <Styled.Title>기간</Styled.Title>
@@ -130,7 +164,7 @@ function Intro() {
         </Li>
         <AlignCenter>
           <Button padding="17px 24px;">임시 저장</Button>
-          <Button padding="17px 91px;">다음</Button>
+          <Button padding="17px 91px;" onClick={handleNextPage}>다음</Button>
         </AlignCenter>
       </Ul>
     </>

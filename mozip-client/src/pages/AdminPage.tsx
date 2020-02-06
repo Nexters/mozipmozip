@@ -7,7 +7,7 @@ import Create from "../components/Admin/Announcement/Create";
 
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
-  const { match: { params: { path, subPath } } } = props;
+  const { match: { params: { path, subPath } }, history } = props;
   return (
     <Layout>
       {
@@ -16,7 +16,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
           :
           (
             path === 'create' ?
-              <Create subPath={subPath}/>
+              <Create subPath={subPath} history={history}/>
               :
               ''// 진행자 현황 보는 페이지 컴포넌트?
           )

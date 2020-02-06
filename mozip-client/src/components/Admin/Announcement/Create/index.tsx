@@ -5,15 +5,18 @@ import ProgressBar from "../../../common/Admin/ProgressBar"
 
 type CreateProps = {
   subPath: string
+  history: {
+    push: (url: string) => void
+  }
 }
 
 function Create(props: CreateProps){
-  const { subPath } = props;
+  const { subPath, history } = props;
   return(
     <>
       <ProgressBar subPath={subPath}/>
       <Styled.Layout>
-        {subPath === 'intro' && <Intro/>}
+        {subPath === 'intro' && <Intro history={history}/>}
       </Styled.Layout>
     </>
   )
