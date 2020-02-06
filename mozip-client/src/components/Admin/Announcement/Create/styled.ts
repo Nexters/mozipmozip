@@ -21,6 +21,7 @@ export const Li = styled.li`
   width: 90%;
   margin-left: 10%;
   display: flex;
+  font-family: Roboto, Noto Sans Kr, sans-serif;
 `;
 
 export const SubLayer = styled.div`

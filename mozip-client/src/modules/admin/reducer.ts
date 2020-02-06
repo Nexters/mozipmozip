@@ -10,7 +10,10 @@ const initialState: AdminState = {
     },
     description: '',
     startDate: '',
-    endDate: ''
+    endDate: '',
+    commonQuestions: [],
+    developerQuestions: [],
+    designerQuestions: []
   }// recruit create state
 };
 
