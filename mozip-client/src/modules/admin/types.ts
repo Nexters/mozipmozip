@@ -5,6 +5,7 @@ export type CreateRecruit = {
   image: {
     name: string
     imageData: string
+    resizeData: string
   }
   description: string
   startDate: Date | ''

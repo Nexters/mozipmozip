@@ -30,20 +30,17 @@ export default function CalendarComponent(props: CalendarProps) {
     open: false,
     value: props.defaultDate,
   });
-  const disabledTime = (date: Date) => {
-
-  }
+  // const disabledTime = (date: Date) => {
+  //
+  // }
   const {name, style, onDate} = props;
-  const calendar = (<Calendar
-    style={style}
-    onChange={date => onDate(name, date)}
-    format={getFormat(state.showTime)}
-    defaultValue={defaultCalendarValue}
-  />);
   return (
-    <Fragment>
-      {calendar}
-    </Fragment>
+    <Calendar
+      style={style}
+      onChange={date => onDate(name, date)}
+      format={getFormat(state.showTime)}
+      defaultValue={defaultCalendarValue}
+    />
   );
 }
 

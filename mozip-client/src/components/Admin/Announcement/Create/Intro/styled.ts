@@ -4,7 +4,6 @@ import moment from "moment";
 const imageCss = css`
   width: 215px;
   height: 114px; // width, height fix?
-  background: #FBFBFB;
   border: 1px solid #B5B5B5;
   margin-right: 11px;
 `; // common css
@@ -37,6 +36,7 @@ export const ImagePreview = styled.img`
 
 export const DefaultImage = styled.div`
   ${imageCss};
+  background: #FBFBFB;
   text-align: center;
   line-height: 114px;
   cursor: pointer;
