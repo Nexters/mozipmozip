@@ -3,7 +3,7 @@ import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
 import {useAdmin} from "../../../../../hooks";
 import moment from "moment";
 import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
-import {Ul, Li, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create Common Styled Component
+import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
 import * as Styled from './styled';
 
 
@@ -104,11 +104,11 @@ function Intro(props: IntroProps) {
     <>
       <Ul>
         <Li>
-          <Styled.Title>제목</Styled.Title>
+          <Title>제목</Title>
           <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)}/>
         </Li>
         <Li>
-          <Styled.Title>메인 이미지</Styled.Title>
+          <Title>메인 이미지</Title>
           <SubLayer>
             {resizeData ?
               <Styled.ImagePreview src={resizeData} alt=""/>
@@ -126,11 +126,11 @@ function Intro(props: IntroProps) {
           </SubLayer>
         </Li>
         <Li>
-          <Styled.Title>설명</Styled.Title>
+          <Title>설명</Title>
           <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)}/>
         </Li>
         <Li style={{alignItems: 'center', marginBottom: '350px'}}>
-          <Styled.Title>기간</Styled.Title>
+          <Title>기간</Title>
           <SubLayer style={{alignItems: 'center'}}>
             <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
             <div>

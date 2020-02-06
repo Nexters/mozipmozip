@@ -8,14 +8,6 @@ const imageCss = css`
   margin-right: 11px;
 `; // common css
 
-export const Title = styled.div`
-  font-family: Roboto, sans-serif;
-  font-size: 17px;
-  width: 115px;
-  line-height: 21px;
-  display: flex;
-  align-items: first;
-`;
 
 export const InputText = styled.input`
   width: 65%;

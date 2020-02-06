@@ -11,7 +11,6 @@ export default function App() {
     <Switch>
       <Route exact path={'/'} component={MainPage}/>
       <Route path={'/admin/:path?/:subPath?'} component={AdminPage}/>
-
       <Route path={'/todo'} component={TodoPage}/>
       <Route path={'/employees'} component={EmployPage}/>
       <Redirect path="*" to="/" />

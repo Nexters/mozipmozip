@@ -8,6 +8,7 @@ export const Layout = styled.div`
 export const Ul = styled.ul`
   width: 100%;
   list-style: none;
+  overflow-y: auto;
   padding: 0;
   margin-top: 5%;
   margin-bottom: 5vh;
@@ -29,6 +30,14 @@ export const SubLayer = styled.div`
   & > input + input {
     margin-left: 3%;
   }
+`;
+
+
+export const Title = styled.div`
+  font-family: Roboto, sans-serif;
+  font-size: 17px;
+  width: 115px;
+  line-height: 21px;
 `;
 
 export const SubTitle = styled.div`
