@@ -41,8 +41,8 @@ function CommonQuestion(props: CommonQuestionProps) {
   };
 
   useEffect(()=>{
-    setTotal(commonQuestions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number,b: number) => a+b, 0));
-  },[total]);
+    setTotal(commonQuestions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number,b: number) => a+b, 0))
+  },[commonQuestions.map(v => v.questionScore)]);
   return (
     <Ul>
       {handleMapList(commonQuestions)}

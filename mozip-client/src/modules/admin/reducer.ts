@@ -39,7 +39,6 @@ export default function (state: AdminState = initialState, action: AdminAction) 
     case "admin/SET_QUESTION_VALUE": {
       const { type, keyName, index, value } = action.payload;
       const target = state.questions[type]; // targetArray
-      if(keyName === 'answer')
       return{
         ...state,
         questions: {

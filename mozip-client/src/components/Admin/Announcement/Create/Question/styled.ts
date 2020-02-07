@@ -12,8 +12,9 @@ export const QuestionItemBox = styled.div`
   position: relative;
 `;
 
+type QuestionSelect = { width: string };
 export const QuestionSelect = styled.select`
-  min-width: 124px;
+  min-width: ${(props: QuestionSelect) => props.width};
   height: 40px;
   padding: 10px 0px 10px 14px; 
   border-radius: 0px;
@@ -48,17 +49,21 @@ export const BoxLine = styled.div`
 
 type QsSubInputProps = { width: string }
 
-export const QsSubInput = styled.input`
+export const QsSubInput = styled.input.attrs({
+  type: 'number'
+})`
   margin-left: 10px;
-  width: ${(props: QsSubInputProps) => {
-  console.log(props);
-  return props.width;
-}},
+  width: ${(props: QsSubInputProps) => props.width};
   height: 40px;
   padding: 10px 0px 10px 14px;
   box-sizing: border-box;
   border: 1px solid #B5B5B5;
   font-size: 13px;
+  appearance: none; 
+  &::-webkit-outer-spin-button, &:: -webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }// 화살표 delete
 `;
 
 export const QuestionSpan = styled.span`
