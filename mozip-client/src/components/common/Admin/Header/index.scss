@@ -1,13 +1,21 @@
+.header_wrapper {
+  height: 70px;
+}
+
 .header_layout{
-  max-width: 1440px !important;
-  width: 72%; // 100% - 28%
-  height : 20%;
+  width: 100vw;
+  height : 70px;
+  padding: 0 53px;
+  position: fixed;
   display: flex;
-  padding: 5% 14%;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  z-index: 10;
   .header_half{
-    width: calc(50%);
     display: flex;
     .header_title{
+      margin-right: 91px;
       font-family: Roboto, sans-serif;
       font-weight: 900;
       font-size: 30px;
@@ -16,8 +24,8 @@
     & > ul{
       list-style: none;
       display: flex;
+      align-items: center;
       padding : 0;
-      margin : 0 0 0 auto;
       .header_category{
         position : relative;
         font-family: Roboto, sans-serif;
@@ -32,18 +40,9 @@
       }
     }
     .header_name{
-      margin-left : auto;
       font-family: Roboto, sans-serif;
       font-size : 19px;
       line-height : 40px;
-      text-align : center;
-      margin-right : 3%;
-    }
-    .header_profile{
-      background : #C4C4C4;
-      width : 40px;
-      height : 40px;
-      border-radius : 50%;
     }
   }
 }
