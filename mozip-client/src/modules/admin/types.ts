@@ -1,9 +1,26 @@
-import {setFormValues, addQuestion} from "./actions";
+import {
+  setFormValues,
+  addQuestion,
+  setQuestionValue,
+} from "./actions";
 
-export type recruitQuestion = {
+export function hasKey<o>(obj: o, key: keyof any): key is keyof o  {
+  return key in obj
+} // for index signature
+
+export type SetQuestion = {
+  type: 'commonQuestions' | 'designerQuestions' | 'developerQuestions',
+  keyName: string,
+  index: number,
+  value: number | string
+}; // setQuestionValue action creator params type, depth 1
+export type SetInnerQuestion = SetQuestion & { innerKeyName: string } // depth 2
+
+export type NoticeQuestion = {
   title: string
-  answer: {type: 'long', length: number} | {type: 'url'} // 답변 형식은 주관식 or Url
-  score: number
+  type: 'long' | 'url'
+  maxLength?: number
+  questionScore: number
 }
 
 export type AdminState = {
@@ -14,16 +31,17 @@ export type AdminState = {
     resizeData: string
   }
   description: string
-  startDate: Date | ''
-  endDate: Date | ''
+  startDateTime: Date | ''
+  endDateTime: Date | ''
   questions: {
-    [commonQuestions:string]: recruitQuestion[]
-    developerQuestions: recruitQuestion[]
-    designerQuestions: recruitQuestion[]
+    commonQuestions: NoticeQuestion[]
+    developerQuestions: NoticeQuestion[]
+    designerQuestions: NoticeQuestion[]
   }
 }
 
 
 export type AdminAction =
   | ReturnType<typeof setFormValues>
-  | ReturnType<typeof  addQuestion>
+  | ReturnType<typeof addQuestion>
+  | ReturnType<typeof setQuestionValue>

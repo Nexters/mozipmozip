@@ -1,4 +1,4 @@
-import {AdminState, AdminAction} from "./types";
+import {AdminState, AdminAction, hasKey} from "./types";
 
 const initialState: AdminState = {
   title: '',
@@ -8,14 +8,13 @@ const initialState: AdminState = {
     resizeData: '' // resize
   },
   description: '',
-  startDate: '',
-  endDate: '',
+  startDateTime: '',
+  endDateTime: '',
   questions: {
-    commonQuestions: [{title: '', answer: {type: "long", length: 0}, score: 0}],
-    developerQuestions: [{title: '', answer: {type: "long", length: 0}, score: 0}],
-    designerQuestions: [{title: '', answer: {type: "long", length: 0}, score: 0}]
+    commonQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    developerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    designerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
   }
-
 };
 
 export default function (state: AdminState = initialState, action: AdminAction) {
@@ -26,13 +25,28 @@ export default function (state: AdminState = initialState, action: AdminAction) 
     }
     case "admin/ADD_QUESTION": {
       const {name} = action.payload;
-      return {
+      if(hasKey(state.questions, name)) {
+        return {
+        ...state,
+            questions: {
+          ...state.questions,
+              [name]: state.questions[name].concat({title: '', type: 'long', maxLength: 0, questionScore: 0})
+          }
+        };
+      }
+      else return state
+    }
+    case "admin/SET_QUESTION_VALUE": {
+      const { type, keyName, index, value } = action.payload;
+      const target = state.questions[type]; // targetArray
+      if(keyName === 'answer')
+      return{
         ...state,
         questions: {
           ...state.questions,
-          [name]: state.questions[name].concat({title: '', answer: {type: "long", length: 0}, score: 0})
+          [type]: [...target.slice(0, index), {...target[index], [keyName] : value}, ...target.slice(index+1, target.length)]
         }
-      };
+      }
     }
     default:
       return state;

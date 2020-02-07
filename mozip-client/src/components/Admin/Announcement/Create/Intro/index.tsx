@@ -33,7 +33,7 @@ function Intro(props: IntroProps) {
   const {startVisible, endVisible} = visible;
   const {data, resizeData, fileName} = image;
   const {admin, onSetFormValues} = useAdmin();
-  const {title, description, startDate, endDate} = admin;
+  const {title, description, startDateTime, endDateTime} = admin;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
     setVisible({startVisible: !startVisible, endVisible: false})
@@ -42,21 +42,21 @@ function Intro(props: IntroProps) {
 
   const handleDate = (name: string, date: any) => { // date type is Moment
     if (name === 'startDate') {
-      if (endDate) {
-        const endTime = new Date(endDate).getTime();
+      if (endDateTime) {
+        const endTime = new Date(endDateTime).getTime();
         const startValue = new Date(date._d).getTime();
         if (endTime < startValue) alert('시작 날짜가 종료 날짜보다 늦어요.');
-        else onSetFormValues('startDate', date._d);
+        else onSetFormValues('startDateTime', date._d);
       }//validation
-      else onSetFormValues('startDate', date._d); // endDate no exist
+      else onSetFormValues('startDateTime', date._d); // endDate no exist
     } else { // endDate
-      if (startDate) {
-        const startTime = new Date(startDate).getTime();
+      if (startDateTime) {
+        const startTime = new Date(startDateTime).getTime();
         const endValue = new Date(date._d).getTime();
         if (startTime > endValue) return alert('종료 날짜가 시작 날짜보다 빨라요.');
-        else onSetFormValues('endDate', date._d);
+        else onSetFormValues('endDateTime', date._d);
       }//validation
-      else onSetFormValues('endDate', date._d); // endDate no exist
+      else onSetFormValues('endDateTime', date._d); // endDate no exist
     }
     handleVisible(name); // calendar off
   };
@@ -92,8 +92,8 @@ function Intro(props: IntroProps) {
     if (!title) return alert('제목을 입력해 주세요.');
     else if (!data) return alert('배너 이미지를 선택해 주세요.');
     else if (!description) return alert('리쿠르팅 설명을 입력해 주세요.');
-    else if (!startDate) return alert('시작 기간을 선택해 주세요.');
-    else if (!endDate) return alert('종료 기간을 선택해 주세요.');
+    else if (!startDateTime) return alert('시작 기간을 선택해 주세요.');
+    else if (!endDateTime) return alert('종료 기간을 선택해 주세요.');
     else {
       onSetFormValues('image', image);
       history.push('/admin/create/common');
@@ -136,7 +136,7 @@ function Intro(props: IntroProps) {
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('startVisible')}
-                value={startDate ? moment(startDate).format('YYYY-MM-DD') : ''}
+                value={startDateTime ? moment(startDateTime).format('YYYY-MM-DD') : ''}
               />
               {startVisible &&
               <CalendarComponent
@@ -150,7 +150,7 @@ function Intro(props: IntroProps) {
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('endVisible')}
-                value={endDate ? moment(endDate).format('YYYY-MM-DD') : ''}
+                value={endDateTime ? moment(endDateTime).format('YYYY-MM-DD') : ''}
               />
               {endVisible &&
               <CalendarComponent
