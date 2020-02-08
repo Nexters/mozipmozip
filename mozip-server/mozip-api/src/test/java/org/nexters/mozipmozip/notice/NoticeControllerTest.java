@@ -142,7 +142,6 @@ class NoticeControllerTest {
     @Test
     @DisplayName("모집 공고 업데이트시 id가 포함되지 않은 경우 400 Bad Request를 리턴한다")
     void updateNoticeMissingIdResponseBadRequest() throws Exception {
-        Notice updateNoticeFixture = noticeUpdateDto.of();
         noticeUpdateDto.setId(null);
 
         mockMvc.perform(
