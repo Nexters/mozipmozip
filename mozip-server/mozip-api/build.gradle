@@ -2,6 +2,9 @@ dependencies {
     api project(':mozip-server:mozip-domain')
     implementation('io.springfox:springfox-swagger2:2.6.1')
     implementation('io.springfox:springfox-swagger-ui:2.6.1')
+
+    implementation(platform("software.amazon.awssdk:bom:2.10.30"))
+    api("software.amazon.awssdk:s3")
 }
 
 compileJava {
