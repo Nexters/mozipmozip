@@ -4,7 +4,7 @@ import {RootState} from "../modules";
 import {
   setFormValues,
   setQuestionValue,
-  SetQuestion,
+  SetQuestion, addQuestion,
 } from "../modules/admin";
 
 export default function useAdmin() {
@@ -13,9 +13,11 @@ export default function useAdmin() {
   const onSetFormValues = useCallback((name: string, value: any) => dispatch(setFormValues(name, value)), [dispatch]);
   const onSetQuestionValue = useCallback((args: SetQuestion) =>
     dispatch(setQuestionValue({...args})), [dispatch]);
+  const onAddQuestion = useCallback((name: string)=>dispatch(addQuestion(name)),[dispatch])
   return {
     admin,
     onSetFormValues,
-    onSetQuestionValue
+    onSetQuestionValue,
+    onAddQuestion
   };
 }
