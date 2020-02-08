@@ -53,3 +53,4 @@ temp.tfvars
 .envrc
 
 /mozip-server/mozip-api/src/main/resources/public
+infrastructure/aws/modules
