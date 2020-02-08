@@ -123,10 +123,13 @@ public class ResumeControllerTest {
 
         given(resumeService.getResumesByNoticeId(noticeFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
-        mockMvc.perform(
-                get("/api/v1/resumes/notices/{noticeId}", noticeFixtureId)
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+        mockMvc.perform(get("/api/v1/resumes/notices/{noticeId}", noticeFixtureId)
+                    .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
+                .andExpect(jsonPath("$[0].state").exists())
+                .andExpect(jsonPath("$[0].occupation").exists())
+                .andExpect(jsonPath("$[0].resumeJobType").exists());
     }
 
     @Test
@@ -136,10 +139,13 @@ public class ResumeControllerTest {
 
         given(resumeService.getResumesByUserId(userFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
-        mockMvc.perform(
-                get("/api/v1/resumes/users/{userId}", userFixtureId)
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+        mockMvc.perform(get("/api/v1/resumes/users/{userId}", userFixtureId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
+                .andExpect(jsonPath("$[0].state").exists())
+                .andExpect(jsonPath("$[0].occupation").exists())
+                .andExpect(jsonPath("$[0].resumeJobType").exists());
     }
 
     @Test
