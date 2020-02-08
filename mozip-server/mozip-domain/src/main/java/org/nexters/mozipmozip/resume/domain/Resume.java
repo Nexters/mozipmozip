@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.nexters.mozipmozip.JpaBasePersistable;
 import org.nexters.mozipmozip.notice.domain.Notice;
+import org.nexters.mozipmozip.user.domain.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
