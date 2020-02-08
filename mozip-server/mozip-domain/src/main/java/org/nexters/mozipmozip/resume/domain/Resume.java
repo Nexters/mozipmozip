@@ -3,7 +3,6 @@ package org.nexters.mozipmozip.resume.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.nexters.mozipmozip.JpaBasePersistable;
-import org.nexters.mozipmozip.member.domain.User;
 import org.nexters.mozipmozip.notice.domain.Notice;
 
 import javax.persistence.*;

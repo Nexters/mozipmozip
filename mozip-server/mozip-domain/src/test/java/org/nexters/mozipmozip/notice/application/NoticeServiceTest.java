@@ -10,6 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeRepository;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,5 +63,15 @@ class NoticeServiceTest {
         Notice deletedNotice = noticeService.delete(noticeIdFixture);
 
         assertThat(deletedNotice.getDeleted()).isTrue();
+    }
+
+    @Test
+    @DisplayName("전체 리크루팅 리스트를 받아오는데 성공한")
+    void getNotices() {
+        given(noticeRepository.findAll()).willReturn(Arrays.asList(noticeFixture));
+
+        List<Notice> notices = noticeService.getNotices();
+
+        assertThat(notices.get(0).getTitle()).isEqualTo(noticeFixture.getTitle());
     }
 }
