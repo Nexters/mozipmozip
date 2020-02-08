@@ -36,6 +36,7 @@ public class AmazonS3Client {
             );
         } catch (Exception e) {
             log.error("s3 업로드 실패", e);
+            throw new IllegalStateException("파일 업로드 실패했어~ 수고해");
         }
 
         return amazonS3Properties.getEndpoint().concat(filename);
