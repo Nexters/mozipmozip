@@ -1,0 +1,48 @@
+.header_wrapper {
+  height: 70px;
+}
+
+.header_layout {
+  width: 100vw;
+  height: 70px;
+  padding: 0 164px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  z-index: 10;
+  .header_half {
+    display: flex;
+    .header_title {
+      margin-right: 91px;
+      font-family: Roboto, sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 35px;
+    }
+    & > ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      .header_category {
+        position: relative;
+        font-family: Roboto, sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        color: rgba(0, 0, 0, 0.3);
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .header_category + .header_category {
+        margin-left: 60px;
+      }
+    }
+    .header_name {
+      font-family: Roboto, sans-serif;
+      font-size: 19px;
+      line-height: 40px;
+    }
+  }
+}
