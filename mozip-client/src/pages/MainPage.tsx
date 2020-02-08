@@ -7,7 +7,7 @@ export default function MainPage() {
       <h2>Here is Main Page!</h2>
       <ul>
         <li>
-          <Link to={'/Admin'}>모집모집 관리자 페이지</Link>
+          <Link to={'/admin'}>모집모집 관리자 페이지</Link>
         </li>
         <li>
           <Link to={'/user/infoform'}>모집모집 사용자 서류작성 페이지</Link>

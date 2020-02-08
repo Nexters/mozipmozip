@@ -1,20 +1,25 @@
 import React from 'react'
-import './index.scss'
+import *as Styled from './styled'
 import Intro from "./Intro"
 import ProgressBar from "../../../common/Admin/ProgressBar"
+import CommonQuestion from "./CommonQuestion";
 
 type CreateProps = {
   subPath: string
+  history: {
+    push: (url: string) => void
+  }
 }
 
 function Create(props: CreateProps){
-  const { subPath } = props
+  const { subPath, history } = props;
   return(
     <>
       <ProgressBar subPath={subPath}/>
-      <div className="cr_layout">
-        {subPath === 'intro' && <Intro/>}
-      </div>
+      <Styled.Layout>
+        {subPath === 'intro' && <Intro history={history}/>}
+        {subPath === 'common' && <CommonQuestion history={history}/>}
+      </Styled.Layout>
     </>
   )
 }
