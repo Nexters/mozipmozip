@@ -15,6 +15,7 @@ import org.nexters.mozipmozip.resume.controller.ResumeController;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
 import org.nexters.mozipmozip.resume.dto.ResumeCreateDto;
+import org.nexters.mozipmozip.resume.dto.ResumeStateUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeUpdateDto;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,6 +46,7 @@ public class ResumeControllerTest {
     private MockMvc mockMvc;
     private ResumeCreateDto resumeCreateDto = new EasyRandom().nextObject(ResumeCreateDto.class);
     private ResumeUpdateDto resumeUpdateDto = new EasyRandom().nextObject(ResumeUpdateDto.class);
+    private ResumeStateUpdateDto resumeStateUpdateDto = new EasyRandom().nextObject(ResumeStateUpdateDto.class);
     private Resume resumeFixture = new EasyRandom().nextObject(Resume.class);
 
     @BeforeEach
@@ -57,13 +59,13 @@ public class ResumeControllerTest {
     @Test
     @DisplayName("지원서 생성 API 테스트")
     void createResume() throws Exception {
-        Resume resumeCreateDtoFixture = resumeCreateDto.of();
+        Resume resumeCreateDtoFixture = this.resumeCreateDto.of();
 
-        given(resumeService.save(resumeCreateDtoFixture)).willReturn(this.resumeFixture);
+        given(resumeService.save(resumeCreateDtoFixture)).willReturn(resumeCreateDtoFixture);
 
         mockMvc.perform(post("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(resumeCreateDto)))
+                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto)))
                 .andExpect(status().isCreated());
     }
 
@@ -74,7 +76,7 @@ public class ResumeControllerTest {
 
         mockMvc.perform(post("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(resumeCreateDto)))
+                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto)))
                 .andExpect(status().isBadRequest());
     }
 
@@ -102,7 +104,7 @@ public class ResumeControllerTest {
         given(resumeService.getResumeById(resumeIdFixture)).willReturn(this.resumeFixture);
 
         mockMvc.perform(get("/api/v1/resumes/" + resumeIdFixture)
-                    .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$.email").value(this.resumeFixture.getEmail()))
@@ -124,7 +126,7 @@ public class ResumeControllerTest {
         given(resumeService.getResumesByNoticeId(noticeFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
         mockMvc.perform(get("/api/v1/resumes/notices/{noticeId}", noticeFixtureId)
-                    .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$[0].state").exists())
@@ -140,7 +142,7 @@ public class ResumeControllerTest {
         given(resumeService.getResumesByUserId(userFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
         mockMvc.perform(get("/api/v1/resumes/users/{userId}", userFixtureId)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$[0].state").exists())
@@ -151,14 +153,48 @@ public class ResumeControllerTest {
     @Test
     @DisplayName("특정 지원서 수정 API 테스트")
     void modifyResume() throws Exception {
-        Resume resumeFixture = resumeUpdateDto.of();
+        Resume resumeUpdateDtoFixture = this.resumeUpdateDto.of();
 
-        given(resumeService.save(resumeFixture)).willReturn(resumeFixture);
+        given(resumeService.save(resumeUpdateDtoFixture)).willReturn(resumeUpdateDtoFixture);
 
-        mockMvc.perform(
-                patch("/api/v1/resumes")
+        mockMvc.perform(patch("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(resumeUpdateDto))
-        ).andExpect(status().isOk());
+                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("지원서 수정시 잘못된 파라미터가 들어오면 Bad Request로 리턴한다.")
+    void updateResumeInvalidParameter() throws Exception {
+        this.resumeUpdateDto.setId(null);
+
+        mockMvc.perform(patch("/api/v1/resumes")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("지원서의 상태를 수정하는 API 테스트")
+    void modifyResumeState() throws Exception {
+        Resume resumeStateUpdateDtoFixture = this.resumeStateUpdateDto.of();
+
+        given(resumeService.save(resumeStateUpdateDtoFixture)).willReturn(resumeStateUpdateDtoFixture);
+
+        mockMvc.perform(patch("/api/v1/resumes/state")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("지원서 수정시 잘못된 파라미터가 들어오면 Bad Request로 리턴한다.")
+    void updateResumeStateInvalidParameter() throws Exception {
+        this.resumeStateUpdateDto.setId(null);
+
+        mockMvc.perform(patch("/api/v1/resumes/state")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto)))
+                .andExpect(status().isBadRequest());
     }
 }
