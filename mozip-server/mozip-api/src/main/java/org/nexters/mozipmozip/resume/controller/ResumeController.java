@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.application.ResumeService;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.dto.ResumeCreateDto;
+import org.nexters.mozipmozip.resume.dto.ResumeStateUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDto;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByNoticeId;
@@ -74,6 +75,11 @@ public class ResumeController {
     @PatchMapping
     public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
         return ResponseEntity.ok().body(resumeService.save(resumeUpdateDto.of()));
+    }
+
+    @PatchMapping("/state")
+    public ResponseEntity modifyResumeState(@RequestBody @Valid ResumeStateUpdateDto resumeStateUpdateDto) {
+        return ResponseEntity.ok().body(resumeService.save(resumeStateUpdateDto.of()));
     }
 
 }
