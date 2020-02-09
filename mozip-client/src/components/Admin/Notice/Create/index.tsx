@@ -19,6 +19,7 @@ function Create(props: CreateProps){
       <Styled.Layout>
         {subPath === 'intro' && <Intro history={history}/>}
         {subPath === 'common' && <CommonQuestion history={history}/>}
+
       </Styled.Layout>
     </>
   )

@@ -8,14 +8,6 @@ export function hasKey<o>(obj: o, key: keyof any): key is keyof o  {
   return key in obj
 } // for index signature
 
-export type SetQuestion = {
-  type: 'commonQuestions' | 'designerQuestions' | 'developerQuestions',
-  keyName: string,
-  index: number,
-  value: number | string
-}; // setQuestionValue action creator params type, depth 1
-export type SetInnerQuestion = SetQuestion & { innerKeyName: string } // depth 2
-
 export type NoticeQuestion = {
   title: string
   type: 'long' | 'url'

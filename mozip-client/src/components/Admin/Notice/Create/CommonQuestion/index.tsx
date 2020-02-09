@@ -19,15 +19,15 @@ const QuestionAddButton = styled.button`
 `;
 
 function CommonQuestion(props: CommonQuestionProps) {
-  const { history } = props;
+  const {history} = props;
   const [total, setTotal] = useState(0);
-  const { admin, onAddQuestion } = useAdmin();
-  const { questions: { commonQuestions } } = admin;
+  const {admin, onAddQuestion} = useAdmin();
+  const {questions: {commonQuestions}} = admin;
 
   const handleMapList = (questions: NoticeQuestion[]) => {
-    return questions.map((v,i) => {
-      const { title, type, maxLength, questionScore } = v;
-      return(
+    return questions.map((v, i) => {
+      const {title, type, maxLength, questionScore} = v;
+      return (
         <Question
           key={i}
           index={i}
@@ -37,27 +37,29 @@ function CommonQuestion(props: CommonQuestionProps) {
           type={type}
           maxLength={maxLength}
           questionScore={questionScore}/>
-      )
-    })
+      );
+    });
   };
 
   const handleAddQuestion = () => {
     const lastIndex = commonQuestions.length - 1;
     const lastQuestion = commonQuestions[lastIndex];
-    const { title, type, questionScore, maxLength } = lastQuestion;
-    if(!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
-    if(type === 'long'){ // default type is long -> '주관식'
-     if(!maxLength) return alert(`질문${lastIndex + 1} 최대 글자수를 입력해 주세요.`);
-    }
-    if(!questionScore) return alert(`질문${lastIndex + 1} 배점을 입력해 주세요.`)
-    else return onAddQuestion('commonQuestions')
+    const {title, type, questionScore, maxLength} = lastQuestion;
+    if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
+    if (type === 'long') { // default type is long -> '주관식'
+      if (!maxLength) return alert(`질문${lastIndex + 1} 최대 글자수를 입력해 주세요.`);
+    };
+    if (!questionScore) return alert(`질문${lastIndex + 1} 배점을 입력해 주세요.`);
+    else return onAddQuestion('commonQuestions');
   };
 
   const handleNextPage = () => history.push('/admin/create/group');
-
-  useEffect(()=>{
-    setTotal(commonQuestions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number,b: number) => a+b, 0))
-  },[commonQuestions.map(v => v.questionScore)]);
+  const handleSubmit = () => {
+    const {title, description, startDateTime, endDateTime,} = admin;
+  };
+  useEffect(() => {
+    setTotal(commonQuestions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0));
+  }, [commonQuestions.map(v => v.questionScore)]);
   return (
     <Ul>
       {handleMapList(commonQuestions)}

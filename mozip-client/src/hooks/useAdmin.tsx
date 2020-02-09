@@ -4,7 +4,7 @@ import {RootState} from "../modules";
 import {
   setFormValues,
   setQuestionValue,
-  SetQuestion, addQuestion,
+  addQuestion, SetQuestion,
 } from "../modules/admin";
 
 export default function useAdmin() {
