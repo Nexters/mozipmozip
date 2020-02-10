@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 import './index.scss'
 import HeaderCategory from "../HeaderCategory"
 // import *as Styled from './style'
@@ -17,10 +18,12 @@ function Header() {
       <div className="header_wrapper">
         <div className="header_layout">
           <div className="header_half">
-            <div className="header_title">
-              <img className="logo" src={logo} />
-              <img className="logo_title" src={logoTitle} />
-            </div>
+            <Link to='/'>
+              <div className="header_title">
+                <img className="logo" src={logo} />
+                <img className="logo_title" src={logoTitle} />
+              </div>
+            </Link>
             <ul>
               <li className="header_category"
                   onClick={()=>setVisible({category1: !category1, category2: false})}
@@ -34,9 +37,14 @@ function Header() {
               </li>
             </ul>
           </div>
-          <div className="header_half">
-            <span className="header_name">홍동욱</span>
-          </div>
+          {
+            //TODO 유저 분기처리
+          }
+          <Link to={'/signin'}>
+            <div className="header_half">
+              <span className="header_name bold">로그인</span>
+            </div>
+          </Link>
         </div>
       </div>
       {/*<Styled.Header>*/}
