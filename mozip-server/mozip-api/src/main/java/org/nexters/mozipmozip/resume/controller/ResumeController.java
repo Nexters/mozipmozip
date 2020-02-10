@@ -4,7 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.application.ResumeService;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.dto.ResumeCreateDto;
+import org.nexters.mozipmozip.resume.dto.ResumeStateUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeUpdateDto;
+import org.nexters.mozipmozip.resume.dto.ResumeViewDto;
+import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByNoticeId;
+import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByUserId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.net.URI;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,33 +30,56 @@ public class ResumeController {
 
     private final ResumeService resumeService;
 
-    @PostMapping
-    public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
-        Resume createdResume = resumeService.save(resumeCreateDTO.of());
-        return ResponseEntity.ok().body(createdResume);
-    }
-
     @GetMapping
-    public ResponseEntity getAllResume() {
-        List<Resume> resumeList = resumeService.getAll();
-        return ResponseEntity.ok().body(resumeList);
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok().body(resumeService.getResumes()
+                .stream()
+                .map(ResumeViewDto::of)
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getResumeById(@PathVariable @Valid Long id) {
-        Resume resume = resumeService.getById(id);
-        return ResponseEntity.ok().body(resume);
+    public ResponseEntity getById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(resumeService.getResumeById(id));
+    }
+
+    @GetMapping("/notices/{id}")
+    public ResponseEntity getAllByNoticeId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(resumeService.getResumesByNoticeId(id)
+                .stream()
+                .map(ResumeViewDtoByNoticeId::of)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity getAllByUserId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(resumeService.getResumesByUserId(id)
+                .stream()
+                .map(ResumeViewDtoByUserId::of)
+                .collect(Collectors.toList()));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteResume(@PathVariable Long id) {
+        resumeService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping
+    public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
+        Resume createdResume = resumeService.save(resumeCreateDTO.of());
+        return ResponseEntity.created(URI.create("/api/v1/resumes/" + createdResume.getId()))
+                .body(createdResume);
     }
 
     @PatchMapping
     public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
-        Resume modifiedResume = resumeService.save(resumeUpdateDto.of());
-        return ResponseEntity.ok().body(modifiedResume);
+        return ResponseEntity.ok().body(resumeService.save(resumeUpdateDto.of()));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteResume(@PathVariable @Valid Long id) {
-        Resume deletedResume = resumeService.delete(id);
-        return ResponseEntity.ok().body(deletedResume);
+    @PatchMapping("/state")
+    public ResponseEntity modifyResumeState(@RequestBody @Valid ResumeStateUpdateDto resumeStateUpdateDto) {
+        return ResponseEntity.ok().body(resumeService.save(resumeStateUpdateDto.of()));
     }
+
 }

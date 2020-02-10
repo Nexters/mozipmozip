@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.nexters.mozipmozip.resume.domain.Resume;
+import org.nexters.mozipmozip.resume.domain.ResumeJobType;
 import org.nexters.mozipmozip.resume.domain.ResumeOccupation;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,30 +17,33 @@ import java.util.List;
 @NoArgsConstructor
 public class ResumeUpdateDto {
 
+    @NotNull(message = "업데이트시 반드시 아이디는 있어야 한다.")
     private Long id;
     private ResumeState state;
     private String name;
     private String phoneNumber;
     private String email;
     private ResumeOccupation occupation;
+    private ResumeJobType resumeJobType;
+    private List<String> jobTypes;
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
-    private List<String> jobTypes;
     private List<ResumeAnswerItemUpdateDto> resumeAnswerItems = new ArrayList<>();
 
     public Resume of() {
         Resume resume = Resume.builder()
                 .id(this.id)
+                .state(this.state)
                 .name(this.name)
                 .phoneNumber(this.phoneNumber)
                 .email(this.email)
-                .state(this.state)
                 .occupation(this.occupation)
+                .resumeJobType(this.resumeJobType)
+                .jobTypes(this.jobTypes)
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
                 .portFolioURL(this.portfolioURL)
-                .jobTypes(this.jobTypes)
                 .build();
 
         this.resumeAnswerItems.stream()
