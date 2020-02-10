@@ -63,10 +63,11 @@ public class ResumeControllerTest {
 
         given(resumeService.save(resumeCreateDtoFixture)).willReturn(resumeCreateDtoFixture);
 
-        mockMvc.perform(post("/api/v1/resumes")
+        mockMvc.perform(
+                post("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto)))
-                .andExpect(status().isCreated());
+                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto))
+        ).andExpect(status().isCreated());
     }
 
     @Test
@@ -74,10 +75,11 @@ public class ResumeControllerTest {
     void createResumeInvalidParameter() throws Exception {
         this.resumeCreateDto.setEmail("");
 
-        mockMvc.perform(post("/api/v1/resumes")
+        mockMvc.perform(
+                post("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto)))
-                .andExpect(status().isBadRequest());
+                        .content(this.objectMapper.writeValueAsString(this.resumeCreateDto))
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -85,9 +87,10 @@ public class ResumeControllerTest {
     void getAll() throws Exception {
         given(resumeService.getResumes()).willReturn(Collections.singletonList(this.resumeFixture));
 
-        mockMvc.perform(get("/api/v1/resumes")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+        mockMvc.perform(
+                get("/api/v1/resumes")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].state").exists())
                 .andExpect(jsonPath("$[0].occupation").exists())
                 .andExpect(jsonPath("$[0].resumeJobType").exists());
@@ -103,9 +106,10 @@ public class ResumeControllerTest {
 
         given(resumeService.getResumeById(resumeIdFixture)).willReturn(this.resumeFixture);
 
-        mockMvc.perform(get("/api/v1/resumes/" + resumeIdFixture)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+        mockMvc.perform(
+                get("/api/v1/resumes/" + resumeIdFixture)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$.email").value(this.resumeFixture.getEmail()))
                 .andExpect(jsonPath("$.phoneNumber").value(this.resumeFixture.getPhoneNumber()))
@@ -125,9 +129,10 @@ public class ResumeControllerTest {
 
         given(resumeService.getResumesByNoticeId(noticeFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
-        mockMvc.perform(get("/api/v1/resumes/notices/{noticeId}", noticeFixtureId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+        mockMvc.perform(
+                get("/api/v1/resumes/notices/{noticeId}", noticeFixtureId)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$[0].state").exists())
                 .andExpect(jsonPath("$[0].occupation").exists())
@@ -141,9 +146,10 @@ public class ResumeControllerTest {
 
         given(resumeService.getResumesByUserId(userFixtureId)).willReturn(Collections.singletonList(this.resumeFixture));
 
-        mockMvc.perform(get("/api/v1/resumes/users/{userId}", userFixtureId)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+        mockMvc.perform(
+                get("/api/v1/resumes/users/{userId}", userFixtureId)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$[0].state").exists())
                 .andExpect(jsonPath("$[0].occupation").exists())
@@ -157,10 +163,11 @@ public class ResumeControllerTest {
 
         given(resumeService.save(resumeUpdateDtoFixture)).willReturn(resumeUpdateDtoFixture);
 
-        mockMvc.perform(patch("/api/v1/resumes")
+        mockMvc.perform(
+                patch("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto)))
-                .andExpect(status().isOk());
+                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto))
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -168,10 +175,11 @@ public class ResumeControllerTest {
     void updateResumeInvalidParameter() throws Exception {
         this.resumeUpdateDto.setId(null);
 
-        mockMvc.perform(patch("/api/v1/resumes")
+        mockMvc.perform(
+                patch("/api/v1/resumes")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto)))
-                .andExpect(status().isBadRequest());
+                        .content(this.objectMapper.writeValueAsString(this.resumeUpdateDto))
+        ).andExpect(status().isBadRequest());
     }
 
     @Test
@@ -181,10 +189,11 @@ public class ResumeControllerTest {
 
         given(resumeService.save(resumeStateUpdateDtoFixture)).willReturn(resumeStateUpdateDtoFixture);
 
-        mockMvc.perform(patch("/api/v1/resumes/state")
+        mockMvc.perform(
+                patch("/api/v1/resumes/state")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto)))
-                .andExpect(status().isOk());
+                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto))
+        ).andExpect(status().isOk());
     }
 
     @Test
@@ -192,9 +201,10 @@ public class ResumeControllerTest {
     void updateResumeStateInvalidParameter() throws Exception {
         this.resumeStateUpdateDto.setId(null);
 
-        mockMvc.perform(patch("/api/v1/resumes/state")
+        mockMvc.perform(
+                patch("/api/v1/resumes/state")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto)))
-                .andExpect(status().isBadRequest());
+                        .content(this.objectMapper.writeValueAsString(this.resumeStateUpdateDto))
+        ).andExpect(status().isBadRequest());
     }
 }
