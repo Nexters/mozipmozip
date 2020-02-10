@@ -3,6 +3,9 @@ import './index.scss'
 import HeaderCategory from "../HeaderCategory"
 // import *as Styled from './style'
 
+import logo from '../../../static/images/logo.png';
+import logoTitle from '../../../static/images/logo-title.png';
+
 function Header() {
   const [visible, setVisible] = useState({
     category1 : false,
@@ -14,7 +17,10 @@ function Header() {
       <div className="header_wrapper">
         <div className="header_layout">
           <div className="header_half">
-            <div className="header_title">모집모집</div>
+            <div className="header_title">
+              <img className="logo" src={logo} />
+              <img className="logo_title" src={logoTitle} />
+            </div>
             <ul>
               <li className="header_category"
                   onClick={()=>setVisible({category1: !category1, category2: false})}
