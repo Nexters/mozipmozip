@@ -23,7 +23,7 @@ const Container = styled.section`
   padding: 52px 58px 64px 54px;
 `;
 
-const LeftWrapper = styled.article`
+const LeftWrapper = styled.form`
 
 `;
 
@@ -55,6 +55,7 @@ const Button = styled.button`
   font-family: Roboto;
   font-size: 20px;
   color: #FFFFFF;
+  cursor: pointer;
 `;
 
 const RightWrapper = styled.article`
