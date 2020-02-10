@@ -11,6 +11,7 @@ import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,6 @@ public class ResumeServiceTest {
     private ResumeService resumeService;
 
     private Resume resumeFixture = new EasyRandom().nextObject(Resume.class);
-    private Resume resumeFixture2 = new EasyRandom().nextObject(Resume.class);
 
     @Test
     @DisplayName("넥스터즈 지원서를 등록한다.")
@@ -66,50 +66,60 @@ public class ResumeServiceTest {
     }
 
     @Test
+    @DisplayName("모든 지원서를 조회한다.")
+    void getAll() {
+        Long resumeIdFixture = 1L;
+
+        given(resumeRepository.findAll()).willReturn(Collections.singletonList(this.resumeFixture));
+
+        List<Resume> resumeList = resumeService.getResumes();
+
+        assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
+        assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
+        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
+        assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
+        assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
+        assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());
+        assertThat(resumeList.get(0).getPortFolioURL()).isEqualTo(this.resumeFixture.getPortFolioURL());
+        assertThat(resumeList.get(0).getResumeAnswerItems()).isEqualTo(this.resumeFixture.getResumeAnswerItems());
+    }
+
+    @Test
     @DisplayName("해당 공고에 매핑되는 지원서를 모두 조회한다.")
     void getAllByNoticeId() {
-        List<Resume> resumeListFixture = new ArrayList<>();
-        resumeListFixture.add(resumeFixture);
-        resumeListFixture.add(resumeFixture2);
-
         Long noticeIdFixture = 1L;
-        List<Resume> resumeList = resumeRepository.findAllByNoticeId(noticeIdFixture);
-        given(resumeRepository.findAllByNoticeId(noticeIdFixture)).willReturn(resumeListFixture);
 
-        for (int i = 0; i < resumeList.size(); i++) {
-            assertThat(resumeList.get(i).getOccupation()).isEqualTo(resumeListFixture.get(i).getOccupation());
-            assertThat(resumeList.get(i).getState()).isEqualTo(resumeListFixture.get(i).getState());
-            assertThat(resumeList.get(i).getResumeJobType()).isEqualTo(resumeListFixture.get(i).getResumeJobType());
-            assertThat(resumeList.get(i).getJobTypes()).isEqualTo(resumeListFixture.get(i).getJobTypes());
-            assertThat(resumeList.get(i).getBlogURL()).isEqualTo(resumeListFixture.get(i).getBlogURL());
-            assertThat(resumeList.get(i).getGithubURL()).isEqualTo(resumeListFixture.get(i).getGithubURL());
-            assertThat(resumeList.get(i).getPortFolioURL()).isEqualTo(resumeListFixture.get(i).getPortFolioURL());
-            assertThat(resumeList.get(i).getResumeAnswerItems()).isEqualTo(resumeListFixture.get(i).getResumeAnswerItems());
-        }
+        given(resumeRepository.findAllByNoticeId(noticeIdFixture)).willReturn(Collections.singletonList(this.resumeFixture));
+
+        List<Resume> resumeList = resumeService.getResumesByNoticeId(noticeIdFixture);
+
+        assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
+        assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
+        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
+        assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
+        assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
+        assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());
+        assertThat(resumeList.get(0).getPortFolioURL()).isEqualTo(this.resumeFixture.getPortFolioURL());
+        assertThat(resumeList.get(0).getResumeAnswerItems()).isEqualTo(this.resumeFixture.getResumeAnswerItems());
     }
 
     @Test
     @DisplayName("해당 유저에 매핑되는 지원서를 모두 조회한다.")
     void getAllByUserId() {
-        List<Resume> resumeListFixture = new ArrayList<>();
-        resumeListFixture.add(resumeFixture);
-        resumeListFixture.add(resumeFixture2);
-
         Long userIdFixture = 1L;
-        given(resumeRepository.findAllByNoticeId(userIdFixture)).willReturn(resumeListFixture);
+
+        given(resumeRepository.findAllByUserId(userIdFixture)).willReturn(Collections.singletonList(this.resumeFixture));
 
         List<Resume> resumeList = resumeService.getResumesByUserId(userIdFixture);
 
-        for (int i = 0; i < resumeList.size(); i++) {
-            assertThat(resumeList.get(i).getOccupation()).isEqualTo(resumeListFixture.get(i).getOccupation());
-            assertThat(resumeList.get(i).getState()).isEqualTo(resumeListFixture.get(i).getState());
-            assertThat(resumeList.get(i).getResumeJobType()).isEqualTo(resumeListFixture.get(i).getResumeJobType());
-            assertThat(resumeList.get(i).getJobTypes()).isEqualTo(resumeListFixture.get(i).getJobTypes());
-            assertThat(resumeList.get(i).getBlogURL()).isEqualTo(resumeListFixture.get(i).getBlogURL());
-            assertThat(resumeList.get(i).getGithubURL()).isEqualTo(resumeListFixture.get(i).getGithubURL());
-            assertThat(resumeList.get(i).getPortFolioURL()).isEqualTo(resumeListFixture.get(i).getPortFolioURL());
-            assertThat(resumeList.get(i).getResumeAnswerItems()).isEqualTo(resumeListFixture.get(i).getResumeAnswerItems());
-        }
+        assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
+        assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
+        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
+        assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
+        assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
+        assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());
+        assertThat(resumeList.get(0).getPortFolioURL()).isEqualTo(this.resumeFixture.getPortFolioURL());
+        assertThat(resumeList.get(0).getResumeAnswerItems()).isEqualTo(this.resumeFixture.getResumeAnswerItems());
     }
 
     @Test
