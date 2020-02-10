@@ -16,6 +16,10 @@ html {
   width: 100%;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 #root {
   height: 100%;
   width: 100%;
