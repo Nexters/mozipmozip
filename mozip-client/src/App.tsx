@@ -5,6 +5,7 @@ import {
   AdminPage,
   NotFoundPage,
   SignUpPage,
+  SignInPage,
   TodoPage,
   EmployPage,
 } from './pages';
@@ -15,6 +16,7 @@ export default function App() {
     <Switch>
       <Route exact path={'/'} component={MainPage} />
       <Route exact path={'/signup'} component={SignUpPage} />
+      <Route exact path={'/signin'} component={SignInPage} />
       <Route path={'/admin/:path?/:subPath?'} component={AdminPage} />
       <Route path={'/todo'} component={TodoPage} />
       <Route path={'/employees'} component={EmployPage} />
