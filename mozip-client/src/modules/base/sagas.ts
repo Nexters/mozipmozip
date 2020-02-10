@@ -6,7 +6,6 @@ import {FILE_UPLOAD_FAILURE, FILE_UPLOAD_REQUEST, FILE_UPLOAD_SUCCESS} from "./"
 function* fileUploadSaga() {
   while (true){
     try{
-      console.log('############ saga IN');
       const action = yield take(FILE_UPLOAD_REQUEST);
       const data = yield call(requestHandler,{
         path: '/api/v1/files',

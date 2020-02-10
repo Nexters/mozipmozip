@@ -12,9 +12,10 @@ interface ServerData {
 export const requestHandler = async (params: any) => {
   console.log('[Request]: ' + JSON.stringify(params, null, 2));
   try{
+    const { path, ...args } = params;
     const { data } = await axios({
-      ...params,
-      url:`${process.env.REACT_APP_URL}`,
+      ...args,
+      url:`${path}`,
       timeout: 5000
     });
     return successHandler(data);
