@@ -23,11 +23,10 @@ const initialState = {
 export default function (state: BaseState = initialState, action: BaseAction) {
   switch (action.type) {
     case FILE_UPLOAD_REQUEST: {
-      console.log('request payload', action.payload);
       return state;
     }
     case FILE_UPLOAD_SUCCESS: {
-      console.log('response payload', action.payload);
+      console.log('Success payload', action.payload);
       return state;
     }
     default:

@@ -9,18 +9,14 @@ interface ServerData {
   path: string
 }
 
-type HttpMethod = 'get' | 'post' | 'put';
-
-export const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_URL}`,
-  timeout: 5000
-});
-
-
 export const requestHandler = async (params: any) => {
   console.log('[Request]: ' + JSON.stringify(params, null, 2));
   try{
-    const { data } = await instance(params);
+    const { data } = await axios({
+      ...params,
+      url:`${process.env.REACT_APP_URL}`,
+      timeout: 5000
+    });
     return successHandler(data);
   }catch(e){
     errorHandler(e)
@@ -34,5 +30,6 @@ export function successHandler(response: any) {
 
 function errorHandler(e: Error) {
   console.log('-----------------------------------------------------');
-  console.log('[Error]: ' + JSON.stringify(e, null, 2));
+  console.log('[Error]: ' + JSON.stringify(e.message, null, 2));
+  throw e
 }

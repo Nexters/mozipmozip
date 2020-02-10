@@ -6,6 +6,7 @@ import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../.
 import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
 import * as Styled from './styled';
 import useBase from "../../../../../hooks/useBase";
+import {makeFormData} from "../../../../../lib/form";
 
 
 type IntroProps = {
@@ -68,6 +69,9 @@ function Intro(props: IntroProps) {
     const {name, files} = e.target;
     if (files && files.length > 0) {
       const file = files[0];
+      const formData = makeFormData({file});
+      const displayImagePath = await onFileUpload(formData);
+      console.log('path',displayImagePath);
       const reader = new FileReader();
       reader.onload = async () => {
         try {
