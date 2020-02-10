@@ -1,6 +1,6 @@
 import React from 'react';
 import Banner from '../../../banner';
-import InputBox, { RadioBox } from '../../../../common/inputBox';
+import InputBox, { CheckBoxGroup } from '../../../../common/inputBox';
 import * as styled from './styled';
 import { useResumes } from '../../../../../hooks';
 
@@ -24,10 +24,20 @@ function UserInfo() {
     if (!regExp.test(email)) alert('올바른 형식의 이메일을 입력해주세요');
     else onSaveUserInfo('email', email);
   };
+  const onToggle = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    let target = e.target as HTMLInputElement;
+    resumes.jobTypes.includes(target.value)
+      ? onSaveUserInfo(
+          'jobTypes',
+          resumes.jobTypes.filter(i => i !== target.value),
+        )
+      : onSaveUserInfo('jobTypes', [...resumes.jobTypes, target.value]);
+  };
   const checkEmptyValidation = () => {
     if (!resumes.name) alert('이름을 입력해주세요');
     else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
     else if (!resumes.email) alert('이메일을 입력해주세요');
+    else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
     else alert('굿');
   };
   const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -51,9 +61,17 @@ function UserInfo() {
             validationCheck={checkEmail}
           />
           {resumes.occupation === 'DESIGNER' ? (
-            <RadioBox name="직무선택" valueList={DesignerJobTypes} />
+            <CheckBoxGroup
+              name="직무선택"
+              valueList={DesignerJobTypes}
+              onToggle={onToggle}
+            />
           ) : (
-            <RadioBox name="직무선택" valueList={ProgrammerJobTypes} />
+            <CheckBoxGroup
+              name="직무선택"
+              valueList={ProgrammerJobTypes}
+              onToggle={onToggle}
+            />
           )}
           <styled.Button onClick={onClick}>다음</styled.Button>
         </styled.Form>
