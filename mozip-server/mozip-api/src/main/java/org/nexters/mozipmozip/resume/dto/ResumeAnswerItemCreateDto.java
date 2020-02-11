@@ -17,4 +17,5 @@ public class ResumeAnswerItemCreateDto {
                 .answer(this.answer)
                 .build();
     }
+
 }

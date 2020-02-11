@@ -4,9 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import org.nexters.mozipmozip.resume.domain.Resume;
+import org.nexters.mozipmozip.resume.domain.ResumeJobType;
 import org.nexters.mozipmozip.resume.domain.ResumeOccupation;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +19,18 @@ import java.util.List;
 public class ResumeCreateDto {
 
     private ResumeState state;
+    @NotBlank(message = "지원서에서 지원자의 이름은 비어있을수 없다.")
     private String name;
+    @NotBlank(message = "지원서의 이름은 비어있을수 없다.")
     private String phoneNumber;
+    @NotBlank(message = "지원서의 이메일은 비어있을수 없다.")
     private String email;
     private ResumeOccupation occupation;
+    private ResumeJobType resumeJobType;
+    private List<String> jobTypes;
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
-    private List<String> jobTypes;
     private List<ResumeAnswerItemCreateDto> resumeAnswerItems = new ArrayList<>();
 
     public Resume of() {
@@ -33,10 +40,11 @@ public class ResumeCreateDto {
                 .phoneNumber(this.phoneNumber)
                 .email(this.email)
                 .occupation(this.occupation)
+                .resumeJobType(this.resumeJobType)
+                .jobTypes(this.jobTypes)
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
                 .portFolioURL(this.portfolioURL)
-                .jobTypes(this.jobTypes)
                 .build();
 
         this.resumeAnswerItems.stream()

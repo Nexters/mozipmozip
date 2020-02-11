@@ -19,6 +19,10 @@ html {
 img {
   -webkit-user-drag: none;
 }
+  
+a {
+  text-decoration: none;
+}
 
 #root {
   height: 100%;
