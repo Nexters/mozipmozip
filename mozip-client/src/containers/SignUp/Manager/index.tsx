@@ -30,9 +30,9 @@ function Manager() {
 
   return (
     <>
-      {managerInputs.map(({ name, title, type }) => {
+      {managerInputs.map(({ name, title, type }, i) => {
         return (
-          <InputForm title={title} name={name} type={type} />
+          <InputForm title={title} name={name} type={type} key={'managerInput' + i} />
         )
       })}
     </>

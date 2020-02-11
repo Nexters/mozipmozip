@@ -8,8 +8,8 @@ import {
   SignInPage,
   TodoPage,
   EmployPage,
+  Resumes,
 } from './pages';
-import Resumes from './pages/resumes';
 
 export default function App() {
   return (

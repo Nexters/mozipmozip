@@ -11,10 +11,10 @@ function MainContainer() {
         <Styled.MainImage src={mainImage} />
         <Styled.ContentWrapper>
           <Styled.ButtonWrapper>
-            <Link to={'/user/infoform'}>
+            <Link to={'./resumes/create/userInfo'}>
               <Styled.Button background='#61CB9F' className='bold'>개발자 지원하기</Styled.Button>
             </Link>
-            <Link to={'/user/infoform'}>
+            <Link to={'./resumes/create/userInfo'}>
               <Styled.Button background='#262A2F' className='bold right'>디자이너 지원하기</Styled.Button>
             </Link>
           </Styled.ButtonWrapper>

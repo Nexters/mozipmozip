@@ -57,6 +57,7 @@ const SignUpButton = styled.div`
   margin-top: 15px;
   line-height: 34px;
   cursor: pointer;
+  color: #000000;
 `;
 
 export {

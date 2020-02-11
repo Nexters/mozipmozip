@@ -14,7 +14,9 @@ function SignUpContainer() {
         <Styled.Tab
           onClick={() => handleClickTab(i)}
           clicked={clickedIndex === i}
-          className='bold'>
+          className='bold'
+          key={'signUpInput' + i}
+        >
           {title}
         </Styled.Tab>
       )

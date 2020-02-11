@@ -26,9 +26,9 @@ function Applicant() {
 
   return (
     <>
-      {applicantInputs.map(({ name, title, type }) => {
+      {applicantInputs.map(({ name, title, type }, i) => {
         return (
-          <InputForm title={title} name={name} type={type} />
+          <InputForm title={title} name={name} type={type} key={'applicantInput' + i} />
         )
       })}
     </>
