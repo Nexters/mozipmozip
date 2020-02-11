@@ -7,7 +7,13 @@ import { useResumes } from '../../../../../hooks';
 const ProgrammerJobTypes: string[] = ['Server', 'Front', 'Android', 'ios'];
 const DesignerJobTypes: string[] = ['UX', 'UI', 'GUI'];
 
-function UserInfo() {
+type UserInfoProps = {
+  history: {
+    push: (url: string) => void;
+  };
+};
+
+function UserInfo(props: UserInfoProps) {
   const { resumes, onSaveUserInfo } = useResumes();
   const checkName = (name: string) => {
     if (/[`~!@#$%^&*|\\\'\";:\/?]/.test(name))
@@ -33,16 +39,16 @@ function UserInfo() {
         )
       : onSaveUserInfo('jobTypes', [...resumes.jobTypes, target.value]);
   };
-  const checkEmptyValidation = () => {
+  const handleNextPage = () => {
     if (!resumes.name) alert('이름을 입력해주세요');
     else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
     else if (!resumes.email) alert('이메일을 입력해주세요');
     else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
-    else alert('굿');
+    else props.history.push('/resumes/create/answers');
   };
   const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    checkEmptyValidation();
+    handleNextPage();
   };
   return (
     <>
