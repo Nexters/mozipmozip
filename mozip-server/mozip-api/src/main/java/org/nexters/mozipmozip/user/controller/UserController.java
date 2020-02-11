@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/users")
@@ -23,7 +24,16 @@ import java.net.URI;
 public class UserController {
 
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
-    final private UserService userService;
+    public static final String SESSION_KEY = "userInfo";
+
+    private final UserService userService;
+
+
+    @GetMapping("/current")
+    public ResponseEntity getCurrentUser(HttpSession session) {
+        return ResponseEntity.ok(Optional.of(UserGetDto.of((User) session.getAttribute(SESSION_KEY)))
+                .orElse(new UserGetDto()));
+    }
 
     //회원가입 api
     @PostMapping
@@ -49,9 +59,9 @@ public class UserController {
     public ResponseEntity loginUser(@RequestBody UserLoginDto userLoginDto, HttpSession session) {
         //리턴받은 회원정보로 세션 생성 후 회원정보 저장하기
         User user = userService.signInUser(UserLoginDto.toEntity(userLoginDto));
-        session.setAttribute("userInfo", user);
+        session.setAttribute(SESSION_KEY, user);
         log.info(session.getId());
-        User userInfo = (User) session.getAttribute("userInfo");
+        User userInfo = (User) session.getAttribute(SESSION_KEY);
         log.info(userInfo.getName());
         log.info(userInfo.getEmail());
         return ResponseEntity.ok().build();
@@ -60,7 +70,7 @@ public class UserController {
     //로그아웃 api ->  쿠키값 초기화
     @PostMapping(value = "/logout")
     public ResponseEntity logoutUser(HttpSession session) {
-        session.removeAttribute("userInfo");
+        session.removeAttribute(SESSION_KEY);
         return ResponseEntity.ok().build();
     }
 

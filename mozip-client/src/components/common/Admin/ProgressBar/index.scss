@@ -1,10 +1,10 @@
 .pr_layout {
-  max-width: 1440px !important;
   width: 76%; // 100% - 28%
   padding: 0 12%;
   margin-top: 4%;
   display: flex;
   .pr_left {
+    width: 115px;
     margin-left: 10%;
     font-size: 21px;
     font-weight: bold;
