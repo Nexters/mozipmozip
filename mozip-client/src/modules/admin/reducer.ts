@@ -11,9 +11,9 @@ const initialState: AdminState = {
   startDateTime: '',
   endDateTime: '',
   questions: {
-    commonQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
-    developerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
-    designerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
+    common: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    programmer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    designer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
   }
 };
 

@@ -1,5 +1,4 @@
-import axios, {AxiosPromise} from 'axios';
-import {hasKey} from "../modules/admin";
+import axios from 'axios';
 
 interface ServerResponse {
   data: ServerData
@@ -10,14 +9,16 @@ interface ServerData {
 }
 
 export const requestHandler = async (params: any) => {
-  console.log('[Request]: ' + JSON.stringify(params, null, 2));
   try{
     const { path, ...args } = params;
-    const { data } = await axios({
+    const config = {
       ...args,
-      url:`${path}`,
-      timeout: 5000
-    });
+      url: process.env.REACT_APP_URL + path,
+      timeout: 5000,
+      headers: params.headers
+    };
+    console.log('[Request]: ' + JSON.stringify(config, null, 2));
+    const { data } = await axios(config);
     return successHandler(data);
   }catch(e){
     errorHandler(e)

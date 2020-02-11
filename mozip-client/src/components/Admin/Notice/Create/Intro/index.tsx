@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
-import {useAdmin} from "../../../../../hooks";
+import {useAdmin, useBase} from "../../../../../hooks";
 import moment from "moment";
 import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
 import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
 import * as Styled from './styled';
-import useBase from "../../../../../hooks/useBase";
 import {makeFormData} from "../../../../../lib/form";
 
 
@@ -35,7 +34,7 @@ function Intro(props: IntroProps) {
   const {startVisible, endVisible} = visible;
   const {resizeData, fileName} = image;
   const {admin, onSetFormValues} = useAdmin();
-  const {onFileUpload} = useBase();
+  const {onFileUpload, base} = useBase();
   const {title, description, startDateTime, endDateTime} = admin;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
@@ -70,8 +69,11 @@ function Intro(props: IntroProps) {
     if (files && files.length > 0) {
       const file = files[0];
       const formData = makeFormData({file});
-      const displayImagePath = await onFileUpload(formData);
-      console.log('path',displayImagePath);
+      // const formData = new FormData();
+      // formData.append('file', file);
+      await onFileUpload(formData);
+      console.log('base', base);
+
       const reader = new FileReader();
       reader.onload = async () => {
         try {

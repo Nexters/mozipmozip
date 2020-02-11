@@ -26,9 +26,9 @@ export type AdminState = {
   startDateTime: Date | ''
   endDateTime: Date | ''
   questions: {
-    commonQuestions: NoticeQuestion[]
-    developerQuestions: NoticeQuestion[]
-    designerQuestions: NoticeQuestion[]
+    [common: string]: NoticeQuestion[]
+    programmer: NoticeQuestion[]
+    designer: NoticeQuestion[]
   }
 }
 

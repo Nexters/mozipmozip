@@ -6,7 +6,7 @@ export const addQuestion = (name: string) => ({type: ADD_QUESTION, payload: {nam
 export const SET_QUESTION_VALUE = 'admin/SET_QUESTION_VALUE' as const;
 
 export type SetQuestion = {
-  type: 'commonQuestions' | 'designerQuestions' | 'developerQuestions',
+  type: 'common' | 'designer' | 'programmer',
   keyName: string,
   index: number,
   value: number | string

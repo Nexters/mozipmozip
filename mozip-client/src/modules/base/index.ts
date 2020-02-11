@@ -4,7 +4,7 @@ export const FILE_UPLOAD_REQUEST = 'base/FILE_UPLOAD_REQUEST' as const;
 export const FILE_UPLOAD_SUCCESS = 'base/FILE_UPLOAD_SUCCESS' as const;
 export const FILE_UPLOAD_FAILURE = 'base/FILE_UPLOAD_FAILURE' as const;
 
-export const fileUpload = (formData: any) => ({type: FILE_UPLOAD_REQUEST, payload: {formData}});
+export const fileUpload = (formData: any) => ({type: FILE_UPLOAD_REQUEST, payload: formData});
 
 export type BaseAction =
   | ReturnType<typeof fileUpload>
