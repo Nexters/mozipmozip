@@ -29,33 +29,33 @@ export const InputBox = styled.div`
       color: #000000;
     }
   }
-  .radio-group-bg {
+  .checkbox-group-bg {
     display: flex;
     list-style-type: none;
     padding-inline-start: 0;
     margin-top: 0.5rem;
-    .radio-bg {
-      .radio-custom {
+    .checkbox-bg {
+      .checkbox-custom {
         opacity: 0;
         position: absolute;
         width: 60px;
         height: 40px;
         cursor: pointer;
       }
-      .radio-custom-label {
+      .checkbox-custom-label {
         font-family: Noto Sans KR;
         font-style: normal;
         font-weight: 500;
         font-size: 19px;
         line-height: 28px;
       }
-      .radio-custom,
-      .radio-custom-label {
+      .checkbox-custom,
+      .checkbox-custom-label {
         display: inline-block;
         vertical-align: middle;
         margin: 5px;
       }
-      .radio-custom + .radio-custom-label:before {
+      .checkbox-custom + .checkbox-custom-label:before {
         content: '';
         background: #fff;
         border: 1px solid #c4c4c4;
@@ -68,14 +68,14 @@ export const InputBox = styled.div`
         margin-right: 10px;
         text-align: center;
       }
-      .radio-custom:checked + .radio-custom-label:before {
+      .checkbox-custom:checked + .checkbox-custom-label:before {
         content: '✔';
         font-family: 'Font Awesome 5 Free';
         background: #6d6d6d;
         color: #ffffff;
       }
     }
-    .radio-bg + .radio-bg {
+    .checkbox-bg + .checkbox-bg {
       margin-left: 3rem;
     }
   }

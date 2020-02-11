@@ -17,15 +17,25 @@ public class ResumeService {
     private final ResumeRepository resumeRepository;
 
     @Transactional(readOnly = true)
-    public List<Resume> getAll() {
+    public List<Resume> getResumes() {
         return this.resumeRepository.findAll();
     }
 
     @Transactional(readOnly = true)
-    public Resume getById(final Long resumeId) {
+    public Resume getResumeById(final Long resumeId) {
         return this.resumeRepository
                 .findById(resumeId)
                 .orElseThrow(() -> new NoSuchElementException("존재 하지 않는 지원서입니다."));
+    }
+
+    @Transactional(readOnly = true)
+    public List<Resume> getResumesByNoticeId(final Long noticeId) {
+        return this.resumeRepository.findAllByNoticeId(noticeId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Resume> getResumesByUserId(final Long userId) {
+        return this.resumeRepository.findAllByUserId(userId);
     }
 
     public Resume save(final Resume resume) {
@@ -33,7 +43,7 @@ public class ResumeService {
     }
 
     public Resume delete(final Long resumeId) {
-        Resume deleteResume = getById(resumeId);
+        Resume deleteResume = getResumeById(resumeId);
         deleteResume.delete();
         return deleteResume;
     }

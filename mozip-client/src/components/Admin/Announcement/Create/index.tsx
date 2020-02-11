@@ -1,27 +1,27 @@
-import React from 'react'
-import *as Styled from './styled'
-import Intro from "./Intro"
-import ProgressBar from "../../../common/Admin/ProgressBar"
-import CommonQuestion from "./CommonQuestion";
+import React from 'react';
+import * as Styled from './styled';
+import Intro from './Intro';
+import ProgressBar from '../../../common/Admin/ProgressBar';
+import CommonQuestion from './CommonQuestion';
 
 type CreateProps = {
-  subPath: string
+  subPath: string;
   history: {
-    push: (url: string) => void
-  }
-}
+    push: (url: string) => void;
+  };
+};
 
-function Create(props: CreateProps){
+function Create(props: CreateProps) {
   const { subPath, history } = props;
-  return(
+  return (
     <>
-      <ProgressBar subPath={subPath}/>
+      <ProgressBar subPath={subPath} />
       <Styled.Layout>
-        {subPath === 'intro' && <Intro history={history}/>}
-        {subPath === 'common' && <CommonQuestion history={history}/>}
+        {subPath === 'intro' && <Intro history={history} />}
+        {subPath === 'common' && <CommonQuestion history={history} />}
       </Styled.Layout>
     </>
-  )
+  );
 }
 
-export default Create
+export default Create;
