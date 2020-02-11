@@ -1,43 +1,56 @@
 import React from 'react';
 import * as styled from './styled';
+import { useResumes } from '../../../hooks';
 
 type InputBoxProps = {
   name: string;
   placeholder: string;
+  validationCheck: (name: string) => void;
 };
-type RadioBoxProps = {
+type CheckBoxProps = {
   name: string;
   valueList: string[];
+  onToggle: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
-function InputBox({ name, placeholder }: InputBoxProps) {
+function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) =>
+    validationCheck(e.target.value);
   return (
     <styled.InputBox>
       <div className="label-bg">
         <label htmlFor={name}>{name}</label>
       </div>
       <div className="input-bg">
-        <input type="text" id={name} name={name} placeholder={placeholder} />
+        <input
+          type="text"
+          id={name}
+          name={name}
+          placeholder={placeholder}
+          onBlur={onBlur}
+        />
       </div>
     </styled.InputBox>
   );
 }
 
-export function RadioBox({ name, valueList }: RadioBoxProps) {
+export function CheckBoxGroup({ name, valueList, onToggle }: CheckBoxProps) {
+  const { resumes, onSaveUserInfo } = useResumes();
   return (
     <styled.InputBox>
       <div className="label-bg">{name}</div>
-      <ul className="radio-group-bg">
+      <ul className="checkbox-group-bg">
         {valueList.map(value => (
-          <li className="radio-bg">
+          <li className="checkbox-bg">
             <input
-              type="radio"
+              type="checkbox"
               value={value}
               name={name}
               id={value}
-              className="radio-custom"
+              className="checkbox-custom"
+              onClick={onToggle}
             />
-            <label htmlFor="value" className="radio-custom-label">
+            <label htmlFor="value" className="checkbox-custom-label">
               {value}
             </label>
           </li>

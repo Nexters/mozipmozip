@@ -10,7 +10,9 @@ export default function MainPage() {
           <Link to={'/admin'}>모집모집 관리자 페이지</Link>
         </li>
         <li>
-          <Link to={'/user/infoform'}>모집모집 사용자 서류작성 페이지</Link>
+          <Link to={'/resumes/create/userInfo'}>
+            모집모집 사용자 서류작성 페이지
+          </Link>
         </li>
         <li>
           <Link to={'/todo'}>TODO 페이지</Link>

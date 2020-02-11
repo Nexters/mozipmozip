@@ -8,7 +8,7 @@ import {
   TodoPage,
   EmployPage,
 } from './pages';
-import UserInfoForm from './pages/user/infoform';
+import Resumes from './pages/resumes';
 
 export default function App() {
   return (
@@ -18,7 +18,7 @@ export default function App() {
       <Route path={'/admin/:path?/:subPath?'} component={AdminPage} />
       <Route path={'/todo'} component={TodoPage} />
       <Route path={'/employees'} component={EmployPage} />
-      <Route path={'/user/infoform'} component={UserInfoForm} />
+      <Route path={'/resumes/:path?/:subPath?'} component={Resumes} />
       <Redirect path="*" to="/" />
     </Switch>
   );
