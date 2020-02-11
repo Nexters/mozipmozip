@@ -32,21 +32,21 @@ public class InterviewTeam extends JpaBasePersistable {
     private List<Resume> resumes = new ArrayList<>();
 
     @Column(nullable = false)
-    private LocalDate interviewDate;
+    private LocalDate startDate;
 
     @Column(nullable = false)
-    private LocalTime startInterview;
+    private LocalTime startTime;
 
     @Column(nullable = false)
-    private LocalTime endInterview;
+    private LocalTime endTime;
 
     @Builder
-    public InterviewTeam(String title, List<Resume> resumes, List<User> users, LocalDate interviewDate, LocalTime startInterview, LocalTime endInterview) {
+    public InterviewTeam(String title, List<Resume> resumes, List<User> users, LocalDate startDate, LocalTime startTime, LocalTime endTime) {
         this.title = title;
         this.resumes = resumes;
         this.users = users;
-        this.interviewDate = interviewDate;
-        this.startInterview = startInterview;
-        this.endInterview = endInterview;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 }

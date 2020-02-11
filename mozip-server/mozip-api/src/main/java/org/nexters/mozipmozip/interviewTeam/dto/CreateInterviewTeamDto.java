@@ -3,8 +3,6 @@ package org.nexters.mozipmozip.interviewTeam.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.nexters.mozipmozip.interviewTeam.domian.InterviewTeam;
-import org.nexters.mozipmozip.resume.domain.Resume;
-import org.nexters.mozipmozip.user.domain.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,32 +14,31 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class CreateInterviewTeamDto {
     private String title;
-    private List<Resume> resumes = new ArrayList<>();
-    private List<User> users = new ArrayList<>();
+    private List<Long> resumesIds = new ArrayList<>();
+    private List<Long> usersIds = new ArrayList<>();
     @JsonFormat(pattern = "MM/dd")
-    private LocalDate interviewDate;
+    private LocalDate startDate;
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime startInterview;
+    private LocalTime startTime;
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime endInterview;
+    private LocalTime endTime;
 
     @Builder
-    public CreateInterviewTeamDto(String title, List<Resume> resumes, List<User> users, LocalDate interviewDate, LocalTime startInterview, LocalTime endInterview) {
+    public CreateInterviewTeamDto(String title, List<Long> resumesIds, List<Long> usersIds, LocalDate startDate, LocalTime startTime, LocalTime endTime) {
         this.title = title;
-        this.resumes = resumes;
-        this.users = users;
-        this.interviewDate = interviewDate;
-        this.startInterview = startInterview;
-        this.endInterview = endInterview;
+        this.resumesIds = resumesIds;
+        this.usersIds = usersIds;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public InterviewTeam toEntity() {
+    public static InterviewTeam toEntity(CreateInterviewTeamDto createInterviewTeamDto) {
+
         return InterviewTeam.builder()
-                .title(title)
-                .resumes(resumes)
-                .users(users)
-                .interviewDate(interviewDate)
-                .startInterview(startInterview)
-                .endInterview(endInterview).build();
+                .title(createInterviewTeamDto.title)
+                .startDate(createInterviewTeamDto.startDate)
+                .startTime(createInterviewTeamDto.startTime)
+                .endTime(createInterviewTeamDto.endTime).build();
     }
 }
