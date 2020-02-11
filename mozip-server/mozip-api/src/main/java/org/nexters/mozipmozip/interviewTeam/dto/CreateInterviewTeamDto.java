@@ -16,11 +16,11 @@ public class CreateInterviewTeamDto {
     private String title;
     private List<Long> resumesIds = new ArrayList<>();
     private List<Long> usersIds = new ArrayList<>();
-    @JsonFormat(pattern = "MM/dd")
+    @JsonFormat
     private LocalDate startDate;
-    @JsonFormat(pattern = "HH:mm")
+    @JsonFormat
     private LocalTime startTime;
-    @JsonFormat(pattern = "HH:mm")
+    @JsonFormat
     private LocalTime endTime;
 
     @Builder

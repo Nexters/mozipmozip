@@ -8,6 +8,7 @@ import org.nexters.mozipmozip.interviewTeam.dto.GetInterviewTeamDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,8 @@ public class InterviewTeamController {
     @PostMapping
     public ResponseEntity<InterviewTeam> interviewTeam(@RequestBody CreateInterviewTeamDto createInterviewTeamDto) {
         InterviewTeam team = interviewTeamService.createInterviewTeam(CreateInterviewTeamDto.toEntity(createInterviewTeamDto), createInterviewTeamDto.getUsersIds(), createInterviewTeamDto.getResumesIds());
-        return ResponseEntity.ok().body(team);
+        return ResponseEntity.created(URI.create("/api/v1/interview/" + team.getId()))
+                .body(team);
     }
 
     //인터뷰팀 조회
