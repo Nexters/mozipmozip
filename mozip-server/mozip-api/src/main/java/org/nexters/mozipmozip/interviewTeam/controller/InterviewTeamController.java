@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/interviewTeams")
+@RequestMapping("/api/v1/interview")
 @RequiredArgsConstructor
 public class InterviewTeamController {
     private final InterviewTeamService interviewTeamService;
 
-    //인터뷰팀 생성 -> user&resume는 아이디로 받기
+    //인터뷰팀 생성
     @PostMapping
-    public ResponseEntity createInterviewTeam(@RequestBody CreateInterviewTeamDto createInterviewTeamDto) {
+    public ResponseEntity<InterviewTeam> interviewTeam(@RequestBody CreateInterviewTeamDto createInterviewTeamDto) {
         InterviewTeam team = interviewTeamService.createInterviewTeam(CreateInterviewTeamDto.toEntity(createInterviewTeamDto), createInterviewTeamDto.getUsersIds(), createInterviewTeamDto.getResumesIds());
         return ResponseEntity.ok().body(team);
     }
