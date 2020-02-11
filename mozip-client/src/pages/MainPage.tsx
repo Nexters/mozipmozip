@@ -1,26 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Layout } from '../components/common/Admin';
+import MainContainer from '../containers/Main/MainContainer';
 
-export default function MainPage() {
+function MainPage() {
   return (
-    <div>
-      <h2>Here is Main Page!</h2>
-      <ul>
-        <li>
-          <Link to={'/admin'}>모집모집 관리자 페이지</Link>
-        </li>
-        <li>
-          <Link to={'/resumes/create/userInfo'}>
-            모집모집 사용자 서류작성 페이지
-          </Link>
-        </li>
-        <li>
-          <Link to={'/todo'}>TODO 페이지</Link>
-        </li>
-        <li>
-          <Link to={'/employees'}>Go Employees Page</Link>
-        </li>
-      </ul>
-    </div>
+    <Layout>
+      <MainContainer />
+    </Layout>
   );
 }
+
+export default MainPage;

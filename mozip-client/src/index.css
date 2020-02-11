@@ -16,6 +16,10 @@ html {
   width: 100%;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+  
 a {
   text-decoration: none;
 }
