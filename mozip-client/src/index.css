@@ -16,6 +16,10 @@ html {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 #root {
   height: 100%;
   width: 100%;

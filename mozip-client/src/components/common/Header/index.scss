@@ -11,15 +11,23 @@
   align-items: center;
   justify-content: space-between;
   background: white;
+  border-bottom: 1px solid #D0D3D8;
   z-index: 10;
   .header_half {
     display: flex;
     .header_title {
+      display: flex;
+      align-items: center;
       margin-right: 91px;
-      font-family: Roboto, sans-serif;
-      font-weight: 900;
-      font-size: 30px;
-      line-height: 35px;
+      .logo {
+        width: 41.65px;
+        height: 40px;
+        margin-right: 10px;
+      }
+      .logo_title {
+        width: 85.11px;
+        height: 20px;
+      }
     }
     & > ul {
       list-style: none;
@@ -43,6 +51,7 @@
       font-family: Roboto, sans-serif;
       font-size: 19px;
       line-height: 40px;
+      color: #46494E;
     }
   }
 }
