@@ -16,4 +16,30 @@ export const setQuestionValue = (args: SetQuestion) => ({type: SET_QUESTION_VALU
 export const POST_NOTICE_REQUEST = 'admin/POST_NOTICE_REQUEST' as const; // create notice
 export const POST_NOTICE_SUCCESS = 'admin/POST_NOTICE_SUCCESS' as const;
 export const POST_NOTICE_FAILURE = 'admin/POST_NOTICE_FAILURE' as const;
-export const postNotice = () => ({type: POST_NOTICE_REQUEST});
+
+
+type NoticeFormQuestionItem = {
+  content: string
+  maxLength: number
+  questionScore: number
+  title: string
+  type: "LINK" | "LONG"
+}// type 폴더에 있는 NoticeQuestion type 과 비슷하지만 서버랑 스키마가 달라서 만듬
+
+type NoticeForm = {
+  jobTypes: string[]
+  noticeFormQuestionItems: NoticeFormQuestionItem[]
+  occupation: "COMMON" | "PROGRAMMER" | "DESIGNER"
+}
+
+export type NoticeObject = {
+  title: string
+  description: string
+  displayImagePath: string
+  startDateTime: Date
+  endDateTime: Date
+  noticeForms: NoticeForm[]
+  noticeStatus: "DRAFT"
+}
+
+export const postNotice = (noticeObj: NoticeObject) => ({type: POST_NOTICE_REQUEST, payload: noticeObj});

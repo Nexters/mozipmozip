@@ -19,7 +19,7 @@ export type AdminState = {
   title: string
   image: {
     name: string
-    imageData: string
+    formData: string
     resizeData: string
   }
   description: string

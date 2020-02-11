@@ -4,7 +4,7 @@ const initialState: AdminState = {
   title: '',
   image: {
     name: '',
-    imageData: '', // original
+    formData: '', // original
     resizeData: '' // resize
   },
   description: '',

@@ -4,6 +4,7 @@ import Intro from "./Intro";
 import ProgressBar from "../../../common/Admin/ProgressBar";
 import CommonQuestion from "./CommonQuestion";
 import GroupQuestions from "./GroupQuestions";
+import Result from "./Result/Result";
 
 type CreateProps = {
   subPath: string
@@ -25,7 +26,7 @@ function Create(props: CreateProps) {
         {subPath === 'intro' && <Intro history={history} />}
         {subPath === 'common' && <CommonQuestion history={history} />}
         {subPath === 'group' && <GroupQuestions history={history}/>}
-
+        {subPath === 'result' && <Result history={history}/>}
       </Styled.Layout>
     </>
   );

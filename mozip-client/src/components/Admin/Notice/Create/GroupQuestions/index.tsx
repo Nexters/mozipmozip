@@ -37,7 +37,7 @@ function GroupQuestions(props: GroupQuestionsProps) {
           questionScore={questionScore}/>
       );
     });
-  }, [questions]);
+  }, [questions, pageType]);
 
   const handleAddQuestion = () => {
     const lastIndex = questions[pageType].length - 1;
@@ -53,7 +53,7 @@ function GroupQuestions(props: GroupQuestionsProps) {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => e.target.value === 'programmer' ? setPageType('programmer') : setPageType('designer');
   const handleNextPage = () => history.push('/admin/create/result');
-
+  console.log('11',pageType)
   return (
     <Ul>
       <Li>

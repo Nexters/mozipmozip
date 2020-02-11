@@ -6,7 +6,7 @@ import {RootState} from "../modules";
 export default function useBase() {
   const dispatch = useDispatch();
   const base = useSelector((state: RootState) => state.base);
-  const onFileUpload = useCallback((data: object) => dispatch(fileUpload(data)), [dispatch]);
+  const onFileUpload = useCallback((data: string) => dispatch(fileUpload(data)), [dispatch]);
   return {
     base,
     onFileUpload

@@ -1,8 +1,14 @@
-import { take, call } from 'redux-saga/effects'
-import { makeFormData } from "../../lib/form";
+import {take, call, all} from 'redux-saga/effects';
+import {makeFormData} from "../../lib/form";
 
-// export function* postNoticeSaga(action){
-//   yield take("POST_NOTICE");
-//   yield call(makeFormData, action.payload)
-//
-// }
+function* postNoticeSaga() {
+  const action = yield take("POST_NOTICE");
+
+
+}
+
+export function* AdminSaga() {
+  yield all([
+    postNoticeSaga()
+  ]);
+}

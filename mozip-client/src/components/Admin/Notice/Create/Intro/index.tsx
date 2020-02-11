@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
-import {useAdmin, useBase} from "../../../../../hooks";
+import {useAdmin} from "../../../../../hooks";
 import moment from "moment";
 import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
 import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
@@ -26,16 +26,10 @@ function Intro(props: IntroProps) {
     startVisible: false,
     endVisible: false,
   });
-  const [image, setImage] = useState<Image>({
-    // data: '', //original base64
-    resizeData: '',//resize base64
-    fileName: ''
-  });
   const {startVisible, endVisible} = visible;
-  const {resizeData, fileName} = image;
   const {admin, onSetFormValues} = useAdmin();
-  const {onFileUpload, base} = useBase();
-  const {title, description, startDateTime, endDateTime} = admin;
+  const {title, description, startDateTime, endDateTime, image} = admin;
+  const {resizeData, name} = image;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
     setVisible({startVisible: !startVisible, endVisible: false})
@@ -68,12 +62,7 @@ function Intro(props: IntroProps) {
     const {name, files} = e.target;
     if (files && files.length > 0) {
       const file = files[0];
-      const formData = makeFormData({file});
-      // const formData = new FormData();
-      // formData.append('file', file);
-      await onFileUpload(formData);
-      console.log('base', base);
-
+      const formData = makeFormData({file}); // 파일업로드는 마지막에
       const reader = new FileReader();
       reader.onload = async () => {
         try {
@@ -81,10 +70,10 @@ function Intro(props: IntroProps) {
             const jimpObj = await convertToJimpObject(reader.result);
             await imageResize(jimpObj, 215, 114)
               .then(getBase64fromJimp)
-              .then((base64: string | undefined) => base64 ? setImage({
-                // data: reader.result,
+              .then((base64: string | undefined) => base64 ? onSetFormValues('image',{
+                formData,
                 resizeData: base64,
-                fileName: file.name
+                name: file.name
               }) : '')
               .catch(console.log);
           }
@@ -129,7 +118,7 @@ function Intro(props: IntroProps) {
               </>}
             <Styled.NameLayer>
               <span>이미지 업로드</span>
-              <input type="text" readOnly disabled value={fileName ? fileName : ''}/>
+              <input type="text" readOnly disabled value={name ? name : ''}/>
             </Styled.NameLayer>
           </SubLayer>
         </Li>
