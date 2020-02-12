@@ -14,7 +14,9 @@ function SignUpContainer() {
         <Styled.Tab
           onClick={() => handleClickTab(i)}
           clicked={clickedIndex === i}
-          className='bold'>
+          className='bold'
+          key={'signUpInput' + i}
+        >
           {title}
         </Styled.Tab>
       )
@@ -22,22 +24,20 @@ function SignUpContainer() {
   };
 
   return (
-    <>
-      <Styled.Main>
-        <Styled.Container>
-          <Styled.LeftWrapper>
-            <Styled.TabContainer>
-              {renderTabs()}
-            </Styled.TabContainer>
-            { !clickedIndex ? <Applicant /> : <Manager />}
-            <Styled.Button className='bold'>회원가입</Styled.Button>
-          </Styled.LeftWrapper>
-          <Styled.RightWrapper>
-            <Styled.Circle />
-          </Styled.RightWrapper>
-        </Styled.Container>
-      </Styled.Main>
-    </>
+    <Styled.Main>
+      <Styled.Container>
+        <Styled.LeftWrapper>
+          <Styled.TabContainer>
+            {renderTabs()}
+          </Styled.TabContainer>
+          { !clickedIndex ? <Applicant /> : <Manager />}
+          <Styled.Button className='bold'>회원가입</Styled.Button>
+        </Styled.LeftWrapper>
+        <Styled.RightWrapper>
+          <Styled.Circle />
+        </Styled.RightWrapper>
+      </Styled.Container>
+    </Styled.Main>
   )
 }
 

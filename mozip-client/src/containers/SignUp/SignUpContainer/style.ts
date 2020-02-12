@@ -23,7 +23,9 @@ const Container = styled.section`
   padding: 52px 58px 64px 54px;
 `;
 
-const LeftWrapper = styled.article``;
+const LeftWrapper = styled.form`
+
+`;
 
 const TabContainer = styled.section`
   margin-bottom: 48px;
@@ -52,7 +54,8 @@ const Button = styled.button`
   border-radius: 8px;
   font-family: Roboto;
   font-size: 20px;
-  color: #ffffff;
+  color: #FFFFFF;
+  cursor: pointer;
 `;
 
 const RightWrapper = styled.article`
