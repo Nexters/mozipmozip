@@ -13,7 +13,7 @@ const answerList = [
 ];
 
 function Answers({ history }: AnswersProps) {
-  return <div>hi</div>;
+  return <>hi</>;
 }
 
 export default Answers;

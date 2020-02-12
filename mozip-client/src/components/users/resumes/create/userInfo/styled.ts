@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const UserInfo = styled.div`
+  width: 100vw;
+`;
+
 export const FormBg = styled.div`
   padding-top: 2rem;
   display: flex;

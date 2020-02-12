@@ -51,8 +51,8 @@ function UserInfo(props: UserInfoProps) {
     handleNextPage();
   };
   return (
-    <>
-      <Banner occupationType={resumes.occupation} />
+    <styled.UserInfo>
+      <Banner />
       <styled.FormBg>
         <styled.Form>
           <InputBox name="이름" placeholder="" validationCheck={checkName} />
@@ -82,7 +82,7 @@ function UserInfo(props: UserInfoProps) {
           <styled.Button onClick={onClick}>다음</styled.Button>
         </styled.Form>
       </styled.FormBg>
-    </>
+    </styled.UserInfo>
   );
 }
 
