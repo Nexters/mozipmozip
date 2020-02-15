@@ -36,7 +36,7 @@ function Result({history}: ResultProps) {
 
   const handleCreateNotice = async () => {
     const {formData} = image;
-    await onFileUpload(formData); // url 요청
+    // await onFileUpload(formData); // url 요청
     const {} = base; // url 을 base에서 가져오기 > API 질문 후 수정
     const displayImagePath = 'string';
     let noticeForms = [

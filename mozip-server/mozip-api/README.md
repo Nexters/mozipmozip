@@ -29,5 +29,5 @@ AWS_SECRET_ACCESS_KEY = DM으로 물어보세요
 $ ./gradlew :mozip-server:mozip-api:build
 $ cd mozip-server/mozip-api
 $ docker build -t mozipmozip .
-$ docker run -p 8080:8080 mozipmozip:latest -d
+$ docker run -p 8080:8080 -d mozipmozip:latest
 ```

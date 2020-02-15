@@ -18,7 +18,7 @@ export const requestHandler = async (params: any) => {
       headers: params.headers ? params.header : {}
     };
     console.log('[Request]: ' + JSON.stringify(config, null, 2));
-    const { data } = await axios(config);
+    const data = await axios(config);
     return successHandler(data);
   }catch(e){
     errorHandler(e)

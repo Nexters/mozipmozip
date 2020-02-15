@@ -6,7 +6,7 @@ function* postNoticeSaga() {
   while(true){
     try {
       const action = yield take(POST_NOTICE_REQUEST);
-      const {result} = yield call(requestHandler, {
+      const result = yield call(requestHandler, {
         path: '/api/v1/notices',
         method: 'post',
         data: action.payload
