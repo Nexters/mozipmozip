@@ -1,55 +1,51 @@
-import { AdminState, AdminAction, hasKey } from './types';
+import {AdminState, AdminAction, hasKey} from "./types";
 
 const initialState: AdminState = {
   title: '',
   image: {
     name: '',
-    imageData: '', // original
-    resizeData: '', // resize
+    formData: '', // original
+    resizeData: '' // resize
   },
   description: '',
   startDateTime: '',
   endDateTime: '',
   questions: {
-    commonQuestions: [
-      { title: '', type: 'long', maxLength: 0, questionScore: 0 },
-    ],
-    developerQuestions: [
-      { title: '', type: 'long', maxLength: 0, questionScore: 0 },
-    ],
-    designerQuestions: [
-      { title: '', type: 'long', maxLength: 0, questionScore: 0 },
-    ],
+    common: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    programmer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    designer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
   },
+  error: ''
 };
 
-export default function(state: AdminState = initialState, action: AdminAction) {
+export default function (state: AdminState = initialState, action: AdminAction) {
   switch (action.type) {
-    case 'admin/SET_FORM_VALUES': {
-      const { name, value } = action.payload;
-      return { ...state, [name]: value };
+    case "admin/SET_FORM_VALUES": {
+      const {name, value} = action.payload;
+      return {...state, [name]: value};
     }
     case 'admin/ADD_QUESTION': {
       const { name } = action.payload;
       if (hasKey(state.questions, name)) {
         return {
-          ...state,
-          questions: {
-            ...state.questions,
-            [name]: state.questions[name].concat({
-              title: '',
-              type: 'long',
-              maxLength: 0,
-              questionScore: 0,
-            }),
+        ...state,
+            questions: {
+          ...state.questions,
+              [name]: state.questions[name].concat({
+                title: '',
+                type: 'long',
+                maxLength: 0,
+                questionScore: 0
+              }),
           },
         };
-      } else return state;
+      }
+      else return state
     }
-    case 'admin/SET_QUESTION_VALUE': {
+    case "admin/SET_QUESTION_VALUE": {
       const { type, keyName, index, value } = action.payload;
       const target = state.questions[type]; // targetArray
-      return {
+      return{
         ...state,
         questions: {
           ...state.questions,

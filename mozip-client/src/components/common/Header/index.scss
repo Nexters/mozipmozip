@@ -13,42 +13,51 @@
   background: white;
   border-bottom: 1px solid #D0D3D8;
   z-index: 10;
+
   .header_half {
     display: flex;
+
     .header_title {
       display: flex;
       align-items: center;
       margin-right: 91px;
+
       .logo {
         width: 41.65px;
         height: 40px;
         margin-right: 10px;
       }
+
       .logo_title {
         width: 85.11px;
         height: 20px;
       }
     }
+
     & > ul {
       list-style: none;
       display: flex;
       align-items: center;
       padding: 0;
+
       .header_category {
         position: relative;
-        font-family: Roboto, sans-serif;
-        font-weight: 900;
         font-size: 20px;
-        color: rgba(0, 0, 0, 0.3);
+        color: #262A2F;
         white-space: nowrap;
         cursor: pointer;
+
+        &.clicked {
+          color: #7DC9A2;
+        }
       }
+
       .header_category + .header_category {
         margin-left: 60px;
       }
     }
+
     .header_name {
-      font-family: Roboto, sans-serif;
       font-size: 19px;
       line-height: 40px;
       color: #46494E;
