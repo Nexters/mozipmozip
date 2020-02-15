@@ -23,9 +23,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
 
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     public static final String SESSION_KEY = "userInfo";
-
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
 
 
@@ -88,12 +87,9 @@ public class UserController {
     }
 
     //회원정보 수정(수정된 회원정보(비밀번호,이메일,전화번호)와 기존 session 요청) api
-    @PatchMapping(value = "/updateUser")
+    @PatchMapping(value = "/update")
     public ResponseEntity updateUser(HttpSession session, @RequestBody UserUpdateDto userUpdateDto) {
         User updateInfo = userService.updateUser(session, UserUpdateDto.toEntity(userUpdateDto));
-        UserUpdateDto updateDto = UserUpdateDto.builder()
-                .email(updateInfo.getEmail())
-                .password(updateInfo.getPassword()).build();
         return ResponseEntity.ok().build();
     }
 
