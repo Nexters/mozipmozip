@@ -19,12 +19,11 @@ function GroupQuestions(props: GroupQuestionsProps) {
   });
   const [pageType, setPageType] = useState<'programmer' | 'designer'>('programmer');
   const {admin: {questions}, onAddQuestion} = useAdmin();
-  const {designer, programmer} = questions;
 
   const handleMapList = useCallback((list: NoticeQuestion[]) => {
     return list.map((v, i) => {
       const {title, type, maxLength, questionScore} = v;
-      const _total = questions[pageType].map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0)
+      const _total = list.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0);
       return (
         <Question
           key={i}
@@ -40,7 +39,7 @@ function GroupQuestions(props: GroupQuestionsProps) {
   }, [questions, pageType]);
 
   const handleAddQuestion = () => {
-    const lastIndex = questions[pageType].length - 1;
+    const lastIndex = (questions[pageType] as NoticeQuestion[]).length - 1;
     const lastQuestion = questions[pageType][lastIndex];
     const {title, type, questionScore, maxLength} = lastQuestion;
     if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
@@ -53,7 +52,7 @@ function GroupQuestions(props: GroupQuestionsProps) {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => e.target.value === 'programmer' ? setPageType('programmer') : setPageType('designer');
   const handleNextPage = () => history.push('/admin/create/result');
-  console.log('11',pageType)
+  console.log('11', pageType);
   return (
     <Ul>
       <Li>

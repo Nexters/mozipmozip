@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { RouteComponentProps } from 'react-router-dom';
 import Main from '../components/Admin/Main';
 import Create from '../components/Admin/Notice/Create';
@@ -41,7 +42,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
             path === 'create' ?
               <Create subPath={subPath} history={history} />
               :
-              ''// 진행자 현황 보는 페이지 컴포넌트?
+              <List/>
           )
       }
     </>
