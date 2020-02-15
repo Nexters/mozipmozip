@@ -4,6 +4,8 @@ jar { enabled = true }
 dependencies {
     api('org.springframework.boot:spring-boot-starter-data-jpa')
 
+    implementation('org.springframework.security:spring-security-core')
+
     runtimeOnly('org.mariadb.jdbc:mariadb-java-client:2.4.4')
     runtimeOnly('com.h2database:h2')
 }

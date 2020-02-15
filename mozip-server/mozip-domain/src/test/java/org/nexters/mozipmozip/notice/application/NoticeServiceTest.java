@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeRepository;
 import org.nexters.mozipmozip.user.domain.User;
-import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,7 @@ class NoticeServiceTest {
     @Mock
     private NoticeRepository noticeRepository;
     @Mock
-    private UserRepositoy userRepositoy;
+    private UserRepository userRepository;
 
     private Notice noticeFixture = new EasyRandom().nextObject(Notice.class);
     private User userFixture = new EasyRandom().nextObject(User.class);
@@ -35,9 +35,9 @@ class NoticeServiceTest {
     @DisplayName("모집 공고 저장에 성공한다")
     void createNoticeTest() {
         given(noticeRepository.save(noticeFixture)).willReturn(noticeFixture);
-        given(userRepositoy.findById(userFixture.getId())).willReturn(Optional.ofNullable(userFixture));
+        given(userRepository.findById(userFixture.getId())).willReturn(Optional.ofNullable(userFixture));
 
-        Notice savedNotice = noticeService.create(noticeFixture, userFixture);
+        Notice savedNotice = noticeService.create(noticeFixture, userFixture.getId());
 
         assertThat(savedNotice.getDescription()).isEqualTo(noticeFixture.getDescription());
         assertThat(savedNotice.getTitle()).isEqualTo(noticeFixture.getTitle());
