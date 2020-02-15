@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.nexters.mozipmozip.JpaBasePersistable;
+import org.nexters.mozipmozip.user.domain.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,6 +44,10 @@ public class Notice extends JpaBasePersistable {
     @JsonManagedReference
     private List<NoticeForm> noticeForms = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Builder
     public Notice(
             final Long id,
@@ -52,7 +57,8 @@ public class Notice extends JpaBasePersistable {
             final LocalDateTime startDateTime,
             final LocalDateTime endDateTime,
             final NoticeStatus noticeStatus,
-            final List<NoticeForm> noticeForms
+            final List<NoticeForm> noticeForms,
+            final User user
     ) {
         this.id = id;
         this.title = title;
@@ -62,6 +68,7 @@ public class Notice extends JpaBasePersistable {
         this.endDateTime = endDateTime;
         this.noticeStatus = noticeStatus;
         this.noticeForms = noticeForms;
+        this.user = user;
     }
 
     public void addNoticeForm(NoticeForm noticeForm) {
