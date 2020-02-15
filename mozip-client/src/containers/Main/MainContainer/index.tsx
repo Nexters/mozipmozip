@@ -1,10 +1,12 @@
 import React from 'react';
 import * as Styled from './style';
 import { Link } from 'react-router-dom';
+import { useResumes } from '../../../hooks';
 
 import mainImage from '../../../static/images/main-image.png';
 
 function MainContainer() {
+  const { onSaveUserInfo } = useResumes();
   return (
     <Styled.Main>
       <Styled.Container>
@@ -12,10 +14,12 @@ function MainContainer() {
         <Styled.ContentWrapper>
           <Styled.ButtonWrapper>
             <Link to={'./resumes/create/userInfo'}>
-              <Styled.Button background='#61CB9F' className='bold'>개발자 지원하기</Styled.Button>
+              <Styled.Button background='#61CB9F' className='bold'
+                             onClick={() => onSaveUserInfo('occupation', 'PROGRAMMER')}>개발자 지원하기</Styled.Button>
             </Link>
             <Link to={'./resumes/create/userInfo'}>
-              <Styled.Button background='#262A2F' className='bold right'>디자이너 지원하기</Styled.Button>
+              <Styled.Button background='#262A2F' className='bold right'
+                             onClick={() => onSaveUserInfo('occupation', 'DESIGNER')}>디자이너 지원하기</Styled.Button>
             </Link>
           </Styled.ButtonWrapper>
           <Styled.Description>
@@ -29,7 +33,7 @@ function MainContainer() {
         </Styled.ContentWrapper>
       </Styled.Container>
     </Styled.Main>
-  )
+  );
 };
 
 export default MainContainer;
