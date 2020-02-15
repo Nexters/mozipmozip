@@ -19,7 +19,7 @@ function CommonQuestion(props: CommonQuestionProps) {
   const handleMapList = (questions: NoticeQuestion[]) => {
     return questions.map((v, i) => {
       const {title, type, maxLength, questionScore} = v;
-      const total = common.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0);
+      const total = questions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0);
       return (
         <Question
           key={i}
@@ -35,7 +35,7 @@ function CommonQuestion(props: CommonQuestionProps) {
   };
 
   const handleAddQuestion = () => {
-    const lastIndex = common.length - 1;
+    const lastIndex = (common as NoticeQuestion[]).length - 1;
     const lastQuestion = common[lastIndex];
     const {title, type, questionScore, maxLength} = lastQuestion;
     if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);

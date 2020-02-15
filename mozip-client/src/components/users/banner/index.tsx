@@ -1,18 +1,25 @@
 import React from 'react';
-import * as Styled from './styled';
+import styled from 'styled-components';
+import mainImage from '../../../static/images/main-image.png';
 
-type BannerProps = {
-  occupationType: string;
-};
+const BannerBgTag = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
-function Banner({ occupationType }: BannerProps) {
+const BannerTag = styled.div`
+  width: 1440px;
+  height: 296px;
+  background-image: url(${mainImage});
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+`;
+
+function Banner() {
   return (
-    <Styled.Banner>
-      <div>
-        NEXTERS 17기 {occupationType === 'DESIGNER' ? '디자이너' : '개발자'}{' '}
-        지원
-      </div>
-    </Styled.Banner>
+    <BannerBgTag>
+      <BannerTag />
+    </BannerBgTag>
   );
 }
 

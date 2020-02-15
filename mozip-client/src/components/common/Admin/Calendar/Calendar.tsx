@@ -16,7 +16,7 @@ function getFormat(time: boolean) {
 const defaultCalendarValue = now.clone();
 
 type CalendarProps = {
-  name: 'startDate' | 'endDate'
+  name: 'documentStartDate' | 'documentEndDate' | 'interviewStartDate' | 'interviewEndDate' | 'noticeEndDate'
   style: object
   defaultDate: Date
   onDate: (name: string, date: Moment | null) => void,
