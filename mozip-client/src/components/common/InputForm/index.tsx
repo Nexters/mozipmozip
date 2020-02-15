@@ -8,11 +8,12 @@ interface IInputFormProps {
   placeholder?: string,
   errorMessage?: string,
   required?: boolean,
+  onState: (name: string, value: string) => void
 }
 
 // TODO ref 추가
 function InputForm(props: IInputFormProps) {
-  const { name, title, type = 'text', placeholder, errorMessage, required = true } = props;
+  const { name, title, type = 'text', placeholder, errorMessage, required = true, onState} = props;
 
   const handleFocusInput = (e: FocusEvent<HTMLInputElement>) => {
     const inputWrapper = e.target.parentElement;
@@ -35,7 +36,15 @@ function InputForm(props: IInputFormProps) {
         <Styled.ErrorText>{errorMessage}</Styled.ErrorText>
       </Styled.TextWrapper>
       <Styled.InputWrapper>
-        <Styled.Input name={name} type={type} placeholder={placeholder} onFocus={handleFocusInput} onBlur={handleBlurInput} required={required} />
+        <Styled.Input
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          onFocus={handleFocusInput}
+          onBlur={handleBlurInput}
+          required={required}
+          onChange={ e => onState(name, e.target.value)}
+        />
       </Styled.InputWrapper>
     </Styled.Container>
   )

@@ -1,7 +1,11 @@
 import React from 'react';
 import InputForm from '../../../components/common/InputForm';
 
-function Manager() {
+type ApplicantProps = {
+  onState: (name: string, value: string) => void
+}
+
+function Manager({onState}:  ApplicantProps) {
   const managerInputs = [
     {
       name: 'name',
@@ -23,7 +27,7 @@ function Manager() {
       title: '비밀번호 확인'
     },
     {
-      name: 'authCode',
+      name: 'adminCode',
       title: '인증 번호'
     }
   ];
@@ -32,7 +36,7 @@ function Manager() {
     <>
       {managerInputs.map(({ name, title, type }, i) => {
         return (
-          <InputForm title={title} name={name} type={type} key={'managerInput' + i} />
+          <InputForm title={title} name={name} type={type} key={'managerInput' + i} onState={onState}/>
         )
       })}
     </>
