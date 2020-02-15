@@ -1,6 +1,7 @@
-import React, { FocusEvent } from 'react';
+import React, { FocusEvent, useState } from 'react';
 import * as styled from './styled';
 import uploadImg from '../../../static/images/uploadImg.png';
+import useResumes from '../../../hooks/useResumes';
 
 type AnswerBoxProps = {
   question: string;
@@ -8,11 +9,16 @@ type AnswerBoxProps = {
   maxLength: number;
 };
 
-function PortfolioBox() {
+type PortfolioBoxProps = {
+  questionNo: number;
+  question: string;
+};
+
+function PortfolioBox({ questionNo, question }: PortfolioBoxProps) {
   return (
     <styled.PortfolioMain>
       <styled.QuestionTag>
-        4. 포트폴리오를 제출해주세요.(10MB 이하)
+        {questionNo}. {question}
       </styled.QuestionTag>
       <styled.UploadBtnBox>
         <styled.UploadBtn>
@@ -25,6 +31,8 @@ function PortfolioBox() {
 }
 
 function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
+  const { resumes, onSaveUserInfo } = useResumes();
+  const [textLength, setTextLength] = useState(0);
   const handleFocusInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputWrapper = e.target.parentElement;
     inputWrapper && controlFocusClass(inputWrapper, true);
@@ -33,9 +41,20 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const handleBlurInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputWrapper = e.target.parentElement;
     inputWrapper && controlFocusClass(inputWrapper, false);
+    const qnum =
+      e.target.dataset.questionNo && parseInt(e.target.dataset.questionNo);
+    const answer = e.target.value;
+    onSaveUserInfo('resumeAnswerItems', [
+      ...resumes.resumeAnswerItems.filter(item => item.questionNo !== qnum),
+      { questionNo: qnum, answer: answer },
+    ]);
   };
   const controlFocusClass = (target: HTMLElement, focus: boolean) => {
     focus ? target.classList.add('focus') : target.classList.remove('focus');
+  };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const target = e.target as HTMLTextAreaElement;
+    setTextLength(target.value.length);
   };
   return (
     <styled.Main>
@@ -43,11 +62,18 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
         {idx}. {question}
       </styled.QuestionTag>
       <styled.TextBoxBg>
-        <styled.TextArea onFocus={handleFocusInput} onBlur={handleBlurInput} />
+        <styled.TextArea
+          onFocus={handleFocusInput}
+          onBlur={handleBlurInput}
+          data-question-no={idx}
+          maxLength={maxLength}
+          onKeyUp={handleKeyUp}
+          required
+        />
       </styled.TextBoxBg>
       <styled.Footer>
         <styled.Limit>
-          {maxLength} / {maxLength}
+          {textLength} / {maxLength}
         </styled.Limit>
         <styled.Button type="button">맞춤법검사</styled.Button>
       </styled.Footer>

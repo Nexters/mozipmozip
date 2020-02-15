@@ -24,7 +24,6 @@ const Container = styled.section`
 `;
 
 const LeftWrapper = styled.form`
-
 `;
 
 const TabContainer = styled.section`
