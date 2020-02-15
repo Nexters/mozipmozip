@@ -5,20 +5,18 @@ import {
   AdminPage,
   NotFoundPage,
   SignUpPage,
-  TodoPage,
-  EmployPage,
+  SignInPage,
+  Resumes,
 } from './pages';
-import UserInfoForm from './pages/user/infoform';
 
 export default function App() {
   return (
     <Switch>
       <Route exact path={'/'} component={MainPage} />
       <Route exact path={'/signup'} component={SignUpPage} />
+      <Route exact path={'/signin'} component={SignInPage} />
       <Route path={'/admin/:path?/:subPath?'} component={AdminPage} />
-      <Route path={'/todo'} component={TodoPage} />
-      <Route path={'/employees'} component={EmployPage} />
-      <Route path={'/user/infoform'} component={UserInfoForm} />
+      <Route path={'/resumes/:path?/:subPath?'} component={Resumes} />
       <Redirect path="*" to="/" />
     </Switch>
   );

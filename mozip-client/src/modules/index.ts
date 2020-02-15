@@ -1,20 +1,23 @@
-import { combineReducers } from "redux"
-import { all } from 'redux-saga/effects'
-import todos from './todos'
-import employees from './employees'
-import admin from './admin'
-import getEmployeesWatcher from "./employees/sagas"
+import {combineReducers} from "redux";
+import {all} from 'redux-saga/effects';
+import admin from './admin';
+import base from './base';
+import resumes from './resumes';
+
+import baseSaga from "./base/sagas";
+import adminSaga from "./admin/sagas";
 
 const rootReducer = combineReducers({
-  todos,
-  employees,
-  admin
-})
+  admin,
+  resumes,
+  base,
+});
 
 export function* rootSaga() {
   yield all([
-    getEmployeesWatcher()
-  ])
+    baseSaga(),
+    adminSaga()
+  ]);
 }
 
 export default rootReducer

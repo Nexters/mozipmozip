@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface ITabProps {
-  clicked: boolean
+  clicked: boolean;
 }
 
 const Main = styled.main`
@@ -10,20 +10,20 @@ const Main = styled.main`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #F7F8F9;
+  background: #f7f8f9;
 `;
 
 const Container = styled.section`
   display: flex;
   justify-content: space-between;
   width: 886px;
-  background: #FFFFFF;
-  border: 1px solid #D0D3D8;
+  background: #ffffff;
+  border: 1px solid #d0d3d8;
   border-radius: 8px;
   padding: 52px 58px 64px 54px;
 `;
 
-const LeftWrapper = styled.article`
+const LeftWrapper = styled.form`
 
 `;
 
@@ -37,7 +37,7 @@ const Tab = styled.article<ITabProps>`
   padding-bottom: 7px;
   font-size: 20px;
   line-height: 30px;
-  color: ${({ clicked }) => clicked? '#61CB9F' : '#6D7176'};
+  color: ${({ clicked }) => (clicked ? '#61CB9F' : '#6D7176')};
   border-bottom: ${({ clicked }) => clicked && '2px solid #61CB9F'};
   cursor: pointer;
 `;
@@ -50,11 +50,12 @@ const Button = styled.button`
   margin-top: 47px;
   width: 317px;
   height: 70px;
-  background: #61CB9F;
+  background: #61cb9f;
   border-radius: 8px;
   font-family: Roboto;
   font-size: 20px;
   color: #FFFFFF;
+  cursor: pointer;
 `;
 
 const RightWrapper = styled.article`
@@ -66,7 +67,7 @@ const RightWrapper = styled.article`
 const Circle = styled.div`
   width: 339px;
   height: 339px;
-  background: #F4F4F4;
+  background: #f4f4f4;
   border-radius: 50%;
 `;
 
@@ -78,5 +79,5 @@ export {
   Tab,
   Button,
   RightWrapper,
-  Circle
-}
+  Circle,
+};

@@ -4,17 +4,18 @@ const initialState: AdminState = {
   title: '',
   image: {
     name: '',
-    imageData: '', // original
+    formData: '', // original
     resizeData: '' // resize
   },
   description: '',
   startDateTime: '',
   endDateTime: '',
   questions: {
-    commonQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
-    developerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
-    designerQuestions: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
-  }
+    common: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    programmer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
+    designer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
+  },
+  error: ''
 };
 
 export default function (state: AdminState = initialState, action: AdminAction) {
@@ -23,15 +24,20 @@ export default function (state: AdminState = initialState, action: AdminAction) 
       const {name, value} = action.payload;
       return {...state, [name]: value};
     }
-    case "admin/ADD_QUESTION": {
-      const {name} = action.payload;
-      if(hasKey(state.questions, name)) {
+    case 'admin/ADD_QUESTION': {
+      const { name } = action.payload;
+      if (hasKey(state.questions, name)) {
         return {
         ...state,
             questions: {
           ...state.questions,
-              [name]: state.questions[name].concat({title: '', type: 'long', maxLength: 0, questionScore: 0})
-          }
+              [name]: state.questions[name].concat({
+                title: '',
+                type: 'long',
+                maxLength: 0,
+                questionScore: 0
+              }),
+          },
         };
       }
       else return state
@@ -43,9 +49,13 @@ export default function (state: AdminState = initialState, action: AdminAction) 
         ...state,
         questions: {
           ...state.questions,
-          [type]: [...target.slice(0, index), {...target[index], [keyName] : value}, ...target.slice(index+1, target.length)]
-        }
-      }
+          [type]: [
+            ...target.slice(0, index),
+            { ...target[index], [keyName]: value },
+            ...target.slice(index + 1, target.length),
+          ],
+        },
+      };
     }
     default:
       return state;

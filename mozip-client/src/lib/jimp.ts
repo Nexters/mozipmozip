@@ -14,8 +14,8 @@ const getMimeType = (jimp_obj: any) => jimp_obj.getMIME();
 export const getBufferFromJimp = (jimp_obj: any) => {
   const mime = getMimeType(jimp_obj);
   let buffer;
-  jimp_obj.getBuffer(mime, (err: any | Error, data:Buffer) => {
-    if(err) return console.log(err)
+  jimp_obj.getBuffer(mime, (err: any | Error, data: Buffer) => {
+    if (err) return console.log(err);
     buffer = data;
   });
   if (buffer) return buffer;
