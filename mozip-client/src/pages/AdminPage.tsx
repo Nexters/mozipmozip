@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Main from "../components/Admin/Main";
+import MainContainer from '../containers/Admin/MainContainer';
 import Create from '../components/Admin/Notice/Create';
 import Header from '../components/common/Header';
 
@@ -35,7 +35,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
       <Header categories={categories} />
       {
         !path ?
-          <Main />
+          <MainContainer />
           :
           (
             path === 'create' ?
