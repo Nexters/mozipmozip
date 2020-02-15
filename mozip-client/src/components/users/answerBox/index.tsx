@@ -32,6 +32,11 @@ function PortfolioBox({ questionNo, question }: PortfolioBoxProps) {
 
 function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const { resumes, onSaveUserInfo } = useResumes();
+  const initialQuestion = resumes.resumeAnswerItems.filter(
+    ({ questionNo }) => questionNo === idx,
+  );
+  const initialText = initialQuestion.length ? initialQuestion[0].answer : '';
+  const [curText, setCurText] = useState(initialText);
   const [textLength, setTextLength] = useState(0);
   const handleFocusInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputWrapper = e.target.parentElement;
@@ -43,10 +48,9 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
     inputWrapper && controlFocusClass(inputWrapper, false);
     const qnum =
       e.target.dataset.questionNo && parseInt(e.target.dataset.questionNo);
-    const answer = e.target.value;
     onSaveUserInfo('resumeAnswerItems', [
       ...resumes.resumeAnswerItems.filter(item => item.questionNo !== qnum),
-      { questionNo: qnum, answer: answer },
+      { questionNo: qnum, answer: curText },
     ]);
   };
   const controlFocusClass = (target: HTMLElement, focus: boolean) => {
@@ -56,6 +60,8 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
     const target = e.target as HTMLTextAreaElement;
     setTextLength(target.value.length);
   };
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setCurText(e.target.value);
   return (
     <styled.Main>
       <styled.QuestionTag>
@@ -68,6 +74,8 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
           data-question-no={idx}
           maxLength={maxLength}
           onKeyUp={handleKeyUp}
+          onChange={handleChange}
+          value={curText}
           required
         />
       </styled.TextBoxBg>
