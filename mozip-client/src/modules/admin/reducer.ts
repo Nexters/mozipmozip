@@ -14,7 +14,8 @@ const initialState: AdminState = {
     common: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
     programmer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
     designer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}]
-  }
+  },
+  error: ''
 };
 
 
@@ -49,6 +50,9 @@ export default function (state: AdminState = initialState, action: AdminAction) 
           }, ...target.slice(index + 1, target.length)]
         }
       };
+    }
+    case "admin/POST_NOTICE_FAILURE": {
+      return {...state, error: action.payload}
     }
     default:
       return state;

@@ -7,6 +7,7 @@ import todos from './todos'
 
 
 import baseSaga from "./base/sagas";
+import adminSaga from "./admin/sagas";
 
 const rootReducer = combineReducers({
   admin,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([
-    baseSaga()
+    baseSaga(),
+    adminSaga()
   ]);
 }
 

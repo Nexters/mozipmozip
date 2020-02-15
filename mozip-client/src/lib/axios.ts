@@ -15,7 +15,7 @@ export const requestHandler = async (params: any) => {
       ...args,
       url: process.env.REACT_APP_URL + path,
       timeout: 5000,
-      headers: params.headers
+      headers: params.headers ? params.header : {}
     };
     console.log('[Request]: ' + JSON.stringify(config, null, 2));
     const { data } = await axios(config);
@@ -28,6 +28,7 @@ export const requestHandler = async (params: any) => {
 export function successHandler(response: any) {
   console.log('[Response Data]: ');
   console.log(response.status, response.data);
+  return response
 }
 
 function errorHandler(e: Error) {

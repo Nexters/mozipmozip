@@ -23,23 +23,25 @@ type NoticeFormQuestionItem = {
   maxLength: number
   questionScore: number
   title: string
-  type: "LINK" | "LONG"
+  type: string //'LINK' | 'LONG'
 }// type 폴더에 있는 NoticeQuestion type 과 비슷하지만 서버랑 스키마가 달라서 만듬
 
 type NoticeForm = {
   jobTypes: string[]
   noticeFormQuestionItems: NoticeFormQuestionItem[]
-  occupation: "COMMON" | "PROGRAMMER" | "DESIGNER"
+  occupation: string //  "COMMON" | "PROGRAMMER" | "DESIGNER"
 }
 
 export type NoticeObject = {
   title: string
   description: string
   displayImagePath: string
-  startDateTime: Date
-  endDateTime: Date
+  startDateTime: Date | ''
+  endDateTime: Date | ''
   noticeForms: NoticeForm[]
-  noticeStatus: "DRAFT"
+  noticeStatus: string //"DRAFT"
 }
 
-export const postNotice = (noticeObj: NoticeObject) => ({type: POST_NOTICE_REQUEST, payload: noticeObj});
+export const postNoticeRequest = (noticeObj: NoticeObject) => ({type: POST_NOTICE_REQUEST, payload: noticeObj});
+export const postNoticeSuccess = (res: any) => ({type: POST_NOTICE_SUCCESS, payload: res});
+export const postNoticeFailure = (e: Error) => ({type: POST_NOTICE_FAILURE, payload: e});
