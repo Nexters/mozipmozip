@@ -50,7 +50,7 @@ public class Notice extends JpaBasePersistable {
     @Column(name = "status", nullable = false)
     private NoticeStatus noticeStatus = NoticeStatus.DRAFT;
 
-    @OneToMany(mappedBy = "notice", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notice", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<NoticeForm> noticeForms = new ArrayList<>();
 
