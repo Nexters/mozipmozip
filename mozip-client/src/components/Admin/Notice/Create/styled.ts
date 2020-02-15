@@ -75,4 +75,12 @@ export const AlignCenter = styled.li`
   & > button + button {
     margin-left: 3%;
   }
-`
+`;
+
+export const QuestionAddButton = styled.button`
+  font-family: Noto Sans KR, Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 25px;
+  cursor: pointer
+`;

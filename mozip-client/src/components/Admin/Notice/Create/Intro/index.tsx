@@ -5,6 +5,7 @@ import moment from "moment";
 import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
 import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
 import * as Styled from './styled';
+import {makeFormData} from "../../../../../lib/form";
 
 
 type IntroProps = {
@@ -14,7 +15,7 @@ type IntroProps = {
 }
 
 type Image = {
-  data: string | null | ArrayBuffer
+  // data: string | null | ArrayBuffer
   resizeData: string | null
   fileName: string | null
 }
@@ -25,15 +26,10 @@ function Intro(props: IntroProps) {
     startVisible: false,
     endVisible: false,
   });
-  const [image, setImage] = useState<Image>({
-    data: '', //original base64
-    resizeData: '',//resize base64
-    fileName: ''
-  });
   const {startVisible, endVisible} = visible;
-  const {data, resizeData, fileName} = image;
   const {admin, onSetFormValues} = useAdmin();
-  const {title, description, startDateTime, endDateTime} = admin;
+  const {title, description, startDateTime, endDateTime, image} = admin;
+  const {resizeData, name} = image;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
   const handleVisible = (name: string) => name === 'startVisible' ?
     setVisible({startVisible: !startVisible, endVisible: false})
@@ -66,6 +62,7 @@ function Intro(props: IntroProps) {
     const {name, files} = e.target;
     if (files && files.length > 0) {
       const file = files[0];
+      const formData = makeFormData({file}); // 파일업로드는 마지막에
       const reader = new FileReader();
       reader.onload = async () => {
         try {
@@ -73,10 +70,10 @@ function Intro(props: IntroProps) {
             const jimpObj = await convertToJimpObject(reader.result);
             await imageResize(jimpObj, 215, 114)
               .then(getBase64fromJimp)
-              .then((base64: string | undefined) => base64 ? setImage({
-                data: reader.result,
+              .then((base64: string | undefined) => base64 ? onSetFormValues('image',{
+                formData,
                 resizeData: base64,
-                fileName: file.name
+                name: file.name
               }) : '')
               .catch(console.log);
           }
@@ -90,7 +87,7 @@ function Intro(props: IntroProps) {
 
   const handleNextPage = () => {// next page > preview base64 data must save in store
     if (!title) return alert('제목을 입력해 주세요.');
-    else if (!data) return alert('배너 이미지를 선택해 주세요.');
+    else if (!resizeData) return alert('배너 이미지를 선택해 주세요.');
     else if (!description) return alert('리쿠르팅 설명을 입력해 주세요.');
     else if (!startDateTime) return alert('시작 기간을 선택해 주세요.');
     else if (!endDateTime) return alert('종료 기간을 선택해 주세요.');
@@ -121,7 +118,7 @@ function Intro(props: IntroProps) {
               </>}
             <Styled.NameLayer>
               <span>이미지 업로드</span>
-              <input type="text" readOnly disabled value={fileName ? fileName : ''}/>
+              <input type="text" readOnly disabled value={name ? name : ''}/>
             </Styled.NameLayer>
           </SubLayer>
         </Li>

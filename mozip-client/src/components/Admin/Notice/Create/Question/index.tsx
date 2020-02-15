@@ -7,7 +7,7 @@ import {hasKey, NoticeQuestion} from "../../../../../modules/admin";
 type QuestionProps = NoticeQuestion & {
   index: number
   total: number
-  pageType: 'commonQuestions' | 'designerQuestions' | 'developerQuestions'
+  pageType: 'common' | 'designer' | 'programmer'
 }
 
 

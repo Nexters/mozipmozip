@@ -23,3 +23,11 @@ AWS_ACCESS_KEY_ID = DM으로 물어보세요
 AWS_SECRET_ACCESS_KEY = DM으로 물어보세요
 ```
 
+- **Local setup**
+
+```bash
+$ ./gradlew :mozip-server:mozip-api:build
+$ cd mozip-server/mozip-api
+$ docker build -t mozipmozip .
+$ docker run -p 8080:8080 -d mozipmozip:latest
+```
