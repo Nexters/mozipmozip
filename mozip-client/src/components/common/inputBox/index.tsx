@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 import * as styled from './styled';
 import { useResumes } from '../../../hooks';
 
@@ -14,8 +14,24 @@ type CheckBoxProps = {
 };
 
 function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
-  const onBlur = (e: React.FocusEvent<HTMLInputElement>) =>
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     validationCheck(e.target.value);
+    handleBlurInput(e);
+  };
+
+  const handleFocusInput = (e: FocusEvent<HTMLInputElement>) => {
+    const inputWrapper = e.target.parentElement;
+    inputWrapper && controlFocusClass(inputWrapper, true);
+  };
+
+  const handleBlurInput = (e: FocusEvent<HTMLInputElement>) => {
+    const inputWrapper = e.target.parentElement;
+    inputWrapper && controlFocusClass(inputWrapper, false);
+  };
+
+  const controlFocusClass = (target: HTMLElement, focus: boolean) => {
+    focus ? target.classList.add('focus') : target.classList.remove('focus');
+  };
   return (
     <styled.InputBox>
       <div className="label-bg">
@@ -28,6 +44,7 @@ function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
           name={name}
           placeholder={placeholder}
           onBlur={onBlur}
+          onFocus={handleFocusInput}
         />
       </div>
     </styled.InputBox>
@@ -40,8 +57,8 @@ export function CheckBoxGroup({ name, valueList, onToggle }: CheckBoxProps) {
     <styled.InputBox>
       <div className="label-bg">{name}</div>
       <ul className="checkbox-group-bg">
-        {valueList.map(value => (
-          <li className="checkbox-bg">
+        {valueList.map((value, idx) => (
+          <li className="checkbox-bg" key={'checkbox' + idx}>
             <input
               type="checkbox"
               value={value}

@@ -6,6 +6,7 @@ import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../.
 import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
 import * as Styled from './styled';
 import {makeFormData} from "../../../../../lib/form";
+import {hasKey} from "../../../../../modules/admin";
 
 
 type IntroProps = {
@@ -23,36 +24,66 @@ type Image = {
 function Intro(props: IntroProps) {
   const {history} = props;
   const [visible, setVisible] = useState({
-    startVisible: false,
-    endVisible: false,
+    documentStartVisible: false,
+    documentEndVisible: false,
+    interviewStartVisible: false,
+    interviewEndVisible: false,
+    noticeEndVisible: false
   });
-  const {startVisible, endVisible} = visible;
   const {admin, onSetFormValues} = useAdmin();
-  const {title, description, startDateTime, endDateTime, image} = admin;
+  const {documentStartVisible, documentEndVisible, interviewEndVisible, interviewStartVisible, noticeEndVisible} = visible;
+  const {title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, image} = admin;
   const {resizeData, name} = image;
   const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
-  const handleVisible = (name: string) => name === 'startVisible' ?
-    setVisible({startVisible: !startVisible, endVisible: false})
-    :
-    setVisible({startVisible: false, endVisible: !endVisible}); // calendar visible
+  const handleVisible = (name: string) => {
+    return hasKey(visible, name) ? setVisible({...visible, [name]: !visible[name]}) : '';
+  };
 
   const handleDate = (name: string, date: any) => { // date type is Moment
-    if (name === 'startDate') {
-      if (endDateTime) {
-        const endTime = new Date(endDateTime).getTime();
+    if (name === 'documentStartDate') {
+      if (documentEndDate) {
+        const endTime = new Date(documentEndDate).getTime();
         const startValue = new Date(date._d).getTime();
-        if (endTime < startValue) alert('시작 날짜가 종료 날짜보다 늦어요.');
-        else onSetFormValues('startDateTime', date._d);
+        if (endTime < startValue) alert('서류 시작 날짜가 종료 날짜보다 늦어요.');
+        else onSetFormValues('documentStartDate', date._d);
       }//validation
-      else onSetFormValues('startDateTime', date._d); // endDate no exist
-    } else { // endDate
-      if (startDateTime) {
-        const startTime = new Date(startDateTime).getTime();
+      else onSetFormValues('documentStartDate', date._d); // endDate no exist
+    } else if (name === 'documentEndDate') {
+      if (documentStartDate) {
+        const startTime = new Date(documentStartDate).getTime();
         const endValue = new Date(date._d).getTime();
-        if (startTime > endValue) return alert('종료 날짜가 시작 날짜보다 빨라요.');
-        else onSetFormValues('endDateTime', date._d);
+        if (startTime > endValue) alert('서류 종료 날짜가 시작 날짜보다 빨라요.');
+        else onSetFormValues('documentEndDate', date._d);
       }//validation
-      else onSetFormValues('endDateTime', date._d); // endDate no exist
+      else onSetFormValues('documentEndDate', date._d); // endDate no exist
+    } else if (name === 'interviewStartDate') {
+      if (interviewEndDate) {
+        const endTime = new Date(interviewEndDate).getTime();
+        const startValue = new Date(date._d).getTime();
+        if (endTime < startValue) alert('면접 시작 날짜가 종료 날짜보다 늦어요.');
+        else onSetFormValues('interviewStartDate', date._d);
+      }//validation
+      else onSetFormValues('interviewStartDate', date._d); // endDate no exist
+    } else if (name === 'interviewEndDate') {
+      if (interviewStartDate) {
+        const startTime = new Date(interviewStartDate).getTime();
+        const endValue = new Date(date._d).getTime();
+        if (startTime > endValue) alert('면접 종료 날짜가 시작 날짜보다 빨라요.');
+        else onSetFormValues('interviewEndDate', date._d);
+      }//validation
+      else onSetFormValues('interviewEndDate', date._d); // endDate no exist
+    } else {
+      if (!documentStartDate) alert('서류 시작 날짜륾 먼저 선택해 주세요.');
+      else if (!documentEndDate) alert('서류 종료 날짜륾 먼저 선택해 주세요.');
+      else if (!interviewStartDate) alert('면접 시작 날짜를 먼저 선택해 주세요.');
+      else if (!interviewEndDate) alert('면접 종료 날짜를 먼저 선택해 주세요.');
+      else {
+        const noticeEndValue = new Date(date._d).getTime();
+        const dEndDate = new Date(documentEndDate).getTime();
+        const iEndDate = new Date(interviewEndDate).getTime();
+        if (dEndDate > noticeEndValue || iEndDate > noticeEndValue) alert('최종 발표 날짜는 가장 늦어야해~!');
+        else onSetFormValues('noticeEndDate', date._d);
+      }
     }
     handleVisible(name); // calendar off
   };
@@ -70,7 +101,7 @@ function Intro(props: IntroProps) {
             const jimpObj = await convertToJimpObject(reader.result);
             await imageResize(jimpObj, 215, 114)
               .then(getBase64fromJimp)
-              .then((base64: string | undefined) => base64 ? onSetFormValues('image',{
+              .then((base64: string | undefined) => base64 ? onSetFormValues('image', {
                 formData,
                 resizeData: base64,
                 name: file.name
@@ -89,8 +120,11 @@ function Intro(props: IntroProps) {
     if (!title) return alert('제목을 입력해 주세요.');
     else if (!resizeData) return alert('배너 이미지를 선택해 주세요.');
     else if (!description) return alert('리쿠르팅 설명을 입력해 주세요.');
-    else if (!startDateTime) return alert('시작 기간을 선택해 주세요.');
-    else if (!endDateTime) return alert('종료 기간을 선택해 주세요.');
+    else if (!documentStartDate) return alert('서류 시작 날짜를 선택해 주세요.');
+    else if (!documentEndDate) return alert('서류 종료 날짜를 선택해 주세요.');
+    else if (!interviewStartDate) return alert('면접 시작 날짜를 선택해 주세요.');
+    else if (!interviewEndDate) return alert('면접 종료 날짜를 선택해 주세요.');
+    else if (!noticeEndDate) return alert('공고 종료 날짜를 선택해 주세요.');
     else {
       onSetFormValues('image', image);
       history.push('/admin/create/common');
@@ -126,18 +160,18 @@ function Intro(props: IntroProps) {
           <Title>설명</Title>
           <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)}/>
         </Li>
-        <Li style={{alignItems: 'center', marginBottom: '350px'}}>
+        <Li style={{alignItems: 'center'}}>
           <Title>기간</Title>
           <SubLayer style={{alignItems: 'center'}}>
             <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
             <div>
               <Styled.CalendarInput
-                onClick={() => handleVisible('startVisible')}
-                value={startDateTime ? moment(startDateTime).format('YYYY-MM-DD') : ''}
+                onClick={() => handleVisible('documentStartVisible')}
+                value={documentStartDate ? moment(documentStartDate).format('YYYY-MM-DD') : ''}
               />
-              {startVisible &&
+              {documentStartVisible &&
               <CalendarComponent
-                name="startDate"
+                name="documentStartDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
                 onDate={handleDate}
@@ -146,12 +180,62 @@ function Intro(props: IntroProps) {
             <Between>~</Between>
             <div>
               <Styled.CalendarInput
-                onClick={() => handleVisible('endVisible')}
-                value={endDateTime ? moment(endDateTime).format('YYYY-MM-DD') : ''}
+                onClick={() => handleVisible('documentEndVisible')}
+                value={documentEndDate ? moment(documentEndDate).format('YYYY-MM-DD') : ''}
               />
-              {endVisible &&
+              {documentEndVisible &&
               <CalendarComponent
-                name="endDate"
+                name="documentEndDate"
+                style={calendarStyle}
+                defaultDate={new Date()}
+                onDate={handleDate}
+              />}
+            </div>
+          </SubLayer>
+        </Li>
+        <Li style={{alignItems: 'center'}}>
+          <SubLayer style={{alignItems: 'center'}}>
+            <SubTitle style={{marginRight: '31px'}}>면접</SubTitle>
+            <div>
+              <Styled.CalendarInput
+                onClick={() => handleVisible('interviewStartVisible')}
+                value={interviewStartDate ? moment(interviewStartDate).format('YYYY-MM-DD') : ''}
+              />
+              {interviewStartVisible &&
+              <CalendarComponent
+                name="interviewStartDate"
+                style={calendarStyle}
+                defaultDate={new Date()}
+                onDate={handleDate}
+              />}
+            </div>
+            <Between>~</Between>
+            <div>
+              <Styled.CalendarInput
+                onClick={() => handleVisible('interviewEndVisible')}
+                value={interviewEndDate ? moment(interviewEndDate).format('YYYY-MM-DD') : ''}
+              />
+              {interviewEndVisible &&
+              <CalendarComponent
+                name="interviewEndDate"
+                style={calendarStyle}
+                defaultDate={new Date()}
+                onDate={handleDate}
+              />}
+            </div>
+          </SubLayer>
+        </Li>
+        <Li style={{alignItems: 'center'}}>
+          <SubLayer style={{alignItems: 'center'}}>
+            <SubTitle style={{marginRight: '31px'}}>최종 발표</SubTitle>
+            <div>
+              <Styled.CalendarInput
+                onClick={() => handleVisible('noticeEndVisible')}
+                value={noticeEndDate ? moment(noticeEndDate).format('YYYY-MM-DD') : ''}
+              />
+              {noticeEndVisible &&
+              <CalendarComponent
+                name="noticeEndDate"
                 style={calendarStyle}
                 defaultDate={new Date()}
                 onDate={handleDate}
