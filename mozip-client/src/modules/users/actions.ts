@@ -30,3 +30,11 @@ export const SIGN_IN_FAILURE = 'users/SIGN_IN_FAILURE' as const;
 export const signInRequest = (values: SignInRequest) => ({type: SIGN_IN_REQUEST, payload: values});
 export const signInSuccess = (data: any) => ({type: SIGN_IN_SUCCESS, payload: data});
 export const signInFailure = (e: Error) => ({type: SIGN_IN_FAILURE, payload: e});
+
+export const GET_CURRENT_USER_REQUEST  = 'users/GET_CURRENT_USER_REQUEST'as const;
+export const GET_CURRENT_USER_SUCCESS  = 'users/GET_CURRENT_USER_SUCCESS'as const;
+export const GET_CURRENT_USER_FAILURE  = 'users/GET_CURRENT_USER_FAILURE'as const;
+
+export const getCurrentUserRequest = () => ({type: GET_CURRENT_USER_REQUEST});
+export const getCurrentUserSuccess = (data: any) => ({type: GET_CURRENT_USER_SUCCESS, payload: data});
+export const getCurrentUserFailure = (e: Error) => ({type: GET_CURRENT_USER_FAILURE, payload: e});

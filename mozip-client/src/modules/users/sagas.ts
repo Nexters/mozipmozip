@@ -2,7 +2,13 @@ import {take, call, all, put} from 'redux-saga/effects';
 import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
-  SIGN_UP_REQUEST, SIGN_IN_REQUEST, SIGN_IN_SUCCESS, SIGN_IN_FAILURE
+  SIGN_UP_REQUEST,
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  GET_CURRENT_USER_REQUEST,
+  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_FAILURE
 } from "./actions";
 import {requestHandler} from "../../lib/axios";
 
@@ -38,10 +44,25 @@ function* signInSage() {
   }
 }
 
+function* getCurrentUserSaga(){
+  while (true) {
+    try {
+      const action = yield take(GET_CURRENT_USER_REQUEST);
+      const {data} = yield call(requestHandler, {
+        path: '/api/v1/users/current',
+        method: 'get',
+      });
+      yield put({type: GET_CURRENT_USER_SUCCESS, payload: data});
+    } catch (e) {
+      yield put({type: GET_CURRENT_USER_FAILURE, payload: e});
+    }
+  }
+}
 
 export default function* usersSaga() {
   yield all([
     signUpSaga(),
-    signInSage()
+    signInSage(),
+    getCurrentUserSaga()
   ]);
 }

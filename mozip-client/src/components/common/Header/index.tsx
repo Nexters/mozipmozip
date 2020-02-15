@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Navigation from '../Navigation';
 import './index.scss';
+import {useUsers} from "../../../hooks";
 
 import logo from '../../../static/images/logo.png';
 import logoTitle from '../../../static/images/logo-title.png';
@@ -14,6 +15,7 @@ function Header({ categories }: IHeaderProps) {
   const [ clickedIndex, setClickedIndex ] = useState(-1);
   const [ navigation, setNavigation ] = useState();
   const history = useHistory();
+  const { onGetCurrentUser } = useUsers();
 
   const handleClickLogo = () => {
     setClickedIndex(-1);
@@ -39,7 +41,9 @@ function Header({ categories }: IHeaderProps) {
       );
     });
   };
-
+  useEffect(()=>{
+    onGetCurrentUser()
+  },[])
   return (
     <>
       {navigation && <Navigation items={navigation} index={clickedIndex} />}
