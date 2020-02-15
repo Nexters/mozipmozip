@@ -35,7 +35,13 @@ function InputForm(props: IInputFormProps) {
         <Styled.ErrorText>{errorMessage}</Styled.ErrorText>
       </Styled.TextWrapper>
       <Styled.InputWrapper>
-        <Styled.Input name={name} type={type} placeholder={placeholder} onFocus={handleFocusInput} onBlur={handleBlurInput} required={required} />
+        <Styled.Input
+          name={name}
+          type={type}
+          placeholder={placeholder}
+          onFocus={handleFocusInput}
+          onBlur={handleBlurInput}
+          required={required} />
       </Styled.InputWrapper>
     </Styled.Container>
   )
