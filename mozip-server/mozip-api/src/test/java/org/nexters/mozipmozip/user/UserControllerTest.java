@@ -16,6 +16,7 @@ import org.nexters.mozipmozip.user.domain.User;
 import org.nexters.mozipmozip.user.dto.UserCreateDto;
 import org.nexters.mozipmozip.user.dto.UserLoginDto;
 import org.nexters.mozipmozip.user.dto.UserUpdateDto;
+import org.nexters.mozipmozip.utils.SessionUtil;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
@@ -61,7 +62,7 @@ class UserControllerTest {
     void updateNotice() throws Exception {
 
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
+        mockHttpSession.setAttribute(SessionUtil.SESSION_KEY, userFixture);
 
         mockMvc.perform(
                 get("/api/v1/users/current")
@@ -92,7 +93,7 @@ class UserControllerTest {
     @DisplayName("유저 로그인 성공")
     void loginUserTest() throws Exception {
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, user);
+        mockHttpSession.setAttribute(SessionUtil.SESSION_KEY, user);
         UserLoginDto userLoginDto = UserLoginDto.builder()
                 .email(user.getEmail())
                 .password(user.getPassword()).build();
@@ -114,7 +115,7 @@ class UserControllerTest {
     @DisplayName("유저 로그아웃 성공")
     void logoutUserTest() throws Exception {
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
+        mockHttpSession.setAttribute(SessionUtil.SESSION_KEY, userFixture);
 
         mockMvc.perform(
                 post("/api/v1/users/logout")
@@ -143,7 +144,7 @@ class UserControllerTest {
     @DisplayName("유저 정보 수정 성공")
     void updateUserTest() throws Exception {
         MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
+        mockHttpSession.setAttribute(SessionUtil.SESSION_KEY, userFixture);
 
         UserUpdateDto userUpdateDto = UserUpdateDto.builder()
                 .email("jeaho214@naver.com").build();

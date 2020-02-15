@@ -33,7 +33,7 @@ function MainContainer() {
             </Link>
           </Styled.ButtonWrapper>
           <Styled.Description>
-            연합동아리 NEXTERS는 IT 생태계의 주인공인 개발자와 디자이너를 위한
+            연합동아리 NEXTERS는 IT 생태계의 주인공인 이재일, 우혜주, 홍동욱을 위한
             모임입니다. 재능있는 개발자와 디자이너가 함께 모여 자유로운
             분위기에서 어울리고 도움을 주고받으며 협업을 통해 원하는 서비스를
             만듭니다.
