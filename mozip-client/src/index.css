@@ -19,7 +19,7 @@ html {
 img {
   -webkit-user-drag: none;
 }
-  
+
 a {
   text-decoration: none;
 }
@@ -27,7 +27,6 @@ a {
 #root {
   height: 100%;
   width: 100%;
-  max-width: 1440px;
 }
 
 .bold {
