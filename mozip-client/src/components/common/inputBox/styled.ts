@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const InputBox = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
   font-weight: 500;
   margin-top: 1.5rem;
   .label-bg {
@@ -26,9 +28,17 @@ export const InputBox = styled.div`
       line-height: 28px;
       color: #000000;
     }
+    &.focus {
+      border: 1px solid #61cb9f;
+    }
+    &.error {
+      border: 1px solid #ff6f77;
+    }
   }
   .checkbox-group-bg {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     list-style-type: none;
     padding-inline-start: 0;
     margin-top: 0.5rem;
@@ -73,20 +83,5 @@ export const InputBox = styled.div`
         color: white;
       }
     }
-    .checkbox-bg + .checkbox-bg {
-      margin-left: 3rem;
-    }
   }
-`;
-
-export const Main = styled.div`
-  font-weight: 500;
-  margin-top: 14px;
-`;
-
-export const LabelBg = styled.div`
-  margin-bottom: 5px;
-  font-size: 13px;
-  line-height: 19px;
-  color: #46494e;
 `;
