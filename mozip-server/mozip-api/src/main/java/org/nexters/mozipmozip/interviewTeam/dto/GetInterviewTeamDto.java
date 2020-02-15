@@ -1,6 +1,8 @@
 package org.nexters.mozipmozip.interviewTeam.dto;
 
 import lombok.*;
+import org.nexters.mozipmozip.resume.domain.Resume;
+import org.nexters.mozipmozip.user.domain.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,17 +15,17 @@ import java.util.List;
 public class GetInterviewTeamDto {
 
     private String title;
-    private List<Long> usersIds = new ArrayList<>();
-    private List<Long> resumesIds = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+    private List<Resume> resumes = new ArrayList<>();
     private LocalDate startDate;
     private LocalTime startTime;
     private LocalTime endTime;
 
     @Builder
-    public GetInterviewTeamDto(String title, List<Long> usersIds, List<Long> resumesIds, LocalDate startDate, LocalTime startTime, LocalTime endTime) {
+    public GetInterviewTeamDto(String title, List<User> users, List<Resume> resumes, LocalDate startDate, LocalTime startTime, LocalTime endTime) {
         this.title = title;
-        this.usersIds = usersIds;
-        this.resumesIds = resumesIds;
+        this.users = users;
+        this.resumes = resumes;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endTime = endTime;

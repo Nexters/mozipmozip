@@ -45,7 +45,7 @@ class InterviewTeamControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule());
 
-    private InterviewTeam interviewTeam = new EasyRandom().nextObject(InterviewTeam.class);
+    private InterviewTeam interviewTeamFixture = new EasyRandom().nextObject(InterviewTeam.class);
     private List<Long> userId = new ArrayList<>();
     private List<Long> resumeId = new ArrayList<>();
 
@@ -86,26 +86,14 @@ class InterviewTeamControllerTest {
     @Test
     @DisplayName("인터뷰팀 조회")
     void getInterviewTeam() throws Exception {
-        userId.add(1L);
-        userId.add(2L);
-        resumeId.add(0L);
-        resumeId.add(1L);
-        CreateInterviewTeamDto createInterviewTeamDto = CreateInterviewTeamDto.builder()
-                .title("A")
-                .usersIds(userId)
-                .resumesIds(resumeId)
-                .startDate(LocalDate.now())
-                .startTime(LocalTime.now())
-                .endTime(LocalTime.now()).build();
 
-        InterviewTeam createInterviewTeam = CreateInterviewTeamDto.toEntity(createInterviewTeamDto);
-        given(interviewTeamService.getInterviewTeam(interviewTeam.getId())).willReturn(interviewTeam);
+        given(interviewTeamService.getInterviewTeam(interviewTeamFixture.getId())).willReturn(interviewTeamFixture);
 
         mockMvc.perform(
-                get("/api/v1/interview/{id}", interviewTeam.getId())
+                get("/api/v1/interview/{id}", interviewTeamFixture.getId())
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value(interviewTeam.getTitle()));
+                .andExpect(jsonPath("$.title").value(interviewTeamFixture.getTitle()));
     }
 }

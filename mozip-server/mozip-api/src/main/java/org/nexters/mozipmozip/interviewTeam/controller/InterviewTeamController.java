@@ -5,6 +5,8 @@ import org.nexters.mozipmozip.interviewTeam.application.InterviewTeamService;
 import org.nexters.mozipmozip.interviewTeam.domian.InterviewTeam;
 import org.nexters.mozipmozip.interviewTeam.dto.CreateInterviewTeamDto;
 import org.nexters.mozipmozip.interviewTeam.dto.GetInterviewTeamDto;
+import org.nexters.mozipmozip.resume.domain.Resume;
+import org.nexters.mozipmozip.user.domain.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,16 +32,18 @@ public class InterviewTeamController {
     @GetMapping("/{id}")
     public GetInterviewTeamDto getInterviewTeam(@PathVariable Long id) {
         InterviewTeam interviewTeam = interviewTeamService.getInterviewTeam(id);
-        List<Long> users = new ArrayList<>();
-        List<Long> resumes = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        List<Resume> resumes = new ArrayList<>();
         for (int i = 0; i < interviewTeam.getUsers().size(); i++) {
-            users.set(i, interviewTeam.getUsers().get(i).getId());
-            resumes.set(i, interviewTeam.getResumes().get(i).getId());
+            users.set(i, interviewTeam.getUsers().get(i));
+        }
+        for (int i = 0; i < interviewTeam.getResumes().size(); i++) {
+            resumes.set(i, interviewTeam.getResumes().get(i));
         }
         return GetInterviewTeamDto.builder()
                 .title(interviewTeam.getTitle())
-                .usersIds(users)
-                .resumesIds(resumes)
+                .users(users)
+                .resumes(resumes)
                 .startDate(interviewTeam.getStartDate())
                 .startTime(interviewTeam.getStartTime())
                 .endTime(interviewTeam.getEndTime()).build();
