@@ -36,8 +36,6 @@ class NoticeServiceTest {
         assertThat(savedNotice.getDescription()).isEqualTo(noticeFixture.getDescription());
         assertThat(savedNotice.getTitle()).isEqualTo(noticeFixture.getTitle());
         assertThat(savedNotice.getDisplayImagePath()).isEqualTo(noticeFixture.getDisplayImagePath());
-        assertThat(savedNotice.getStartDateTime()).isEqualTo(noticeFixture.getStartDateTime());
-        assertThat(savedNotice.getEndDateTime()).isEqualTo(noticeFixture.getEndDateTime());
         assertThat(savedNotice.getDescription()).isEqualTo(noticeFixture.getDescription());
         assertThat(savedNotice.getNoticeStatus()).isEqualTo(noticeFixture.getNoticeStatus());
         assertThat(savedNotice.getNoticeForms()).isEqualTo(noticeFixture.getNoticeForms());
