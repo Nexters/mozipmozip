@@ -16,11 +16,11 @@ public class CreateInterviewTeamDto {
     private String title;
     private List<Long> resumesIds = new ArrayList<>();
     private List<Long> usersIds = new ArrayList<>();
-    @JsonFormat
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDate startDate;
-    @JsonFormat
+    @JsonFormat(pattern = "HH:mm:ss", timezone = "Asia/Seoul")
     private LocalTime startTime;
-    @JsonFormat
+    @JsonFormat(pattern = "HH:mm:ss", timezone = "Asia/Seoul")
     private LocalTime endTime;
 
     @Builder
