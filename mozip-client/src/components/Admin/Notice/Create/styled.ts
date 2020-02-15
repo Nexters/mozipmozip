@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 
+export const Container = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 886px;
+  margin: 98px auto;
+`;
+
 export const Layout = styled.div`
-  width: 76%; // 100% - 24%
   padding: 0 12%;
 `;
 
