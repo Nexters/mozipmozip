@@ -2,8 +2,10 @@ import React from 'react';
 import SignUpContainer from '../containers/SignUp/SignUpContainer';
 import Header from '../components/common/Header';
 import { useResumes } from '../hooks';
+import {RouteComponentProps} from 'react-router-dom';
 
-function SignUpPage() {
+function SignUpPage(props: RouteComponentProps) {
+  const { history } = props;
   const { onSaveUserInfo } = useResumes();
   const categories = [
     {
@@ -29,7 +31,7 @@ function SignUpPage() {
   return (
     <>
       <Header categories={categories} />
-      <SignUpContainer />
+      <SignUpContainer history={history}/>
     </>
   );
 }

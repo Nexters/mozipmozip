@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Navigation from '../Navigation';
 import './index.scss';
+import {useUsers} from "../../../hooks";
 
 import logo from '../../../static/images/logo.png';
 import logoTitle from '../../../static/images/logo-title.png';
@@ -14,6 +15,8 @@ function Header({ categories }: IHeaderProps) {
   const [ clickedIndex, setClickedIndex ] = useState(-1);
   const [ navigation, setNavigation ] = useState();
   const history = useHistory();
+  const { onGetCurrentUser, users, onSignOut } = useUsers();
+  const { userInfo: {name, admin} } = users;
 
   const handleClickLogo = () => {
     setClickedIndex(-1);
@@ -39,7 +42,9 @@ function Header({ categories }: IHeaderProps) {
       );
     });
   };
-
+  useEffect(()=>{
+    if(!name) onGetCurrentUser() // 쿠키 있고 name 없으면 유저정보 get
+  },[]);
   return (
     <>
       {navigation && <Navigation items={navigation} index={clickedIndex} />}
@@ -57,13 +62,23 @@ function Header({ categories }: IHeaderProps) {
             </ul>
           </div>
           {
-            //TODO 유저 분기처리
+            name ?
+              <a>
+                <div className="header_half">
+                  <span className="header_name"
+                        style={{marginRight:'60px', cursor: 'pointer', color: '#94999E'}}
+                        onClick={onSignOut}>
+                    로그아웃</span>
+                  <span className="header_name bold">{name}</span>
+                </div>
+              </a>
+              :
+              <Link to={'/signin'}>
+                <div className="header_half">
+                  <span className="header_name bold">로그인</span>
+                </div>
+              </Link>
           }
-          <Link to={'/signin'}>
-            <div className="header_half">
-              <span className="header_name bold">로그인</span>
-            </div>
-          </Link>
         </div>
       </div>
     </>
