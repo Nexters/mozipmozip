@@ -45,7 +45,7 @@ function Result({history}: ResultProps) {
         return {
           jobTypes: ['string'], // 뭐지 jobTypes는?
           noticeFormQuestionItems: [
-            ...target.map(v => ({
+            ...(target as NoticeQuestion[]).map(v => ({
               content: 'string', //뭐지 content?
               maxLength: v.type === 'long' ? v.maxLength : 0,
               title: v.title,

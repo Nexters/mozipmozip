@@ -17,6 +17,11 @@ export const POST_NOTICE_REQUEST = 'admin/POST_NOTICE_REQUEST' as const; // crea
 export const POST_NOTICE_SUCCESS = 'admin/POST_NOTICE_SUCCESS' as const;
 export const POST_NOTICE_FAILURE = 'admin/POST_NOTICE_FAILURE' as const;
 
+export const GET_NOTICES_REQUEST = 'admin/GET_NOTICES_REQUEST' as const;
+export const GET_NOTICES_SUCCESS = 'admin/GET_NOTICES_SUCCESS' as const;
+export const GET_NOTICES_FAILURE = 'admin/GET_NOTICES_FAILURE' as const;
+
+
 
 type NoticeFormQuestionItem = {
   content: string
@@ -45,3 +50,7 @@ export type NoticeObject = {
 export const postNoticeRequest = (noticeObj: NoticeObject) => ({type: POST_NOTICE_REQUEST, payload: noticeObj});
 export const postNoticeSuccess = (res: any) => ({type: POST_NOTICE_SUCCESS, payload: res});
 export const postNoticeFailure = (e: Error) => ({type: POST_NOTICE_FAILURE, payload: e});
+
+export const getNoticesRequest = () => ({type: GET_NOTICES_REQUEST});
+export const getNoticesSuccess = (res: any) => ({type: GET_NOTICES_SUCCESS, payload: res});
+export const getNoticesFailure = (e: Error) => ({type: GET_NOTICES_FAILURE, payload: e});
