@@ -1,7 +1,7 @@
 import {setFormValues, signUpFailure, signUpRequest, signUpSuccess} from "./actions";
 
 export type Status = 'wait' | 'pending' | 'success' | 'fail'
-export type OnBoardingState = {
+export type UsersState = {
   isLogin: boolean
   error: Error | ''
   status: {
@@ -10,7 +10,7 @@ export type OnBoardingState = {
   }
 }
 
-export type OnBoardingAction =
+export type UsersAction =
   | ReturnType<typeof setFormValues>
   | ReturnType<typeof signUpRequest>
   | ReturnType<typeof signUpSuccess>

@@ -1,4 +1,4 @@
-export const SET_FORM_VALUES = 'onBoarding/SET_FORM_VALUES' as const;
+export const SET_FORM_VALUES = 'users/SET_FORM_VALUES' as const;
 export const setFormValues = (name: string, value: any) => ({type: SET_FORM_VALUES, payload: {name, value}});
 
 export type SignUpRequest = {
@@ -8,9 +8,9 @@ export type SignUpRequest = {
   name: string
   password: string
 }
-export const SIGN_UP_REQUEST = 'onBoarding/SIGN_UP_REQUEST' as const;
-export const SIGN_UP_SUCCESS = 'onBoarding/SIGN_UP_SUCCESS' as const;
-export const SIGN_UP_FAILURE = 'onBoarding/SIGN_UP_FAILURE' as const;
+export const SIGN_UP_REQUEST = 'users/SIGN_UP_REQUEST' as const;
+export const SIGN_UP_SUCCESS = 'users/SIGN_UP_SUCCESS' as const;
+export const SIGN_UP_FAILURE = 'users/SIGN_UP_FAILURE' as const;
 
 export const signUpRequest = (values: SignUpRequest) => ({type: SIGN_UP_REQUEST, payload: values});
 export const signUpSuccess = (data: any) => ({type: SIGN_UP_SUCCESS, payload: data});

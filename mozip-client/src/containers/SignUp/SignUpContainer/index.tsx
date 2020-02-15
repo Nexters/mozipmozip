@@ -26,9 +26,7 @@ function SignUpContainer() {
 
   const handleSubmit = () => {
     if(password !== passwordConfirm) return alert('비밀번호와 비밀번호 확인이 다릅니다.');
-    else{
-      onSignUp({ admin, adminCode, email, name, password });
-    }
+    else onSignUp({ admin, adminCode, email, name, password });
   };
   const renderTabs = () => {
     const tabTitles = ['지원자 회원가입', '관리자 회원가입'];
@@ -49,7 +47,7 @@ function SignUpContainer() {
   return (
     <Styled.Main>
       <Styled.Container>
-        <Styled.LeftWrapper>
+        <Styled.LeftWrapper onSubmit={(e) => e.preventDefault()}>
           <Styled.TabContainer>
             {renderTabs()}
           </Styled.TabContainer>

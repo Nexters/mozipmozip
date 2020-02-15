@@ -10,13 +10,12 @@ function* signUpSaga() {
   while (true) {
     try {
       const action = yield take(SIGN_UP_REQUEST);
-      const result = yield call(requestHandler, {
+      const {data} = yield call(requestHandler, {
         path: '/api/v1/users',
         method: 'post',
         data: action.payload
       });
-      yield put({type: SIGN_UP_SUCCESS, payload: result});
-      return result;
+      yield put({type: SIGN_UP_SUCCESS, payload: data});
     } catch (e) {
       yield put({type: SIGN_UP_FAILURE, payload: e});
     }
@@ -25,7 +24,7 @@ function* signUpSaga() {
 
 
 
-export default function* adminSaga() {
+export default function* usersSaga() {
   yield all([
     signUpSaga(),
 

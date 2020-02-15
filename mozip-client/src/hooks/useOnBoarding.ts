@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useDispatch} from "react-redux";
-import {SignUpRequest, signUpRequest} from "../modules/onBoarding";
+import {SignUpRequest, signUpRequest} from "../modules/users";
 
 export default function useOnBoarding() {
   const dispatch = useDispatch();

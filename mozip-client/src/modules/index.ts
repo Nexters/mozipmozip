@@ -3,22 +3,24 @@ import {all} from 'redux-saga/effects';
 import admin from './admin';
 import base from './base';
 import resumes from './resumes';
-import onBoarding from './onBoarding'
+import users from './users'
 
 import baseSaga from "./base/sagas";
 import adminSaga from "./admin/sagas";
+import usersSaga from "./users/sagas";
 
 const rootReducer = combineReducers({
   admin,
   resumes,
   base,
-  onBoarding
+  users
 });
 
 export function* rootSaga() {
   yield all([
     baseSaga(),
-    adminSaga()
+    adminSaga(),
+    usersSaga()
   ]);
 }
 

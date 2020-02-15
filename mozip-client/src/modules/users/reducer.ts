@@ -1,6 +1,6 @@
-import {OnBoardingAction, OnBoardingState} from "./types";
+import {UsersAction, UsersState} from "./types";
 
-const initialState: OnBoardingState = {
+const initialState: UsersState = {
   isLogin: false,
   error: '',
   status: {
@@ -9,13 +9,13 @@ const initialState: OnBoardingState = {
   }
 };
 
-export default function (state: OnBoardingState = initialState, action: OnBoardingAction) {
+export default function (state: UsersState = initialState, action: UsersAction) {
   switch (action.type) {
-    case "onBoarding/SIGN_UP_REQUEST":
+    case "users/SIGN_UP_REQUEST":
       return {...state, status: {...state.status, signUp: 'pending'}};
-    case "onBoarding/SIGN_UP_SUCCESS":
+    case "users/SIGN_UP_SUCCESS":
       return {...state, status: {...state.status, signUp: 'success'}};
-    case "onBoarding/SIGN_UP_FAILURE":
+    case "users/SIGN_UP_FAILURE":
       return {...state, status: {...state.status, signUp: 'fail'}, error: action.payload};
     default:
       return state;
