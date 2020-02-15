@@ -27,12 +27,12 @@ function Header() {
             <ul>
               <li className="header_category"
                   onClick={()=>setVisible({category1: !category1, category2: false})}
-              >진행중인 리쿠르팅
+              >모집공고
                 {category1 && <HeaderCategory item={['개발자 디자이너','면접']}/>}
               </li>
               <li className="header_category"
                   onClick={()=>setVisible({category1: false, category2: !category2})}
-              >리쿠르팅 목록
+              >내 지원서
                 {category2 && <HeaderCategory item={['카테고리1','카테고리2']}/>}
               </li>
             </ul>
