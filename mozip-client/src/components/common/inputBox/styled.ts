@@ -28,9 +28,17 @@ export const InputBox = styled.div`
       line-height: 28px;
       color: #000000;
     }
+    &.focus {
+      border: 1px solid #61cb9f;
+    }
+    &.error {
+      border: 1px solid #ff6f77;
+    }
   }
   .checkbox-group-bg {
     display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
     list-style-type: none;
     padding-inline-start: 0;
     margin-top: 0.5rem;
@@ -58,7 +66,7 @@ export const InputBox = styled.div`
       .checkbox-custom + .checkbox-custom-label:before {
         content: '';
         background: #fff;
-        border: 1px solid #c4c4c4;
+        border: 1.5px solid #d0d3d8;
         border-radius: 6px;
         display: inline-block;
         vertical-align: middle;
@@ -71,12 +79,9 @@ export const InputBox = styled.div`
       .checkbox-custom:checked + .checkbox-custom-label:before {
         content: '✔';
         font-family: 'Font Awesome 5 Free';
-        background: #6d6d6d;
-        color: #ffffff;
+        background: #61cb9f;
+        color: white;
       }
-    }
-    .checkbox-bg + .checkbox-bg {
-      margin-left: 3rem;
     }
   }
 `;
