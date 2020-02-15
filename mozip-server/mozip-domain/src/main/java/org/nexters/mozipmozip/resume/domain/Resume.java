@@ -1,12 +1,30 @@
 package org.nexters.mozipmozip.resume.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.nexters.mozipmozip.JpaBasePersistable;
-import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.user.domain.User;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +41,12 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 public class Resume extends JpaBasePersistable {
 
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(targetEntity = Notice.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "notice_id", nullable = false)
-    private Notice notice;
+    @Column(name = "notice_id", nullable = false)
+    private Long noticeId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
@@ -52,7 +69,8 @@ public class Resume extends JpaBasePersistable {
     @Column(name = "job", nullable = false)
     private ResumeJobType resumeJobType = ResumeJobType.STUDENT;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     @CollectionTable(
             name = "resume_job_type",
             joinColumns = @JoinColumn(name = "resume_id")
@@ -69,14 +87,15 @@ public class Resume extends JpaBasePersistable {
     @Column(name = "portfolio_url")
     private String portFolioURL;
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SELECT)
     @JsonManagedReference
     private List<ResumeAnswerItem> resumeAnswerItems;
 
     @Builder
     public Resume(final Long id,
                   final User user,
-                  final Notice notice,
+                  final Long noticeId,
                   final ResumeState state,
                   final String name,
                   final String phoneNumber,
@@ -90,7 +109,7 @@ public class Resume extends JpaBasePersistable {
                   final List<ResumeAnswerItem> resumeAnswerItems) {
         this.id = id;
         this.user = user;
-        this.notice = notice;
+        this.noticeId = noticeId;
         this.state = state;
         this.name = name;
         this.phoneNumber = phoneNumber;
