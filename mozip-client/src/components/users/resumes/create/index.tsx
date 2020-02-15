@@ -13,7 +13,6 @@ type CreateProps = {
 function Create(props: CreateProps) {
   const { subPath, history } = props;
   useIsLogin();
-
   return (
     <>
       {subPath === 'userInfo' && <UserInfo history={history} />}
