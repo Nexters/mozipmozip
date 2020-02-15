@@ -13,7 +13,7 @@ type UserInfoProps = {
   };
 };
 
-function UserInfo(props: UserInfoProps) {
+function UserInfo({ history }: UserInfoProps) {
   const { resumes, onSaveUserInfo } = useResumes();
   const checkName = (name: string) => {
     if (/[`~!@#$%^&*|\\\'\";:\/?]/.test(name))
@@ -44,7 +44,7 @@ function UserInfo(props: UserInfoProps) {
     else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
     else if (!resumes.email) alert('이메일을 입력해주세요');
     else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
-    else props.history.push('/resumes/create/answers');
+    else history.push('/resumes/create/answers');
   };
   const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
