@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface IButtonProps {
-  background: string
+  background: string;
 }
 
 const Main = styled.main`
@@ -12,10 +12,11 @@ const Main = styled.main`
 const Container = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
-const MainImage = styled.img`
-  width: 100%;
+const BannerImage = styled.img`
+  width: 1448px;
   height: 553px;
 `;
 
@@ -44,7 +45,7 @@ const Button = styled.button<IButtonProps>`
   border-radius: 8px;
   font-family: Roboto;
   font-size: 20px;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
 `;
 
@@ -60,9 +61,9 @@ const Description = styled.div`
 export {
   Main,
   Container,
-  MainImage,
+  BannerImage,
   ContentWrapper,
   ButtonWrapper,
   Button,
-  Description
-}
+  Description,
+};

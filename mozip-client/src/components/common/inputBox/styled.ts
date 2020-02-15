@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const InputBox = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
   font-weight: 500;
   margin-top: 1.5rem;
   .label-bg {
@@ -58,7 +56,7 @@ export const InputBox = styled.div`
       .checkbox-custom + .checkbox-custom-label:before {
         content: '';
         background: #fff;
-        border: 1px solid #c4c4c4;
+        border: 1.5px solid #d0d3d8;
         border-radius: 6px;
         display: inline-block;
         vertical-align: middle;
@@ -71,12 +69,24 @@ export const InputBox = styled.div`
       .checkbox-custom:checked + .checkbox-custom-label:before {
         content: '✔';
         font-family: 'Font Awesome 5 Free';
-        background: #6d6d6d;
-        color: #ffffff;
+        background: #61cb9f;
+        color: white;
       }
     }
     .checkbox-bg + .checkbox-bg {
       margin-left: 3rem;
     }
   }
+`;
+
+export const Main = styled.div`
+  font-weight: 500;
+  margin-top: 14px;
+`;
+
+export const LabelBg = styled.div`
+  margin-bottom: 5px;
+  font-size: 13px;
+  line-height: 19px;
+  color: #46494e;
 `;
