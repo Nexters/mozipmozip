@@ -7,6 +7,7 @@ import org.nexters.mozipmozip.notice.dto.NoticeCreateDto;
 import org.nexters.mozipmozip.notice.dto.NoticeUpdateDto;
 import org.nexters.mozipmozip.notice.dto.NoticeViewDto;
 import org.nexters.mozipmozip.user.domain.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,12 @@ public class NoticeController {
 
     @PostMapping
     public ResponseEntity createNotice(@RequestBody @Valid NoticeCreateDto noticeCreateDto, HttpSession httpSession) {
-//세션으로 현재 로그인되어있는 유저 아이디값 가져와서 서비스로 넘겨준다 -> 서비스에서 noticea 생성할 때 userrepository를 이용해서 찾아서 넣어주기
         User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
+
+        if (!userInfo.getIsAdmin()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
         Notice savedNotice = noticeService.create(noticeCreateDto.of(), userInfo.getId());
         return ResponseEntity.created(URI.create("/api/v1/notices/" + savedNotice.getId()))
                 .body(savedNotice);

@@ -15,6 +15,7 @@ spring:
     url: jdbc:mysql://localhost:6606/mozipmozip?autoReconnect=true&useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: local
     password: local
+    initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -27,6 +28,7 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    initialization-mode: always
   jpa:
     hibernate:
       ddl-auto: create-drop
