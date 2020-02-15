@@ -2,19 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import mainImage from '../../../static/images/main-image.png';
 
+const BannerBgTag = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const BannerTag = styled.div`
-  overflow: hidden;
-  width: 100%;
-  height: 300px;
-  padding-left: 5rem;
+  width: 1440px;
+  height: 296px;
   background-image: url(${mainImage});
   background-repeat: no-repeat;
-  background-position: 0 58%;
-  background-size: cover;
+  background-position: 0 50%;
 `;
 
 function Banner() {
-  return <BannerTag></BannerTag>;
+  return (
+    <BannerBgTag>
+      <BannerTag />
+    </BannerBgTag>
+  );
 }
 
 export default Banner;

@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { Layout } from '../components/common/Admin';
 import Main from '../components/users/resumes/main';
 import Create from '../components/users/resumes/create';
+import Header from '../components/common/Header';
 
 function Resumes(
   props: RouteComponentProps<{ path: string; subPath: string }>,
@@ -14,7 +15,8 @@ function Resumes(
     history,
   } = props;
   return (
-    <Layout>
+    <>
+      <Header />
       {!path ? (
         <Main />
       ) : path === 'create' ? (
@@ -22,7 +24,7 @@ function Resumes(
       ) : (
         ''
       )}
-    </Layout>
+    </>
   );
 }
 

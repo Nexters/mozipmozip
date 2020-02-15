@@ -4,7 +4,7 @@ import InputBox, { CheckBoxGroup } from '../../../../common/inputBox';
 import * as styled from './styled';
 import { useResumes } from '../../../../../hooks';
 
-const ProgrammerJobTypes: string[] = ['Server', 'Front', 'Android', 'ios'];
+const ProgrammerJobTypes: string[] = ['Server', 'Web', 'Android', 'iOS'];
 const DesignerJobTypes: string[] = ['UX', 'UI', 'GUI'];
 
 type UserInfoProps = {
