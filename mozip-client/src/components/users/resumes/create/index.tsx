@@ -1,6 +1,7 @@
 import React from 'react';
 import UserInfo from './userInfo';
 import Answers from './answers';
+import {useIsLogin} from "../../../../hooks";
 
 type CreateProps = {
   subPath: string;
@@ -11,6 +12,8 @@ type CreateProps = {
 
 function Create(props: CreateProps) {
   const { subPath, history } = props;
+  useIsLogin();
+
   return (
     <>
       {subPath === 'userInfo' && <UserInfo history={history} />}
