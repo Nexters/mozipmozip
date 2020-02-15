@@ -69,13 +69,7 @@ class UserServiceTest {
     }
 
     @Test
-    @DisplayName("로그아웃 테스트")
-    void logoutUser() {
-        //컨트롤러에서 test 해야될듯?
-    }
-
-    @Test
-    @DisplayName("유저 정보 수정 테스트 하는중->실패뜸 ㅜㅜ")
+    @DisplayName("유저 정보 수정 성공")
     void updateUserTest() {
 
         //given - 테스트 준비
@@ -99,5 +93,18 @@ class UserServiceTest {
         assertThat(updateUser.getEmail()).isEqualTo(updateInfo.getEmail());
     }
 
-    //회원 조회,수정,탈퇴는 세션있어서 알아보고 다시 해볼예정//
+    @Test
+    @DisplayName("유저 정보 조회 성공")
+    void getUserTest() {
+        //given
+        Long userFixtureId = 1L;
+
+        given(userRepositoy.findById(userFixtureId)).willReturn(Optional.of(userFixture));
+
+        //when
+        User getUser = userService.getUser(userFixtureId);
+
+        assertThat(getUser.getName()).isEqualTo(userFixture.getName());
+        assertThat(getUser.getEmail()).isEqualTo(userFixture.getEmail());
+    }
 }

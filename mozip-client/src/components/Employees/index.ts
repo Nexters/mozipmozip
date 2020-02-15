@@ -1,1 +1,0 @@
-export { default as EmployeeList } from './List'

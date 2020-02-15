@@ -15,6 +15,12 @@ public class UserLoginDto {
     @NotBlank(message = "비밀번호는 필수 입력입니다")
     private String password;
 
+    @Builder
+    UserLoginDto(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public static User toEntity(UserLoginDto userLoginDto) {
         return User.builder()
                 .email(userLoginDto.email)

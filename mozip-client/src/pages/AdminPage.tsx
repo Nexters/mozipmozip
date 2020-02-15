@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Main from '../components/Admin/Main';
 import Create from '../components/Admin/Announcement/Create';
 import Header from '../components/common/Header';
-
+        
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
   const categories = [
