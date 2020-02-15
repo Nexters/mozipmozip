@@ -1,23 +1,16 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import {
-  MainPage,
-  AdminPage,
-  NotFoundPage,
-  SignUpPage,
-  TodoPage,
-  EmployPage,
-} from './pages';
-import Resumes from './pages/resumes';
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {AdminPage, EmployPage, MainPage, Resumes, SignInPage, SignUpPage, TodoPage,} from './pages';
 
 export default function App() {
-  return (
-    <Switch>
-      <Route exact path={'/'} component={MainPage} />
-      <Route exact path={'/signup'} component={SignUpPage} />
-      <Route path={'/admin/:path?/:subPath?'} component={AdminPage} />
-      <Route path={'/todo'} component={TodoPage} />
-      <Route path={'/employees'} component={EmployPage} />
+    return (
+        <Switch>
+            <Route exact path={'/'} component={MainPage}/>
+            <Route exact path={'/signup'} component={SignUpPage}/>
+            <Route exact path={'/signin'} component={SignInPage}/>
+            <Route path={'/admin/:path?/:subPath?'} component={AdminPage}/>
+            <Route path={'/todo'} component={TodoPage}/>
+            <Route path={'/employees'} component={EmployPage}/>
       <Route path={'/resumes/:path?/:subPath?'} component={Resumes} />
       <Redirect path="*" to="/" />
     </Switch>
