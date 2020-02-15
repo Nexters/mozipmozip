@@ -7,6 +7,7 @@ import org.hibernate.annotations.Where;
 import org.nexters.mozipmozip.JpaBasePersistable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,20 @@ public class Notice extends JpaBasePersistable {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "start_date_time", nullable = false)
-    private LocalDateTime startDateTime = null;
+    @Column(name = "document_start_date", nullable = false)
+    private LocalDate documentStartDate = null;
 
-    @Column(name = "end_date_time", nullable = false)
-    private LocalDateTime endDateTime;
+    @Column(name = "document_end_date", nullable = false)
+    private LocalDate documentEndDate = null;
+
+    @Column(name = "interview_start_date", nullable = false)
+    private LocalDate interviewStartDate = null;
+
+    @Column(name = "interview_end_date", nullable = false)
+    private LocalDate interviewEndDate = null;
+
+    @Column(name = "notice_end_date", nullable = false)
+    private LocalDate noticeEndDate = null;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -49,8 +59,11 @@ public class Notice extends JpaBasePersistable {
             final String title,
             final String displayImagePath,
             final String description,
-            final LocalDateTime startDateTime,
-            final LocalDateTime endDateTime,
+            final LocalDate interviewStartDate,
+            final LocalDate interviewEndDate,
+            final LocalDate documentStartDate,
+            final LocalDate documentEndDate,
+            final LocalDate noticeEndDate ,
             final NoticeStatus noticeStatus,
             final List<NoticeForm> noticeForms
     ) {
@@ -58,8 +71,11 @@ public class Notice extends JpaBasePersistable {
         this.title = title;
         this.displayImagePath = displayImagePath;
         this.description = description;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.interviewStartDate = interviewStartDate;
+        this.interviewEndDate = interviewEndDate;
+        this.documentStartDate = documentStartDate;
+        this.documentEndDate = documentEndDate;
+        this.noticeEndDate = noticeEndDate;
         this.noticeStatus = noticeStatus;
         this.noticeForms = noticeForms;
     }
