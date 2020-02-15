@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Where;
 import org.nexters.mozipmozip.JpaBasePersistable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -34,5 +36,18 @@ public class User extends JpaBasePersistable {
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+    }
+
+    public void encodePassword(BCryptPasswordEncoder encoder) {
+        this.password = encoder.encode(this.password);
+    }
+
+    public boolean matchPassword(String nonEncodedPassword, PasswordEncoder bCryptPasswordEncoder) {
+        return bCryptPasswordEncoder.matches(nonEncodedPassword, this.password);
+    }
+
+    public void update(User user, PasswordEncoder bCryptPasswordEncoder) {
+        this.name = user.getName();
+        this.password = bCryptPasswordEncoder.encode(user.getPassword());
     }
 }

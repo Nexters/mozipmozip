@@ -6,7 +6,7 @@ import org.nexters.mozipmozip.interviewTeam.domian.InterviewTeamRepository;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
 import org.nexters.mozipmozip.user.domain.User;
-import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +18,14 @@ public class InterviewTeamService {
 
     private final InterviewTeamRepository interviewTeamRepository;
     private final ResumeRepository resumeRepository;
-    private final UserRepositoy userRepositoy;
+    private final UserRepository userRepository;
 
     //인터뷰팀생성
     public InterviewTeam createInterviewTeam(InterviewTeam interviewTeam, List<Long> usersIds, List<Long> resumesIds) {
 
         List<Resume> resumes = resumeRepository.findAllById(resumesIds);
         interviewTeam.setResumes(resumes);
-        List<User> users = userRepositoy.findAllById(usersIds);
+        List<User> users = userRepository.findAllById(usersIds);
         interviewTeam.setUsers(users);
         InterviewTeam createTeam = interviewTeamRepository.save(interviewTeam);
         return createTeam;

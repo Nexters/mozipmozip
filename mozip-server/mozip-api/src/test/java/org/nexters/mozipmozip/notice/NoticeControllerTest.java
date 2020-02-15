@@ -16,8 +16,8 @@ import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeForm;
 import org.nexters.mozipmozip.notice.dto.NoticeCreateDto;
 import org.nexters.mozipmozip.notice.dto.NoticeUpdateDto;
-import org.nexters.mozipmozip.user.controller.UserController;
 import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.utils.SessionUtil;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
@@ -51,6 +51,10 @@ class NoticeControllerTest {
     private User userFixture = new EasyRandom().nextObject(User.class);
     private Notice noticeFixture = new EasyRandom().nextObject(Notice.class);
 
+    private MockHttpSession mockHttpSession = new MockHttpSession(){{
+        setAttribute(SessionUtil.SESSION_KEY, userFixture);
+    }};
+
     @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(sut)
@@ -61,10 +65,8 @@ class NoticeControllerTest {
     @DisplayName("모집 공고 생성 api 테스트")
     void createNotice() throws Exception {
         Notice noticeFixture = noticeCreateDto.of();
-        MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
-        User user = (User) mockHttpSession.getAttribute(UserController.SESSION_KEY);
-        given(noticeService.create(noticeFixture, user)).willReturn(noticeFixture);
+        User user = SessionUtil.getUser(mockHttpSession);
+        given(noticeService.create(noticeFixture, user.getId())).willReturn(noticeFixture);
 
         mockMvc.perform(
                 post("/api/v1/notices")
@@ -133,10 +135,9 @@ class NoticeControllerTest {
     @DisplayName("모집 공고 업데이트 api 테스트")
     void updateNotice() throws Exception {
         Notice updateNoticeFixture = noticeUpdateDto.of();
-        MockHttpSession mockHttpSession = new MockHttpSession();
-        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
-        User user = (User) mockHttpSession.getAttribute(UserController.SESSION_KEY);
-        given(noticeService.create(updateNoticeFixture, user)).willReturn(updateNoticeFixture);
+
+        User user = (User) mockHttpSession.getAttribute(SessionUtil.SESSION_KEY);
+        given(noticeService.create(updateNoticeFixture, user.getId())).willReturn(updateNoticeFixture);
 
         mockMvc.perform(
                 patch("/api/v1/notices")

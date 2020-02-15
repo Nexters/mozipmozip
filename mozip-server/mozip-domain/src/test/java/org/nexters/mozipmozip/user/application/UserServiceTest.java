@@ -8,8 +8,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.user.domain.User;
-import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.domain.UserRepository;
+import org.nexters.mozipmozip.utils.SessionUtil;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -21,7 +23,9 @@ import static org.mockito.BDDMockito.given;
 class UserServiceTest {
 
     @Mock
-    private UserRepositoy userRepositoy;
+    private UserRepository userRepository;
+    @Mock
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @InjectMocks
     private UserService userService;
 
@@ -30,13 +34,11 @@ class UserServiceTest {
             .name("라영지")
             .password("1111").build();
 
-    private MockHttpSession mockSession;
-
     @Test
     @DisplayName("회원가입 성공")
     void createUserTest() {
         // given
-        given(userRepositoy.save(userFixture)).willReturn(userFixture);
+        given(userRepository.save(userFixture)).willReturn(userFixture);
 
         // when
         User savedUser = userService.createUser(userFixture, false);
@@ -56,7 +58,8 @@ class UserServiceTest {
                 .email(userFixture.getEmail())
                 .password(userFixture.getPassword())
                 .build();
-        given(userRepositoy.findByEmail(login.getEmail())).willReturn(userFixture);
+        given(userRepository.findByEmail(login.getEmail())).willReturn(Optional.of(userFixture));
+        given(bCryptPasswordEncoder.matches(login.getPassword(), userFixture.getPassword())).willReturn(true);
 
         //when
         User loginUser = userService.signInUser(login);
@@ -73,24 +76,24 @@ class UserServiceTest {
     void updateUserTest() {
 
         //given - 테스트 준비
-        Long userFixtureId = 1L;
+        String encodedPassword = "!@#$%";
         User updateInfo = User.builder()
                 .email("qqq@naver.com")
                 .password("2222")
                 .build();
 
-        mockSession = new MockHttpSession();
+        MockHttpSession mockSession = new MockHttpSession() {{
+            setAttribute(SessionUtil.SESSION_KEY, userFixture);
+        }};
 
-        mockSession.setAttribute("userInfo", userFixture);
-
-        given(userRepositoy.findById(Mockito.any())).willReturn(Optional.of(userFixture));
+        given(userRepository.findById(Mockito.any())).willReturn(Optional.of(userFixture));
+        given(bCryptPasswordEncoder.encode(updateInfo.getPassword())).willReturn(encodedPassword);
 
         //when
         User updateUser = userService.updateUser(mockSession, updateInfo);
 
         //that
-        assertThat(updateUser.getPassword()).isEqualTo(updateInfo.getPassword());
-        assertThat(updateUser.getEmail()).isEqualTo(updateInfo.getEmail());
+        assertThat(updateUser.getPassword()).isEqualTo(encodedPassword);
     }
 
     @Test
@@ -99,7 +102,7 @@ class UserServiceTest {
         //given
         Long userFixtureId = 1L;
 
-        given(userRepositoy.findById(userFixtureId)).willReturn(Optional.of(userFixture));
+        given(userRepository.findById(userFixtureId)).willReturn(Optional.of(userFixture));
 
         //when
         User getUser = userService.getUser(userFixtureId);

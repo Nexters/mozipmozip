@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeRepository;
 import org.nexters.mozipmozip.user.domain.User;
-import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +17,10 @@ import java.util.Optional;
 @Transactional
 public class NoticeService {
     private final NoticeRepository noticeRepository;
-    private final UserRepositoy userRepositoy;
+    private final UserRepository userRepository;
 
     public Notice create(Notice notice, Long id) {
-        User noticeUser = userRepositoy.findById(id).orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다"));
+        User noticeUser = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다"));
         notice.setUser(noticeUser);
         return noticeRepository.save(notice);
     }
