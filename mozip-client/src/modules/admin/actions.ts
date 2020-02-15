@@ -41,8 +41,11 @@ export type NoticeObject = {
   title: string
   description: string
   displayImagePath: string
-  startDateTime: Date | ''
-  endDateTime: Date | ''
+  documentStartDate: Date | ''
+  documentEndDate: Date | ''
+  interviewStartDate : Date | ''
+  interviewEndDate: Date | ''
+  noticeEndDate : Date | ''
   noticeForms: NoticeForm[]
   noticeStatus: string //"DRAFT"
 }

@@ -13,7 +13,7 @@ type ResultProps = {
 function Result({history}: ResultProps) {
   const {admin, onPostNotice} = useAdmin();
   const {onFileUpload, base} = useBase();
-  const {title, image, description, startDateTime, endDateTime, questions} = admin;
+  const {title, image, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, questions} = admin;
 
   const handleQuestion = (questions: NoticeQuestion[]) => {
     return questions.map((v, i) => {
@@ -60,19 +60,25 @@ function Result({history}: ResultProps) {
     //   title,
     //   description,
     //   displayImagePath,
-    //   startDateTime,
-    //   endDateTime,
-    //   noticeStatus: 'DRAFT', // 여기도 질문
+    //   documentStartDate,
+    //   documentEndDate,
+    //   interviewStartDate,
+    //   interviewEndDate,
+    //   noticeEndDate,
+    //   noticeStatus: 'PUBLISHED', // 여기도 질문
     //   noticeForms
     // };
 
     const submitObj = {
-      title: 'string',
+      title: 'mozipmozip',
       description: 'string',
       displayImagePath: 'string',
-      startDateTime: new Date(),
-      endDateTime: new Date(),
-      noticeStatus: 'DRAFT', // 여기도 질문
+      documentStartDate: new Date,
+      documentEndDate: new Date,
+      interviewStartDate: new Date,
+      interviewEndDate: new Date,
+      noticeEndDate: new Date,
+      noticeStatus: 'PUBLISHED', // 여기도 질문
       noticeForms: [{
         jobTypes: ['string'], // 뭐지 jobTypes는?
         noticeFormQuestionItems: [{
@@ -106,7 +112,7 @@ function Result({history}: ResultProps) {
       <Li>
         <h2>{title}</h2>
         <p>리쿠르트 소개</p>
-        <p>서류모집 {moment(startDateTime).format('YYYY.MM.DD')} ~ {moment(endDateTime).format('YYYY.MM.DD')}</p>
+        <p>서류모집 {moment(documentStartDate).format('YYYY.MM.DD')} ~ {moment(documentEndDate).format('YYYY.MM.DD')}</p>
         <p>{description}</p>
       </Li>
       <Li>aa
