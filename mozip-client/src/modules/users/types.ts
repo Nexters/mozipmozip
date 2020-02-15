@@ -3,7 +3,7 @@ import {
   setFormValues,
   signInFailure,
   signInRequest,
-  signInSuccess,
+  signInSuccess, signOutFailure, signOutRequest, signOutSuccess,
   signUpFailure,
   signUpRequest,
   signUpSuccess
@@ -15,11 +15,13 @@ export type UsersState = {
   error: {
     signIn: Error | ''
     signUp: Error | ''
+    signOut: Error | ''
     getCurrentUser: Error | ''
   }
   status: {
-    signIn: Status,
+    signIn: Status
     signUp: Status
+    signOut: Status
   }
   userInfo: {
     name: string
@@ -40,6 +42,9 @@ export type UsersAction =
   | ReturnType<typeof getCurrentUserRequest>
   | ReturnType<typeof getCurrentUserSuccess>
   | ReturnType<typeof getCurrentUserFailure>
+  | ReturnType<typeof signOutRequest>
+  | ReturnType<typeof signOutSuccess>
+  | ReturnType<typeof signOutFailure>
 
 
 

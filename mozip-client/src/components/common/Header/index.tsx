@@ -15,7 +15,7 @@ function Header({ categories }: IHeaderProps) {
   const [ clickedIndex, setClickedIndex ] = useState(-1);
   const [ navigation, setNavigation ] = useState();
   const history = useHistory();
-  const { onGetCurrentUser, users } = useUsers();
+  const { onGetCurrentUser, users, onSignOut } = useUsers();
   const { userInfo: {name, admin} } = users;
 
   const handleClickLogo = () => {
@@ -66,7 +66,8 @@ function Header({ categories }: IHeaderProps) {
               <a>
                 <div className="header_half">
                   <span className="header_name"
-                        style={{marginRight:'60px', cursor: 'pointer', color: '#94999E'}}>
+                        style={{marginRight:'60px', cursor: 'pointer', color: '#94999E'}}
+                        onClick={onSignOut}>
                     로그아웃</span>
                   <span className="header_name bold">{name}</span>
                 </div>

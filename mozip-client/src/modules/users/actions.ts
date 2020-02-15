@@ -38,3 +38,10 @@ export const GET_CURRENT_USER_FAILURE  = 'users/GET_CURRENT_USER_FAILURE'as cons
 export const getCurrentUserRequest = () => ({type: GET_CURRENT_USER_REQUEST});
 export const getCurrentUserSuccess = (data: any) => ({type: GET_CURRENT_USER_SUCCESS, payload: data});
 export const getCurrentUserFailure = (e: Error) => ({type: GET_CURRENT_USER_FAILURE, payload: e});
+
+export const SIGN_OUT_REQUEST = 'users/SIGN_OUT_REQUEST' as const;
+export const SIGN_OUT_SUCCESS = 'users/SIGN_OUT_SUCCESS' as const;
+export const SIGN_OUT_FAILURE = 'users/SIGN_OUT_FAILURE' as const;
+export const signOutRequest = () => ({type: SIGN_OUT_REQUEST});
+export const signOutSuccess = () => ({type: SIGN_OUT_SUCCESS});
+export const signOutFailure = (e: Error) => ({type: SIGN_OUT_FAILURE, payload: e});
