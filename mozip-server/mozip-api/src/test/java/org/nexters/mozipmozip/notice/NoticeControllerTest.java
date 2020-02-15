@@ -16,16 +16,17 @@ import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeForm;
 import org.nexters.mozipmozip.notice.dto.NoticeCreateDto;
 import org.nexters.mozipmozip.notice.dto.NoticeUpdateDto;
+import org.nexters.mozipmozip.user.controller.UserController;
+import org.nexters.mozipmozip.user.domain.User;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,6 +48,7 @@ class NoticeControllerTest {
 
     private NoticeCreateDto noticeCreateDto = new EasyRandom().nextObject(NoticeCreateDto.class);
     private NoticeUpdateDto noticeUpdateDto = new EasyRandom().nextObject(NoticeUpdateDto.class);
+    private User userFixture = new EasyRandom().nextObject(User.class);
     private Notice noticeFixture = new EasyRandom().nextObject(Notice.class);
 
     @BeforeEach
@@ -59,10 +61,14 @@ class NoticeControllerTest {
     @DisplayName("모집 공고 생성 api 테스트")
     void createNotice() throws Exception {
         Notice noticeFixture = noticeCreateDto.of();
-        given(noticeService.create(noticeFixture)).willReturn(noticeFixture);
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
+        User user = (User) mockHttpSession.getAttribute(UserController.SESSION_KEY);
+        given(noticeService.create(noticeFixture, user)).willReturn(noticeFixture);
 
         mockMvc.perform(
                 post("/api/v1/notices")
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 objectMapper.writeValueAsString(noticeCreateDto)
@@ -127,10 +133,14 @@ class NoticeControllerTest {
     @DisplayName("모집 공고 업데이트 api 테스트")
     void updateNotice() throws Exception {
         Notice updateNoticeFixture = noticeUpdateDto.of();
-        given(noticeService.create(updateNoticeFixture)).willReturn(updateNoticeFixture);
+        MockHttpSession mockHttpSession = new MockHttpSession();
+        mockHttpSession.setAttribute(UserController.SESSION_KEY, userFixture);
+        User user = (User) mockHttpSession.getAttribute(UserController.SESSION_KEY);
+        given(noticeService.create(updateNoticeFixture, user)).willReturn(updateNoticeFixture);
 
         mockMvc.perform(
                 patch("/api/v1/notices")
+                        .session(mockHttpSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 objectMapper.writeValueAsString(noticeUpdateDto)
