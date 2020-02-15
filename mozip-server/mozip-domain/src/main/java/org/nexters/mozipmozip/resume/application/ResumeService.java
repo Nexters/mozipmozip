@@ -3,6 +3,8 @@ package org.nexters.mozipmozip.resume.application;
 import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
+import org.nexters.mozipmozip.resume.domain.ResumeState;
+import org.nexters.mozipmozip.user.application.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import java.util.NoSuchElementException;
 public class ResumeService {
 
     private final ResumeRepository resumeRepository;
+    private final UserService userService;
 
     @Transactional(readOnly = true)
     public List<Resume> getResumes() {
@@ -38,8 +41,16 @@ public class ResumeService {
         return this.resumeRepository.findAllByUserId(userId);
     }
 
-    public Resume save(final Resume resume) {
+    public Resume save(final Long userId, final Long noticeId, final Resume resume) {
+        resume.setUser(this.userService.getUser(userId));
+        resume.setNoticeId(noticeId);
         return this.resumeRepository.save(resume);
+    }
+
+    public Resume modify(final Long resumeId, ResumeState resumeState) {
+        Resume resume = getResumeById(resumeId);
+        resume.setState(resumeState);
+        return resume;
     }
 
     public Resume delete(final Long resumeId) {
