@@ -13,6 +13,7 @@ public class ResumeAnswerItemCreateDto {
     private String answer;
 
     public ResumeAnswerItem of() {
+
         return ResumeAnswerItem.builder()
                 .answer(this.answer)
                 .build();
