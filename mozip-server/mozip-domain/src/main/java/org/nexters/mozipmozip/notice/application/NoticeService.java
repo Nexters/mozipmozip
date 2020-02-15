@@ -19,8 +19,8 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
     private final UserRepositoy userRepositoy;
 
-    public Notice create(Notice notice, User user) {
-        User noticeUser = userRepositoy.findById(user.getId()).orElseThrow(() -> new NoSuchElementException("해당 모집 공고가 없습니다"));
+    public Notice create(Notice notice, Long id) {
+        User noticeUser = userRepositoy.findById(id).orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다"));
         notice.setUser(noticeUser);
         return noticeRepository.save(notice);
     }

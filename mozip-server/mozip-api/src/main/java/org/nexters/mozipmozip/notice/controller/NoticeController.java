@@ -47,7 +47,7 @@ public class NoticeController {
     public ResponseEntity createNotice(@RequestBody @Valid NoticeCreateDto noticeCreateDto, HttpSession httpSession) {
 //세션으로 현재 로그인되어있는 유저 아이디값 가져와서 서비스로 넘겨준다 -> 서비스에서 noticea 생성할 때 userrepository를 이용해서 찾아서 넣어주기
         User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
-        Notice savedNotice = noticeService.create(noticeCreateDto.of(), userInfo);
+        Notice savedNotice = noticeService.create(noticeCreateDto.of(), userInfo.getId());
         return ResponseEntity.created(URI.create("/api/v1/notices/" + savedNotice.getId()))
                 .body(savedNotice);
     }
@@ -55,7 +55,7 @@ public class NoticeController {
     @PatchMapping
     public ResponseEntity updateNotice(@RequestBody @Valid NoticeUpdateDto noticeUpdateDto, HttpSession httpSession) {
         User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
-        Notice savedNotice = noticeService.create(noticeUpdateDto.of(), userInfo);
+        Notice savedNotice = noticeService.create(noticeUpdateDto.of(), userInfo.getId());
         return ResponseEntity.ok().body(savedNotice);
     }
 
