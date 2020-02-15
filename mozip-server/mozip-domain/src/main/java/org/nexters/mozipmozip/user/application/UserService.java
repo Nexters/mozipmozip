@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.user.domain.User;
 import org.nexters.mozipmozip.user.domain.UserRepository;
 import org.nexters.mozipmozip.utils.SessionUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,7 @@ public class UserService {
 
     public User signInUser(User user) {
         return userRepository.findByEmail(user.getEmail())
-                .filter(u -> u.matchPassword(u.getPassword(), bCryptPasswordEncoder))
+                .filter(u -> u.matchPassword(user.getPassword(), bCryptPasswordEncoder))
                 .orElseThrow(() -> new IllegalArgumentException("아이디 혹은 비밀번호가 틀렸습니다"));
     }
 
