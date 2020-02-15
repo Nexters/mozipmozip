@@ -34,9 +34,8 @@ public class UserController {
 
     //회원가입 api
     @PostMapping
-    public ResponseEntity createUser(@RequestBody @Valid UserCreateDto userCreateDto, BindingResult error) {
+    public ResponseEntity createUser(@RequestBody @Valid UserCreateDto userCreateDto, BindingResult error, HttpSession session) {
 
-        //Valid검증
         if (error.hasErrors()) {
             error.getAllErrors()
                     .forEach(objectError -> {
@@ -47,8 +46,11 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.created(URI.create("users"))
-                .body(userService.createUser(UserCreateDto.toEntity(userCreateDto), userCreateDto.getAdminCode().equals("임시관리자인증번호")));
+        User savedUser = userService.createUser(UserCreateDto.toEntity(userCreateDto), userCreateDto.getAdminCode().equals("임시관리자인증번호"));
+
+        SessionUtil.setUser(session, savedUser);
+
+        return ResponseEntity.created(URI.create("/api/v1/users/" + savedUser.getId())).body(savedUser);
     }
 
     //로그인 api (+ 쿠키로 세션아이디 전달)->톰캣이 세션만들때 자동으로 세션쿠키를 만들어서 전달한다!!
