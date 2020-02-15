@@ -1,4 +1,4 @@
-import React, { FocusEvent } from 'react';
+import React, { FocusEvent, useState } from 'react';
 import * as styled from './styled';
 import uploadImg from '../../../static/images/uploadImg.png';
 import useResumes from '../../../hooks/useResumes';
@@ -32,6 +32,7 @@ function PortfolioBox({ questionNo, question }: PortfolioBoxProps) {
 
 function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const { resumes, onSaveUserInfo } = useResumes();
+  const [textLength, setTextLength] = useState(0);
   const handleFocusInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputWrapper = e.target.parentElement;
     inputWrapper && controlFocusClass(inputWrapper, true);
@@ -51,6 +52,10 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const controlFocusClass = (target: HTMLElement, focus: boolean) => {
     focus ? target.classList.add('focus') : target.classList.remove('focus');
   };
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    const target = e.target as HTMLTextAreaElement;
+    setTextLength(target.value.length);
+  };
   return (
     <styled.Main>
       <styled.QuestionTag>
@@ -61,12 +66,14 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
           onFocus={handleFocusInput}
           onBlur={handleBlurInput}
           data-question-no={idx}
+          maxLength={maxLength}
+          onKeyUp={handleKeyUp}
           required
         />
       </styled.TextBoxBg>
       <styled.Footer>
         <styled.Limit>
-          {maxLength} / {maxLength}
+          {textLength} / {maxLength}
         </styled.Limit>
         <styled.Button type="button">맞춤법검사</styled.Button>
       </styled.Footer>
