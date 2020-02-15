@@ -23,9 +23,9 @@ function Create(props: CreateProps) {
     <Styled.Container>
       <RegisterTitle subPath={subPath} />
       <Styled.Layout>
-        {subPath === 'intro' && <Intro history={history} />}
-        {subPath === 'common' && <CommonQuestion history={history} />}
-        {subPath === 'group' && <GroupQuestions history={history} />}
+        {subPath === 'intro' && <Intro />}
+        {subPath === 'common' && <CommonQuestion />}
+        {subPath === 'group' && <GroupQuestions />}
         {subPath === 'result' && <Result history={history} />}
       </Styled.Layout>
     </Styled.Container>

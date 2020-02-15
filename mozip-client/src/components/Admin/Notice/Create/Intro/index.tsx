@@ -1,30 +1,19 @@
 import React, { useState } from 'react';
 import * as Styled from './styled';
+import { useHistory } from 'react-router';
 import moment from 'moment';
 
 import Button from '../../../../common/Button';
 import CalendarComponent from '../../../../common/Admin/Calendar/Calendar';
 import { useAdmin } from '../../../../../hooks';
 import { convertToJimpObject, getBase64fromJimp, imageResize } from '../../../../../lib/jimp';
-import { Between, Li, SubLayer, Title, Ul } from '../styled'; // Create CommonQuestion Styled Component
+import { Between, Li, SubLayer, Ul } from '../styled'; // Create CommonQuestion Styled Component
 import { makeFormData } from '../../../../../lib/form';
 import { hasKey } from '../../../../../modules/admin';
 import uploadImg from '../../../../../static/images/uploadImg.png';
 
-type IntroProps = {
-  history: {
-    push: (url: string) => void
-  }
-}
-
-type Image = {
-  // data: string | null | ArrayBuffer
-  resizeData: string | null
-  fileName: string | null
-}
-
-function Intro(props: IntroProps) {
-  const { history } = props;
+function Intro() {
+  const history = useHistory();
   const [ visible, setVisible ] = useState({
     documentStartVisible: false,
     documentEndVisible: false,
@@ -136,11 +125,11 @@ function Intro(props: IntroProps) {
   return (
     <Ul>
       <Li>
-        <Title>공고 제목</Title>
+        <Styled.Title>공고 제목</Styled.Title>
         <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)} />
       </Li>
       <Li>
-        <Title>메인 이미지</Title>
+        <Styled.Title>메인 이미지</Styled.Title>
         <SubLayer style={{
           flexDirection: 'inherit',
           alignItems: 'flex-end',
@@ -161,11 +150,11 @@ function Intro(props: IntroProps) {
         </SubLayer>
       </Li>
       <Li>
-        <Title>공고 설명</Title>
+        <Styled.Title>공고 설명</Styled.Title>
         <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)} />
       </Li>
       <Li>
-        <Title>모집 기간</Title>
+        <Styled.Title>모집 기간</Styled.Title>
         <SubLayer>
           <Styled.DateBar>
             <Styled.SubTitle>서류 모집</Styled.SubTitle>

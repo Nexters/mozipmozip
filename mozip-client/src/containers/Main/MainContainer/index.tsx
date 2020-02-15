@@ -53,4 +53,5 @@ function MainContainer() {
     </Styled.Main>
   );
 }
+
 export default MainContainer;

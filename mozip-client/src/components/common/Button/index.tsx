@@ -9,13 +9,14 @@ interface IButtonProps {
   border?: string,
   borderRadius?: string,
   background?: string,
-  color?: string
+  color?: string,
+  fontSize?: string
 }
 
 function Button(props: IButtonProps) {
   const {
     text, onClick, width = '317px', height = '70px', border = '0',
-    borderRadius = '8px', background = '#61CB9F', color = '#FFFFFF',
+    borderRadius = '8px', background = '#61CB9F', color = '#FFFFFF', fontSize = '20px',
   } = props;
 
   return (
@@ -26,6 +27,7 @@ function Button(props: IButtonProps) {
       borderRadius={borderRadius}
       background={background}
       color={color}
+      fontSize={fontSize}
       className='bold'
       onClick={() => onClick && onClick()}
     >

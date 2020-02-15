@@ -1,11 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import moment from 'moment';
-
-const imageCss = css`
-  width: 215px;
-  height: 114px; // width, height fix?
-  margin-right: 11px;
-`; // common css
 
 export const InputText = styled.input`
   width: calc(100% - 115px);
@@ -138,4 +132,11 @@ export const ButtonWrapper = styled.div`
   & > button + button {
     margin-left: 17px;
   }
+`;
+
+export const Title = styled.div`
+  font-size: 17px;
+  font-weight: bold;
+  width: 115px;
+  line-height: 21px;
 `;

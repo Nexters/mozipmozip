@@ -9,6 +9,7 @@ const Container = styled.section`
 const Title = styled.article`
   font-size: 34px;
   line-height: 50px;
+  letter-spacing: -0.05em;
   color: #61CB9F;
 `;
 
@@ -21,6 +22,7 @@ const Wrapper = styled.article`
 const SubTitle = styled.div`
   font-size: 34px;
   line-height: 50px;
+  letter-spacing: -0.05em;
   color: #262A2F;
 `;
 

@@ -42,13 +42,6 @@ export const SubLayer = styled.div`
   }
 `;
 
-export const Title = styled.div`
-  font-size: 17px;
-  font-weight: bold;
-  width: 115px;
-  line-height: 21px;
-`;
-
 export const Between = styled.div`
   margin: 0 19px;
 `;
@@ -85,4 +78,14 @@ export const QuestionAddButton = styled.button`
   font-size: 17px;
   line-height: 25px;
   cursor: pointer
+`;
+
+export const Title = styled.div`
+  width: 100%;
+  padding-bottom: 10px;
+  font-size: 21px;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  border-bottom: 1px solid #61CB9F;
+  color: #000000;
 `;

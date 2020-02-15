@@ -1,28 +1,24 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import Question from "../Question";
-import {hasKey, NoticeQuestion} from "../../../../../modules/admin";
-import {useAdmin} from "../../../../../hooks";
-import {AlignCenter, Button, Li, Ul, QuestionAddButton} from "../styled";
-import *as Styled from './styled';
+import React, { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-type GroupQuestionsProps = {
-  history: {
-    push: (url: string) => void
-  }
-}
+import Question from '../Question';
+import { NoticeQuestion } from '../../../../../modules/admin';
+import { useAdmin } from '../../../../../hooks';
+import { AlignCenter, Button, Li, QuestionAddButton, Ul } from '../styled';
+import * as Styled from './styled';
 
-function GroupQuestions(props: GroupQuestionsProps) {
-  const {history} = props;
-  const [total, setTotal] = useState({
+function GroupQuestions() {
+  const history = useHistory();
+  const [ total, setTotal ] = useState({
     programmer: 0,
-    designer: 0
+    designer: 0,
   });
-  const [pageType, setPageType] = useState<'programmer' | 'designer'>('programmer');
-  const {admin: {questions}, onAddQuestion} = useAdmin();
+  const [ pageType, setPageType ] = useState<'programmer' | 'designer'>('programmer');
+  const { admin: { questions }, onAddQuestion } = useAdmin();
 
   const handleMapList = useCallback((list: NoticeQuestion[]) => {
     return list.map((v, i) => {
-      const {title, type, maxLength, questionScore} = v;
+      const { title, type, maxLength, questionScore } = v;
       const _total = list.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0);
       return (
         <Question
@@ -33,15 +29,15 @@ function GroupQuestions(props: GroupQuestionsProps) {
           title={title}
           type={type}
           maxLength={maxLength}
-          questionScore={questionScore}/>
+          questionScore={questionScore} />
       );
     });
-  }, [questions, pageType]);
+  }, [ questions, pageType ]);
 
   const handleAddQuestion = () => {
     const lastIndex = (questions[pageType] as NoticeQuestion[]).length - 1;
     const lastQuestion = questions[pageType][lastIndex];
-    const {title, type, questionScore, maxLength} = lastQuestion;
+    const { title, type, questionScore, maxLength } = lastQuestion;
     if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
     if (type === 'long') { // default type is long -> '주관식'
       if (!maxLength) return alert(`질문${lastIndex + 1} 최대 글자수를 입력해 주세요.`);
@@ -52,7 +48,7 @@ function GroupQuestions(props: GroupQuestionsProps) {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => e.target.value === 'programmer' ? setPageType('programmer') : setPageType('designer');
   const handleNextPage = () => history.push('/admin/create/result');
-  console.log('11', pageType);
+
   return (
     <Ul>
       <Li>
