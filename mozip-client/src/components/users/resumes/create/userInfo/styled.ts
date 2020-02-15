@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const UserInfo = styled.div`
-  width: 100vw;
+  width: 100%;
 `;
 
 export const FormBg = styled.div`

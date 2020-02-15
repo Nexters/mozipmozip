@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const Main = styled.div`
-  width: 100vw;
+const Main = styled.form`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,6 +20,9 @@ const Button = styled.button`
   line-height: 30px;
   text-align: center;
   border-radius: 8px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const SubmitButton = styled(Button)`

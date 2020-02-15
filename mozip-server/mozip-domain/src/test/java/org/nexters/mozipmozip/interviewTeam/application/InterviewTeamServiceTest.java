@@ -12,7 +12,7 @@ import org.nexters.mozipmozip.interviewTeam.domian.InterviewTeamRepository;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
 import org.nexters.mozipmozip.user.domain.User;
-import org.nexters.mozipmozip.user.domain.UserRepositoy;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -31,7 +31,7 @@ class InterviewTeamServiceTest {
     @Mock
     private InterviewTeamRepository interviewTeamRepository;
     @Mock
-    private UserRepositoy userRepositoy;
+    private UserRepository userRepository;
     @Mock
     private ResumeRepository resumeRepository;
 
@@ -66,7 +66,7 @@ class InterviewTeamServiceTest {
         resumes.add(resumeFixture);
         resumes.add(resumeFixture2);
 
-        given(userRepositoy.findAllById(userIds)).willReturn(users);
+        given(userRepository.findAllById(userIds)).willReturn(users);
         given(resumeRepository.findAllById(resumeIds)).willReturn(resumes);
         given(interviewTeamRepository.save(interviewTeam)).willReturn(interviewTeam);
 

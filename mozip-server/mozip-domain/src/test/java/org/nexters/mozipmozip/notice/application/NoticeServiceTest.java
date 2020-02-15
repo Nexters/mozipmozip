@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.nexters.mozipmozip.notice.domain.Notice;
 import org.nexters.mozipmozip.notice.domain.NoticeRepository;
+import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,21 +25,23 @@ class NoticeServiceTest {
     private NoticeService noticeService;
     @Mock
     private NoticeRepository noticeRepository;
+    @Mock
+    private UserRepository userRepository;
 
     private Notice noticeFixture = new EasyRandom().nextObject(Notice.class);
+    private User userFixture = new EasyRandom().nextObject(User.class);
 
     @Test
     @DisplayName("모집 공고 저장에 성공한다")
     void createNoticeTest() {
         given(noticeRepository.save(noticeFixture)).willReturn(noticeFixture);
+        given(userRepository.findById(userFixture.getId())).willReturn(Optional.ofNullable(userFixture));
 
-        Notice savedNotice = noticeService.create(noticeFixture);
+        Notice savedNotice = noticeService.create(noticeFixture, userFixture.getId());
 
         assertThat(savedNotice.getDescription()).isEqualTo(noticeFixture.getDescription());
         assertThat(savedNotice.getTitle()).isEqualTo(noticeFixture.getTitle());
         assertThat(savedNotice.getDisplayImagePath()).isEqualTo(noticeFixture.getDisplayImagePath());
-        assertThat(savedNotice.getStartDateTime()).isEqualTo(noticeFixture.getStartDateTime());
-        assertThat(savedNotice.getEndDateTime()).isEqualTo(noticeFixture.getEndDateTime());
         assertThat(savedNotice.getDescription()).isEqualTo(noticeFixture.getDescription());
         assertThat(savedNotice.getNoticeStatus()).isEqualTo(noticeFixture.getNoticeStatus());
         assertThat(savedNotice.getNoticeForms()).isEqualTo(noticeFixture.getNoticeForms());

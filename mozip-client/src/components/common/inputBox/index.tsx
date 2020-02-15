@@ -57,8 +57,8 @@ export function CheckBoxGroup({ name, valueList, onToggle }: CheckBoxProps) {
     <styled.InputBox>
       <div className="label-bg">{name}</div>
       <ul className="checkbox-group-bg">
-        {valueList.map(value => (
-          <li className="checkbox-bg">
+        {valueList.map((value, idx) => (
+          <li className="checkbox-bg" key={'checkbox' + idx}>
             <input
               type="checkbox"
               value={value}

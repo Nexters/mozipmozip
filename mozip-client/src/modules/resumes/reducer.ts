@@ -9,11 +9,7 @@ const initialState: UserState = {
   occupation: 'PROGRAMMER',
   phoneNumber: '',
   portfolioURL: '',
-  resumeAnswerItems: [
-    {
-      answer: '',
-    },
-  ],
+  resumeAnswerItems: [],
   state: 'DRAFT',
 };
 
