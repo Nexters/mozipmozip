@@ -162,6 +162,12 @@ $ skaffold run
 $ docker-compose up -d
 ```
 
+`local` 에서 컨테이너를 이용해 api 서버를 실행한다.
+
+```bash
+$ sh ./start-mozipmozip.sh
+```
+
 ## :baby_chick: References
 These additional references should also help you:
 
