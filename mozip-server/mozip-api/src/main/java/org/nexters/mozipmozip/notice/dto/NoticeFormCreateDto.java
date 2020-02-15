@@ -19,6 +19,7 @@ public class NoticeFormCreateDto {
 
     public NoticeForm of() {
         NoticeForm noticeForm = NoticeForm.builder()
+                .noticeFormQuestionItems(new ArrayList<>())
                 .occupation(this.occupation)
                 .jobTypes(this.jobTypes)
                 .build();

@@ -4,7 +4,9 @@ import {RootState} from "../modules";
 import {
   setFormValues,
   setQuestionValue,
-  SetQuestion, addQuestion,
+  addQuestion,
+  postNoticeRequest,
+  SetQuestion, NoticeObject,
 } from "../modules/admin";
 
 export default function useAdmin() {
@@ -13,11 +15,14 @@ export default function useAdmin() {
   const onSetFormValues = useCallback((name: string, value: any) => dispatch(setFormValues(name, value)), [dispatch]);
   const onSetQuestionValue = useCallback((args: SetQuestion) =>
     dispatch(setQuestionValue({...args})), [dispatch]);
-  const onAddQuestion = useCallback((name: string)=>dispatch(addQuestion(name)),[dispatch])
+  const onAddQuestion = useCallback((name: string) => dispatch(addQuestion(name)), [dispatch]);
+  const onPostNotice = useCallback((submitObj: NoticeObject) => dispatch(postNoticeRequest(submitObj)),[dispatch]);
+
   return {
     admin,
     onSetFormValues,
     onSetQuestionValue,
-    onAddQuestion
+    onAddQuestion,
+    onPostNotice
   };
 }
