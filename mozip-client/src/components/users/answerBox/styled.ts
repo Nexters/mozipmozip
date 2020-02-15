@@ -27,6 +27,12 @@ const TextBoxBg = styled.div`
   border: 1px solid #d0d3d8;
   box-sizing: border-box;
   border-radius: 4px;
+  &.focus {
+    border: 1px solid #61cb9f;
+  }
+  &.error {
+    border: 1px solid #ff6f77;
+  }
 `;
 
 const TextArea = styled.textarea`

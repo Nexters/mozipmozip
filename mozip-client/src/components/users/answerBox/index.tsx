@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FocusEvent } from 'react';
 import * as styled from './styled';
 import uploadImg from '../../../static/images/uploadImg.png';
 
@@ -25,13 +25,25 @@ function PortfolioBox() {
 }
 
 function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
+  const handleFocusInput = (e: FocusEvent<HTMLTextAreaElement>) => {
+    const inputWrapper = e.target.parentElement;
+    inputWrapper && controlFocusClass(inputWrapper, true);
+  };
+
+  const handleBlurInput = (e: FocusEvent<HTMLTextAreaElement>) => {
+    const inputWrapper = e.target.parentElement;
+    inputWrapper && controlFocusClass(inputWrapper, false);
+  };
+  const controlFocusClass = (target: HTMLElement, focus: boolean) => {
+    focus ? target.classList.add('focus') : target.classList.remove('focus');
+  };
   return (
     <styled.Main>
       <styled.QuestionTag>
         {idx}. {question}
       </styled.QuestionTag>
       <styled.TextBoxBg>
-        <styled.TextArea />
+        <styled.TextArea onFocus={handleFocusInput} onBlur={handleBlurInput} />
       </styled.TextBoxBg>
       <styled.Footer>
         <styled.Limit>

@@ -15,28 +15,28 @@ const TextWrapper = styled.article`
 const Title = styled.div`
   font-weight: 500;
   font-size: 13px;
-  color: #46494E
+  color: #46494e;
 `;
 
 const ErrorText = styled.div`
   font-weight: 500;
   font-size: 13px;
-  color: #FF6F77;
+  color: #ff6f77;
 `;
 
 const InputWrapper = styled.article`
   padding: 10px;
   width: 100%;
-  border: 1px solid #D0D3D8;
+  border: 1px solid #d0d3d8;
   box-sizing: border-box;
   border-radius: 4px;
-  
+
   &.focus {
-    border: 1px solid #61CB9F;
+    border: 1px solid #61cb9f;
   }
-  
+
   &.error {
-    border: 1px solid #FF6F77;
+    border: 1px solid #ff6f77;
   }
 `;
 
@@ -44,19 +44,9 @@ const Input = styled.input`
   width: 100%;
   font-weight: 500;
   font-size: 15px;
-  color: #262A2F;
+  color: #262a2f;
 `;
 
-const Error = styled.div`
+const Error = styled.div``;
 
-`;
-
-export {
-  Container,
-  TextWrapper,
-  Title,
-  ErrorText,
-  InputWrapper,
-  Input,
-  Error,
-}
+export { Container, TextWrapper, Title, ErrorText, InputWrapper, Input, Error };
