@@ -3,7 +3,6 @@ import * as Styled from './style';
 import Applicant from '../Applicant';
 import Manager from '../Manager';
 import { useUsers } from "../../../hooks";
-import {hasKey} from "../../../modules/admin";
 
 type SignUpContainerProps = {
   history: {
