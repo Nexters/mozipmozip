@@ -3,10 +3,12 @@ package org.nexters.mozipmozip.resume.controller;
 import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.application.ResumeService;
 import org.nexters.mozipmozip.resume.domain.Resume;
+import org.nexters.mozipmozip.resume.domain.ResumeState;
 import org.nexters.mozipmozip.resume.dto.ResumeCreateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeStateUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDto;
+import org.nexters.mozipmozip.resume.dto.ResumeViewDtoById;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByNoticeId;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByUserId;
 import org.springframework.http.ResponseEntity;
@@ -39,8 +41,24 @@ public class ResumeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable Long id) {
-        return ResponseEntity.ok().body(resumeService.getResumeById(id));
+    public ResumeViewDtoById getById(@PathVariable Long id) {
+        Resume resume = resumeService.getResumeById(id);
+        return ResumeViewDtoById.builder()
+                .id(resume.getId())
+                .userId(resume.getUser().getId())
+                .noticeId(resume.getNoticeId())
+                .state(resume.getState())
+                .name(resume.getName())
+                .phoneNumber(resume.getPhoneNumber())
+                .email(resume.getEmail())
+                .occupation(resume.getOccupation())
+                .resumeJobType(resume.getResumeJobType())
+                .jobTypes(resume.getJobTypes())
+                .blogURL(resume.getBlogURL())
+                .githubURL(resume.getGithubURL())
+                .portFolioURL(resume.getPortFolioURL())
+                .resumeAnswerItems(resume.getResumeAnswerItems())
+                .build();
     }
 
     @GetMapping("/notices/{id}")
@@ -67,19 +85,25 @@ public class ResumeController {
 
     @PostMapping
     public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
-        Resume createdResume = resumeService.save(resumeCreateDTO.of());
+        Long userId = resumeCreateDTO.getUserId();
+        Long noticeId = resumeCreateDTO.getNoticeId();
+        Resume createdResume = resumeService.save(userId, noticeId, resumeCreateDTO.of());
         return ResponseEntity.created(URI.create("/api/v1/resumes/" + createdResume.getId()))
                 .body(createdResume);
     }
 
     @PatchMapping
     public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
-        return ResponseEntity.ok().body(resumeService.save(resumeUpdateDto.of()));
+        Long userId = resumeUpdateDto.getUserId();
+        Long noticeId = resumeUpdateDto.getNoticeId();
+        return ResponseEntity.ok().body(resumeService.save(userId, noticeId, resumeUpdateDto.of()));
     }
 
     @PatchMapping("/state")
     public ResponseEntity modifyResumeState(@RequestBody @Valid ResumeStateUpdateDto resumeStateUpdateDto) {
-        return ResponseEntity.ok().body(resumeService.save(resumeStateUpdateDto.of()));
+        Long resumeId = resumeStateUpdateDto.getId();
+        ResumeState state = resumeStateUpdateDto.getState();
+        return ResponseEntity.ok().body(resumeService.modify(resumeId, state));
     }
 
 }
