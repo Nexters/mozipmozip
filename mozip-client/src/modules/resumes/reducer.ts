@@ -6,7 +6,7 @@ const initialState: UserState = {
   githubURL: '',
   jobTypes: [],
   name: '',
-  occupation: 'DESIGNER',
+  occupation: 'PROGRAMMER',
   phoneNumber: '',
   portfolioURL: '',
   resumeAnswerItems: [
