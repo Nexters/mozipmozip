@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Styled from './style';
 import Applicant from '../Applicant';
 import Manager from '../Manager';
-import { useOnBoarding } from "../../../hooks";
+import { useUsers } from "../../../hooks";
+import {hasKey} from "../../../modules/admin";
 
-function SignUpContainer() {
+type SignUpContainerProps = {
+  history: {
+    push: (url: string) => void;
+  }
+}
+
+function SignUpContainer({history}: SignUpContainerProps) {
   const [clickedIndex, setClickedIndex] = useState(0);
   const [state, setState] = useState({
     admin: !!clickedIndex,
@@ -15,7 +22,7 @@ function SignUpContainer() {
     passwordConfirm: ''
   });
   const { admin, adminCode, email, name, password, passwordConfirm } = state;
-  const { onSignUp } = useOnBoarding();
+  const { onSignUp, users: {status} } = useUsers();
 
   const handleClickTab = (index: number) => {
     setClickedIndex(index); // tab 바꾸고
@@ -43,7 +50,12 @@ function SignUpContainer() {
       )
     })
   };
-
+  useEffect(()=>{
+   if(status['signUp'] === 'success'){
+     alert('회원가입 완료');
+     history.push('/signIn');
+   }
+  },[status['signUp']]);
   return (
     <Styled.Main>
       <Styled.Container>

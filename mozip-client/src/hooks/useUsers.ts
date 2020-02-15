@@ -1,0 +1,18 @@
+import {useCallback} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {clearError, signInRequest, SignInRequest, SignUpRequest, signUpRequest} from "../modules/users";
+import {RootState} from "../modules";
+
+export default function useUsers() {
+  const dispatch = useDispatch();
+  const users = useSelector((state: RootState) => state.users);
+  const onClearError = useCallback((keyName: string) => dispatch(clearError(keyName)),[dispatch]);
+  const onSignUp = useCallback((values: SignUpRequest) => dispatch(signUpRequest(values)), [dispatch]);
+  const onSignIn = useCallback((values: SignInRequest) => dispatch(signInRequest(values)), [dispatch]);
+  return {
+    users,
+    onClearError,
+    onSignUp,
+    onSignIn
+  };
+}
