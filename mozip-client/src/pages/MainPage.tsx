@@ -1,10 +1,12 @@
 import React from 'react';
-import { useResumes } from '../hooks';
+import { useResumes, useUsers } from '../hooks';
 import Header from '../components/common/Header';
 import MainContainer from '../containers/Main/MainContainer';
 
 function MainPage() {
   const { onSaveUserInfo } = useResumes();
+  const { users } = useUsers();
+  const { userInfo: { name } } = users;
   const categories = [
     {
       title: '지원서 작성',
@@ -28,7 +30,7 @@ function MainPage() {
 
   return (
     <>
-      <Header categories={categories} />
+      <Header categories={name ? categories : [ { title: '' } ]} />
       <MainContainer />
     </>
   );
