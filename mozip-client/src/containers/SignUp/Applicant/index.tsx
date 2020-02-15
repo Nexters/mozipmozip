@@ -1,7 +1,11 @@
 import React from 'react';
 import InputForm from '../../../components/common/InputForm';
 
-function Applicant() {
+type ApplicantProps = {
+  onState: (name: string, value: string) => void
+}
+
+function Applicant({onState}:  ApplicantProps) {
   const applicantInputs = [
     {
       name: 'name',
@@ -28,7 +32,7 @@ function Applicant() {
     <>
       {applicantInputs.map(({ name, title, type }, i) => {
         return (
-          <InputForm title={title} name={name} type={type} key={'applicantInput' + i} />
+          <InputForm title={title} name={name} type={type} key={'applicantInput' + i} onState={onState}/>
         )
       })}
     </>
