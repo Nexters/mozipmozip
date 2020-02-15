@@ -2,6 +2,7 @@ import React from 'react';
 import * as styled from './styled';
 import Banner from '../../../banner';
 import { AnswerBox, PortfolioBox } from '../../../answerBox';
+import useResumes from '../../../../../hooks/useResumes';
 
 type AnswersProps = {
   history: {
@@ -11,47 +12,72 @@ type AnswersProps = {
 
 const categories = [
   {
-    idx: 1,
+    questionNo: 1,
     question: 'NEXTERS에 지원하게 된 계기와 이유는 무엇인가요?',
     maxLength: 500,
+    child: (question: string, questionNo: number, maxLength: number) => (
+      <AnswerBox
+        question={question}
+        idx={questionNo}
+        maxLength={maxLength}
+        key={'answer' + questionNo}
+      />
+    ),
   },
   {
-    idx: 2,
+    questionNo: 2,
     question: '자신의 강점을 포함하여 자유롭게 자기소개해주세요.',
     maxLength: 500,
+    child: (question: string, questionNo: number, maxLength: number) => (
+      <AnswerBox
+        question={question}
+        idx={questionNo}
+        maxLength={maxLength}
+        key={'answer' + questionNo}
+      />
+    ),
   },
   {
-    idx: 3,
+    questionNo: 3,
     question:
       '협업을 하면서 문제 혹은 갈등에 부딪힌 경험과 해결 과정을 서술해주세요.',
     maxLength: 500,
+    child: (question: string, questionNo: number, maxLength: number) => (
+      <AnswerBox
+        question={question}
+        idx={questionNo}
+        maxLength={maxLength}
+        key={'answer' + questionNo}
+      />
+    ),
+  },
+  {
+    questionNo: 4,
+    question: '포트폴리오를 제출해주세요.(10MB 이하)',
+    maxLength: 500,
+    child: (question: string, questionNo: number) => (
+      <PortfolioBox
+        question={question}
+        questionNo={questionNo}
+        key={'answer' + questionNo}
+      />
+    ),
   },
 ];
 
-const answerList = [
-  'NEXTERS에 지원하게 된 계기와 이유는 무엇인가요?',
-  '자신의 강점을 포함하여 자유롭게 자기소개해주세요.',
-  '협업을 하면서 문제 혹은 갈등에 부딪힌 경험과 해결 과정을 서술해주세요.',
-];
-
 function Answers({ history }: AnswersProps) {
+  const { resumes, onPostNotice } = useResumes();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onPostNotice(resumes);
+  };
   return (
-    <styled.Main>
+    <styled.Main onSubmit={handleSubmit}>
       <Banner />
       <ul>
-        {categories.map(category => (
-          <li>
-            <AnswerBox
-              question={category.question}
-              idx={category.idx}
-              maxLength={category.maxLength}
-              key={category.idx}
-            />
-          </li>
+        {categories.map(({ question, questionNo, maxLength, child }) => (
+          <li>{child && child(question, questionNo, maxLength)}</li>
         ))}
-        <li>
-          <PortfolioBox />
-        </li>
       </ul>
       <styled.BtnGroup>
         <styled.SaveButton>임시저장</styled.SaveButton>
