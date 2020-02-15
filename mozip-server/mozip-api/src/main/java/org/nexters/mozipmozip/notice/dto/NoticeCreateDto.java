@@ -36,6 +36,7 @@ public class NoticeCreateDto {
         Notice notice = Notice.builder()
                 .description(this.description)
                 .title(this.title)
+                .noticeForms(new ArrayList<>())
                 .startDateTime(this.startDateTime)
                 .endDateTime(this.endDateTime)
                 .noticeStatus(this.noticeStatus)
