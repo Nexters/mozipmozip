@@ -42,8 +42,11 @@ export type AdminState = {
     resizeData: string
   }
   description: string
-  startDateTime: Date | ''
-  endDateTime: Date | ''
+  documentStartDate: Date | ''
+  documentEndDate: Date | ''
+  interviewStartDate : Date | ''
+  interviewEndDate: Date | ''
+  noticeEndDate : Date | ''
   questions: {
     [common: string]: NoticeQuestion[]
     programmer: NoticeQuestion[]

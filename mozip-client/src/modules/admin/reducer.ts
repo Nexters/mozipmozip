@@ -9,8 +9,11 @@ const initialState: AdminState = {
     resizeData: '' // resize
   },
   description: '',
-  startDateTime: '',
-  endDateTime: '',
+  documentStartDate: '',
+  documentEndDate: '',
+  interviewStartDate: '',
+  interviewEndDate: '',
+  noticeEndDate: '',
   questions: {
     common: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
     programmer: [{title: '', type: 'long', maxLength: 0, questionScore: 0}],
@@ -67,7 +70,7 @@ export default function (state: AdminState = initialState, action: AdminAction) 
       return { ...state, status: { ...state.status, getNoticeStatus: 'pending'}};
     }
     case "admin/GET_NOTICES_SUCCESS": {
-      const { data } = action.payload
+      const { data } = action.payload;
       return {
         ...state,
         status: { ...state.status, getNoticeStatus: 'success'},
