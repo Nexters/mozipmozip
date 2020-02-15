@@ -12,7 +12,9 @@ const initialState: UsersState = {
     signUp: "wait"
   },
   userInfo: {
-
+    name: '',
+    email: '',
+    admin: false
   }
 };
 

@@ -21,7 +21,11 @@ export type UsersState = {
     signIn: Status,
     signUp: Status
   }
-  userInfo: any
+  userInfo: {
+    name: string
+    email: string
+    admin: boolean
+  }
 }
 
 export type UsersAction =
