@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import *as Styled from './styled';
-import Intro from "./Intro";
-import ProgressBar from "../../../common/Admin/ProgressBar";
-import CommonQuestion from "./CommonQuestion";
-import GroupQuestions from "./GroupQuestions";
-import Result from "./Result/Result";
+import React, { useEffect } from 'react';
+import * as Styled from './styled';
+import Intro from './Intro';
+import RegisterTitle from '../../RegisterTitle';
+import CommonQuestion from './CommonQuestion';
+import GroupQuestions from './GroupQuestions';
+import Result from './Result';
 
 type CreateProps = {
   subPath: string
@@ -14,21 +14,21 @@ type CreateProps = {
 }
 
 function Create(props: CreateProps) {
-  const {subPath, history} = props;
+  const { subPath, history } = props;
   useEffect(() => {
-    if (!['intro', 'common', 'group', 'result'].includes(subPath)) history.push('/');
+    if (![ 'intro', 'common', 'group', 'result' ].includes(subPath)) history.push('/');
   }, []);
 
   return (
-    <>
-      <ProgressBar subPath={subPath}/>
+    <Styled.Container>
+      <RegisterTitle subPath={subPath} />
       <Styled.Layout>
-        {subPath === 'intro' && <Intro history={history} />}
-        {subPath === 'common' && <CommonQuestion history={history} />}
-        {subPath === 'group' && <GroupQuestions history={history}/>}
-        {subPath === 'result' && <Result history={history}/>}
+        {subPath === 'intro' && <Intro />}
+        {subPath === 'common' && <CommonQuestion />}
+        {subPath === 'group' && <GroupQuestions />}
+        {subPath === 'result' && <Result />}
       </Styled.Layout>
-    </>
+    </Styled.Container>
   );
 }
 

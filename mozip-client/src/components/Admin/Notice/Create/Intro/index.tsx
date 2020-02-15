@@ -1,42 +1,33 @@
-import React, {useState} from 'react';
-import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
-import {useAdmin} from "../../../../../hooks";
-import moment from "moment";
-import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
-import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
+import React, { useState } from 'react';
 import * as Styled from './styled';
-import {makeFormData} from "../../../../../lib/form";
-import {hasKey} from "../../../../../modules/admin";
+import { useHistory } from 'react-router';
+import moment from 'moment';
 
+import Button from '../../../../common/Button';
+import CalendarComponent from '../../../../common/Admin/Calendar/Calendar';
+import { useAdmin } from '../../../../../hooks';
+import { convertToJimpObject, getBase64fromJimp, imageResize } from '../../../../../lib/jimp';
+import { ButtonWrapper, Li, SubLayer, Ul } from '../styled'; // Create CommonQuestion Styled Component
+import { makeFormData } from '../../../../../lib/form';
+import { hasKey } from '../../../../../modules/admin';
+import uploadImg from '../../../../../static/images/uploadImg.png';
 
-type IntroProps = {
-  history: {
-    push: (url: string) => void
-  }
-}
-
-type Image = {
-  // data: string | null | ArrayBuffer
-  resizeData: string | null
-  fileName: string | null
-}
-
-function Intro(props: IntroProps) {
-  const {history} = props;
-  const [visible, setVisible] = useState({
+function Intro() {
+  const history = useHistory();
+  const [ visible, setVisible ] = useState({
     documentStartVisible: false,
     documentEndVisible: false,
     interviewStartVisible: false,
     interviewEndVisible: false,
-    noticeEndVisible: false
+    noticeEndVisible: false,
   });
-  const {admin, onSetFormValues} = useAdmin();
-  const {documentStartVisible, documentEndVisible, interviewEndVisible, interviewStartVisible, noticeEndVisible} = visible;
-  const {title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, image} = admin;
-  const {resizeData, name} = image;
-  const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
+  const { admin, onSetFormValues } = useAdmin();
+  const { documentStartVisible, documentEndVisible, interviewEndVisible, interviewStartVisible, noticeEndVisible } = visible;
+  const { title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, image } = admin;
+  const { resizeData, name } = image;
+  const calendarStyle = { marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px' };
   const handleVisible = (name: string) => {
-    return hasKey(visible, name) ? setVisible({...visible, [name]: !visible[name]}) : '';
+    return hasKey(visible, name) ? setVisible({ ...visible, [name]: !visible[name] }) : '';
   };
 
   const handleDate = (name: string, date: any) => { // date type is Moment
@@ -90,10 +81,10 @@ function Intro(props: IntroProps) {
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
-    const {name, files} = e.target;
+    const { name, files } = e.target;
     if (files && files.length > 0) {
       const file = files[0];
-      const formData = makeFormData({file}); // 파일업로드는 마지막에
+      const formData = makeFormData({ file }); // 파일업로드는 마지막에
       const reader = new FileReader();
       reader.onload = async () => {
         try {
@@ -104,7 +95,7 @@ function Intro(props: IntroProps) {
               .then((base64: string | undefined) => base64 ? onSetFormValues('image', {
                 formData,
                 resizeData: base64,
-                name: file.name
+                name: file.name,
               }) : '')
               .catch(console.log);
           }
@@ -132,38 +123,41 @@ function Intro(props: IntroProps) {
   };
 
   return (
-    <>
-      <Ul>
-        <Li>
-          <Title>제목</Title>
-          <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)}/>
-        </Li>
-        <Li>
-          <Title>메인 이미지</Title>
-          <SubLayer>
-            {resizeData ?
-              <Styled.ImagePreview src={resizeData} alt=""/>
-              :
-              <>
-                <label htmlFor="intro-file-input">
-                  <Styled.DefaultImage>+</Styled.DefaultImage>
-                </label>
-                <Styled.FileInput name="description" onChange={handleImage}/>
-              </>}
-            <Styled.NameLayer>
-              <span>이미지 업로드</span>
-              <input type="text" readOnly disabled value={name ? name : ''}/>
-            </Styled.NameLayer>
-          </SubLayer>
-        </Li>
-        <Li>
-          <Title>설명</Title>
-          <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)}/>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <Title>기간</Title>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
+    <Ul>
+      <Li>
+        <Styled.Title>공고 제목</Styled.Title>
+        <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)} />
+      </Li>
+      <Li>
+        <Styled.Title>메인 이미지</Styled.Title>
+        <SubLayer style={{
+          flexDirection: 'inherit',
+          alignItems: 'flex-end',
+        }}>
+          {resizeData ?
+            <Styled.ImagePreview src={resizeData} alt="" />
+            :
+            <>
+              <Styled.DefaultImage />
+              <Styled.FileInput name="description" onChange={handleImage} />
+            </>}
+          <Styled.NameLayer>
+            <Styled.UploadButton htmlFor="intro-file-input">
+              <img src={uploadImg} alt="" /> 업로드 하기
+            </Styled.UploadButton>
+            <Styled.FileName readOnly disabled value={name ? name : ''} />
+          </Styled.NameLayer>
+        </SubLayer>
+      </Li>
+      <Li>
+        <Styled.Title>공고 설명</Styled.Title>
+        <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)} />
+      </Li>
+      <Li>
+        <Styled.Title>모집 기간</Styled.Title>
+        <SubLayer>
+          <Styled.DateBar>
+            <Styled.SubTitle>서류 모집</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('documentStartVisible')}
@@ -177,7 +171,7 @@ function Intro(props: IntroProps) {
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('documentEndVisible')}
@@ -191,11 +185,9 @@ function Intro(props: IntroProps) {
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>면접</SubTitle>
+          </Styled.DateBar>
+          <Styled.DateBar>
+            <Styled.SubTitle>면접</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('interviewStartVisible')}
@@ -209,7 +201,7 @@ function Intro(props: IntroProps) {
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('interviewEndVisible')}
@@ -223,11 +215,9 @@ function Intro(props: IntroProps) {
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>최종 발표</SubTitle>
+          </Styled.DateBar>
+          <Styled.DateBar>
+            <Styled.SubTitle>최종 발표</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('noticeEndVisible')}
@@ -241,14 +231,15 @@ function Intro(props: IntroProps) {
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <AlignCenter>
-          <Button padding="17px 24px;">임시 저장</Button>
-          <Button padding="17px 91px;" onClick={handleNextPage}>다음</Button>
-        </AlignCenter>
-      </Ul>
-    </>
+          </Styled.DateBar>
+        </SubLayer>
+      </Li>
+      <ButtonWrapper>
+        <Button text={'임시저장'} width='153px' height='64px' color='#61CB9F'
+                border='1px solid #61CB9F' background='#ffffff' />
+        <Button onClick={handleNextPage} text={'다음'} width='207px' height='64px' />
+      </ButtonWrapper>
+    </Ul>
   );
 }
 

@@ -1,24 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {useAdmin} from "../../../../../hooks";
-import Question from "../Question";
-import {Ul, Li, AlignCenter, Button, QuestionAddButton} from '../styled';
-import {NoticeQuestion} from "../../../../../modules/admin";
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
-type CommonQuestionProps = {
-  history: {
-    push: (url: string) => void
-  }
-}
+import { useAdmin } from '../../../../../hooks';
+import Question from '../Question';
+import Button from '../../../../common/Button';
+import { ButtonWrapper, Li, Title, Ul } from '../styled';
+import { NoticeQuestion } from '../../../../../modules/admin';
 
-
-function CommonQuestion(props: CommonQuestionProps) {
-  const {history} = props;
-  const {admin, onAddQuestion} = useAdmin();
-  const {questions: {common}} = admin;
+function CommonQuestion() {
+  const history = useHistory();
+  const { admin, onAddQuestion } = useAdmin();
+  const { questions: { common } } = admin;
 
   const handleMapList = (questions: NoticeQuestion[]) => {
     return questions.map((v, i) => {
-      const {title, type, maxLength, questionScore} = v;
+      const { title, type, maxLength, questionScore } = v;
       const total = questions.map((v: NoticeQuestion) => v.questionScore).reduce((a: number, b: number) => a + b, 0);
       return (
         <Question
@@ -29,7 +25,7 @@ function CommonQuestion(props: CommonQuestionProps) {
           title={title}
           type={type}
           maxLength={maxLength}
-          questionScore={questionScore}/>
+          questionScore={questionScore} />
       );
     });
   };
@@ -37,7 +33,7 @@ function CommonQuestion(props: CommonQuestionProps) {
   const handleAddQuestion = () => {
     const lastIndex = (common as NoticeQuestion[]).length - 1;
     const lastQuestion = common[lastIndex];
-    const {title, type, questionScore, maxLength} = lastQuestion;
+    const { title, type, questionScore, maxLength } = lastQuestion;
     if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
     if (type === 'long') { // default type is long -> '주관식'
       if (!maxLength) return alert(`질문${lastIndex + 1} 최대 글자수를 입력해 주세요.`);
@@ -48,18 +44,34 @@ function CommonQuestion(props: CommonQuestionProps) {
   };
 
   const handleNextPage = () => history.push('/admin/create/group');
+  const handlePrevPage = () => history.goBack();
 
   return (
-    <Ul>
-      {handleMapList(common)}
-      <Li>
-        <QuestionAddButton onClick={handleAddQuestion}>질문 추가</QuestionAddButton>
-      </Li>
-      <AlignCenter>
-        <Button padding="17px 24px;">임시 저장</Button>
-        <Button padding="17px 91px;" onClick={handleNextPage}>다음</Button>
-      </AlignCenter>
-    </Ul>
+    <>
+      <Title className='bold'>공통 질문</Title>
+      <Ul>
+        {handleMapList(common)}
+        <Li>
+          <Button
+            text='질문 추가하기'
+            onClick={handleAddQuestion}
+            width='149px'
+            height='40px'
+            color='#48B788'
+            border='1px solid #61CB9F'
+            borderRadius='4px'
+            background='#FFFFFF'
+            fontSize='15px'
+          />
+        </Li>
+        <ButtonWrapper>
+          <Button text={'임시저장'} width='153px' height='64px' color='#61CB9F'
+                  border='1px solid #61CB9F' background='#ffffff' />
+          <Button onClick={handlePrevPage} text={'이전'} width='207px' height='64px' background='#262A2F' />
+          <Button onClick={handleNextPage} text={'다음'} width='207px' height='64px' />
+        </ButtonWrapper>
+      </Ul>
+    </>
   );
 }
 

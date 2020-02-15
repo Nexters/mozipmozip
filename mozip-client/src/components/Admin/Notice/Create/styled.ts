@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 
+export const Container = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 886px;
+  margin: 98px auto;
+`;
+
 export const Layout = styled.div`
-  width: 76%; // 100% - 24%
-  padding: 0 12%;
+  width: 100%;
+  margin-top: 70px;
 `;
 
 export const Ul = styled.ul`
@@ -13,42 +21,25 @@ export const Ul = styled.ul`
   margin-top: 5%;
   margin-bottom: 5vh;
   & > li + li {
-   margin-top: 37px;
+   margin-top: 49px;
   }
 `;
 
 export const Li = styled.li`
-  width: 90%;
-  margin-left: 10%;
+  width: 100%;
   display: flex;
   font-family: Roboto, Noto Sans Kr, sans-serif;
 `;
 
 export const SubLayer = styled.div`
-  width: 70%;
+  width: calc(100% - 115px);
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: baseline;
+  
   & > input + input {
     margin-left: 3%;
   }
-`;
-
-
-export const Title = styled.div`
-  font-family: Roboto, sans-serif;
-  font-size: 17px;
-  width: 115px;
-  line-height: 21px;
-`;
-
-export const SubTitle = styled.div`
-  font-family: Roboto, sans-serif;
-  font-size: 17px;
-  line-height: 20px;
-`;
-
-export const Between = styled.div`
-  margin: 0 30px;
 `;
 
 type ButtonProps = {
@@ -83,4 +74,24 @@ export const QuestionAddButton = styled.button`
   font-size: 17px;
   line-height: 25px;
   cursor: pointer
+`;
+
+export const Title = styled.div`
+  width: 100%;
+  padding-bottom: 10px;
+  font-size: 21px;
+  line-height: 30px;
+  letter-spacing: -0.03em;
+  border-bottom: 1px solid #61CB9F;
+  color: #000000;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 116px;
+  
+  & > button + button {
+    margin-left: 17px;
+  }
 `;
