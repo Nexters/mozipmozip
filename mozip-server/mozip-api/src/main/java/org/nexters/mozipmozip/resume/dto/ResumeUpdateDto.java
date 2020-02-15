@@ -19,6 +19,8 @@ public class ResumeUpdateDto {
 
     @NotNull(message = "업데이트시 반드시 아이디는 있어야 한다.")
     private Long id;
+    private Long userId;
+    private Long noticeId;
     private ResumeState state;
     private String name;
     private String phoneNumber;
@@ -29,7 +31,7 @@ public class ResumeUpdateDto {
     private String blogURL;
     private String githubURL;
     private String portfolioURL;
-    private List<ResumeAnswerItemUpdateDto> resumeAnswerItems = new ArrayList<>();
+    private List<ResumeAnswerItemUpdateDto> resumeAnswerItems;
 
     public Resume of() {
         Resume resume = Resume.builder()
@@ -44,6 +46,7 @@ public class ResumeUpdateDto {
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
                 .portFolioURL(this.portfolioURL)
+                .resumeAnswerItems(new ArrayList<>())
                 .build();
 
         this.resumeAnswerItems.stream()

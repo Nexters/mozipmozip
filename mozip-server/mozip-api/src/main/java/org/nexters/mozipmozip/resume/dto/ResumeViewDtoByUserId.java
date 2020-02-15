@@ -37,7 +37,7 @@ public class ResumeViewDtoByUserId {
 
     public static ResumeViewDtoByUserId of(final Resume resume) {
         return ResumeViewDtoByUserId.builder()
-                .id(resume.getNotice().getId())
+                .id(resume.getNoticeId())
                 .state(resume.getState())
                 .name(resume.getName())
                 .occupation(resume.getOccupation())

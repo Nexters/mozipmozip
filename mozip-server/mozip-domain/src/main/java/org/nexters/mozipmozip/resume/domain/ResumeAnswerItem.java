@@ -2,6 +2,8 @@ package org.nexters.mozipmozip.resume.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.nexters.mozipmozip.JpaBasePersistable;
 import org.nexters.mozipmozip.notice.domain.NoticeFormQuestionItem;
 
@@ -28,20 +30,22 @@ public class ResumeAnswerItem extends JpaBasePersistable {
     private Resume resume;
 
     @ManyToOne
-    @JoinColumn(name = "notice_form_question_item_id", nullable = false)
+    @JoinColumn(name = "notice_form_question_item_id")
     private NoticeFormQuestionItem noticeFormQuestionItem;
 
     @Column(name = "answer", nullable = false)
     private String answer;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     @CollectionTable(
             name = "resume_answer_score",
             joinColumns = @JoinColumn(name = "resume_answer_item_id")
     )
     private Set<ResumeAnswerScore> resumeAnswerScores = new HashSet<>();
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     @CollectionTable(
             name = "resume_answer_comment",
             joinColumns = @JoinColumn(name = "resume_answer_item_id")
