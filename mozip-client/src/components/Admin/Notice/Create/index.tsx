@@ -4,7 +4,7 @@ import Intro from './Intro';
 import RegisterTitle from '../../RegisterTitle';
 import CommonQuestion from './CommonQuestion';
 import GroupQuestions from './GroupQuestions';
-import Result from './Result/Result';
+import Result from './Result';
 
 type CreateProps = {
   subPath: string
@@ -26,7 +26,7 @@ function Create(props: CreateProps) {
         {subPath === 'intro' && <Intro />}
         {subPath === 'common' && <CommonQuestion />}
         {subPath === 'group' && <GroupQuestions />}
-        {subPath === 'result' && <Result history={history} />}
+        {subPath === 'result' && <Result />}
       </Styled.Layout>
     </Styled.Container>
   );

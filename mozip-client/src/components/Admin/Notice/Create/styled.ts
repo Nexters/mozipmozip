@@ -42,10 +42,6 @@ export const SubLayer = styled.div`
   }
 `;
 
-export const Between = styled.div`
-  margin: 0 19px;
-`;
-
 type ButtonProps = {
   padding: string;
 }
@@ -88,4 +84,14 @@ export const Title = styled.div`
   letter-spacing: -0.03em;
   border-bottom: 1px solid #61CB9F;
   color: #000000;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 116px;
+  
+  & > button + button {
+    margin-left: 17px;
+  }
 `;

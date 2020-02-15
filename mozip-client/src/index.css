@@ -143,6 +143,7 @@ table {
   font-size: 16px;
   font-family: Noto Sans CJK KR, Noto Sans KR;
   font-style: normal;
+  letter-spacing: -0.04em;
 }
 
 body,

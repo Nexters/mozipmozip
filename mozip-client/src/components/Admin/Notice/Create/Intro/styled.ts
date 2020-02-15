@@ -124,19 +124,14 @@ export const UploadButton = styled.label`
   }
 `;
 
-export const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 116px;
-  
-  & > button + button {
-    margin-left: 17px;
-  }
-`;
-
 export const Title = styled.div`
+  margin-top: 5px;
   font-size: 17px;
   font-weight: bold;
   width: 115px;
   line-height: 21px;
+`;
+
+export const Between = styled.div`
+  margin: 0 19px;
 `;

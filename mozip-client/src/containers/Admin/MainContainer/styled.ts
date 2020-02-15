@@ -18,5 +18,5 @@ export const BottomSection = styled.div`
   justify-content: center;
   align-items: center;
   width : 100%;
-  margin-top: 115px;
+  margin: 115px 0;
 `;

@@ -60,7 +60,7 @@ function RegisterTitle(props: { subPath: string }) {
     <Styled.Container>
       <Styled.Title>공고 등록</Styled.Title>
       <Styled.Wrapper>
-        <Styled.SubTitle>{getProgressTitle(subPath)} 작성</Styled.SubTitle>
+        <Styled.SubTitle>{getProgressTitle(subPath)} {subPath !== 'result' && '작성'}</Styled.SubTitle>
         <Styled.ProgressBar>
           <Styled.Half>
             {drawProgressShape(subPath)}

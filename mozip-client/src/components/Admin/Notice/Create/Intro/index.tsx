@@ -7,7 +7,7 @@ import Button from '../../../../common/Button';
 import CalendarComponent from '../../../../common/Admin/Calendar/Calendar';
 import { useAdmin } from '../../../../../hooks';
 import { convertToJimpObject, getBase64fromJimp, imageResize } from '../../../../../lib/jimp';
-import { Between, Li, SubLayer, Ul } from '../styled'; // Create CommonQuestion Styled Component
+import { ButtonWrapper, Li, SubLayer, Ul } from '../styled'; // Create CommonQuestion Styled Component
 import { makeFormData } from '../../../../../lib/form';
 import { hasKey } from '../../../../../modules/admin';
 import uploadImg from '../../../../../static/images/uploadImg.png';
@@ -171,7 +171,7 @@ function Intro() {
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('documentEndVisible')}
@@ -201,7 +201,7 @@ function Intro() {
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('interviewEndVisible')}
@@ -234,11 +234,11 @@ function Intro() {
           </Styled.DateBar>
         </SubLayer>
       </Li>
-      <Styled.ButtonWrapper>
+      <ButtonWrapper>
         <Button text={'임시저장'} width='153px' height='64px' color='#61CB9F'
                 border='1px solid #61CB9F' background='#ffffff' />
         <Button onClick={handleNextPage} text={'다음'} width='207px' height='64px' />
-      </Styled.ButtonWrapper>
+      </ButtonWrapper>
     </Ul>
   );
 }

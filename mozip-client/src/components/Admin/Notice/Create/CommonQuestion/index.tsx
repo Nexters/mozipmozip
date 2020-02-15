@@ -1,11 +1,10 @@
 import React from 'react';
-import * as Styled from './style';
 import { useHistory } from 'react-router-dom';
 
 import { useAdmin } from '../../../../../hooks';
 import Question from '../Question';
 import Button from '../../../../common/Button';
-import { Li, Title, Ul } from '../styled';
+import { ButtonWrapper, Li, Title, Ul } from '../styled';
 import { NoticeQuestion } from '../../../../../modules/admin';
 
 function CommonQuestion() {
@@ -65,12 +64,12 @@ function CommonQuestion() {
             fontSize='15px'
           />
         </Li>
-        <Styled.ButtonWrapper>
+        <ButtonWrapper>
           <Button text={'임시저장'} width='153px' height='64px' color='#61CB9F'
                   border='1px solid #61CB9F' background='#ffffff' />
           <Button onClick={handlePrevPage} text={'이전'} width='207px' height='64px' background='#262A2F' />
           <Button onClick={handleNextPage} text={'다음'} width='207px' height='64px' />
-        </Styled.ButtonWrapper>
+        </ButtonWrapper>
       </Ul>
     </>
   );
