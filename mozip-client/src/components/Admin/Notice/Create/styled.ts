@@ -9,7 +9,8 @@ export const Container = styled.main`
 `;
 
 export const Layout = styled.div`
-  padding: 0 12%;
+  width: 100%;
+  margin-top: 70px;
 `;
 
 export const Ul = styled.ul`
@@ -20,42 +21,36 @@ export const Ul = styled.ul`
   margin-top: 5%;
   margin-bottom: 5vh;
   & > li + li {
-   margin-top: 37px;
+   margin-top: 49px;
   }
 `;
 
 export const Li = styled.li`
-  width: 90%;
-  margin-left: 10%;
+  width: 100%;
   display: flex;
   font-family: Roboto, Noto Sans Kr, sans-serif;
 `;
 
 export const SubLayer = styled.div`
-  width: 70%;
+  width: calc(100% - 115px);
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: baseline;
+  
   & > input + input {
     margin-left: 3%;
   }
 `;
 
-
 export const Title = styled.div`
-  font-family: Roboto, sans-serif;
   font-size: 17px;
+  font-weight: bold;
   width: 115px;
   line-height: 21px;
 `;
 
-export const SubTitle = styled.div`
-  font-family: Roboto, sans-serif;
-  font-size: 17px;
-  line-height: 20px;
-`;
-
 export const Between = styled.div`
-  margin: 0 30px;
+  margin: 0 19px;
 `;
 
 type ButtonProps = {
