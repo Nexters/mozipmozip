@@ -1,12 +1,12 @@
 import React from 'react';
 import SignUpContainer from '../containers/SignUp/SignUpContainer';
 import Header from '../components/common/Header';
-import { useResumes } from '../hooks';
+import { useBlockIfLogin } from '../hooks';
 import { RouteComponentProps } from 'react-router-dom';
 
 function SignUpPage(props: RouteComponentProps) {
   const { history } = props;
-  const { onSaveUserInfo } = useResumes();
+  useBlockIfLogin();
 
   const categories = [
     {

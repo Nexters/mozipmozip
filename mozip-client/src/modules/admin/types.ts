@@ -1,5 +1,6 @@
 import {
   setFormValues,
+  clearError,
   addQuestion,
   setQuestionValue,
   postNoticeRequest,
@@ -19,7 +20,7 @@ export type NoticeStatus = 'DRAFT' | 'PUBLISHED' | 'DOCUMENT' | 'INTERVIEW' | 'E
 
 export type NoticeQuestion = {
   title: string
-  type: 'long' | 'url'
+  type: 'long' | 'link' | 'file'
   maxLength: number
   questionScore: number
 }
@@ -53,7 +54,10 @@ export type AdminState = {
     designer: NoticeQuestion[]
   }
   noticeList : Notice[],
-  error: Error | ''
+  error: {
+    createNoticeError: Error | ''
+    getNoticeError: Error | ''
+  }
   status: {
     createNoticeStatus: Status
     getNoticeStatus: Status
@@ -63,6 +67,7 @@ export type AdminState = {
 
 export type AdminAction =
   | ReturnType<typeof setFormValues>
+  | ReturnType<typeof clearError>
   | ReturnType<typeof addQuestion>
   | ReturnType<typeof setQuestionValue>
   | ReturnType<typeof postNoticeRequest>
