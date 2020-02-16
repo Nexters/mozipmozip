@@ -1,33 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Styled from './styled';
 import Intro from './Intro';
 import RegisterTitle from '../../RegisterTitle';
-import CommonQuestion from './CommonQuestion';
-import GroupQuestions from './GroupQuestions';
 import Result from './Result';
-import {useBlockIfNotAdmin} from "../../../../hooks";
+import Questions from "./Questions";
 
-type CreateProps = {
-  subPath: string
-  history: {
-    push: (url: string) => void
-  }
-}
 
-function Create(props: CreateProps) {
-  const { subPath, history } = props;
-  useEffect(() => {
-    if (![ 'intro', 'common', 'group', 'result' ].includes(subPath)) history.push('/');
-  }, []);
-
+function Create() {
+  const [page, setPage] = useState(5);
   return (
     <Styled.Container>
-      <RegisterTitle subPath={subPath} />
+      <RegisterTitle page={page} />
       <Styled.Layout>
-        {subPath === 'intro' && <Intro />}
-        {subPath === 'common' && <CommonQuestion />}
-        {subPath === 'group' && <GroupQuestions />}
-        {subPath === 'result' && <Result />}
+        {page === 1 && <Intro onPage={setPage}/>}
+        {page === 2 && <Questions onPage={setPage} pageType="common" />}
+        {page === 3 && <Questions onPage={setPage} pageType="programmer" />}
+        {page === 4 && <Questions onPage={setPage} pageType="designer" />}
+        {page === 5 && <Result onPage={setPage} />}
       </Styled.Layout>
     </Styled.Container>
   );

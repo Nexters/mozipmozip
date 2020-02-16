@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as Styled from './styled';
-import { useHistory } from 'react-router';
 import moment from 'moment';
 
 import Button from '../../../../common/Button';
@@ -12,8 +11,11 @@ import { makeFormData } from '../../../../../lib/form';
 import { hasKey } from '../../../../../modules/admin';
 import uploadImg from '../../../../../static/images/uploadImg.png';
 
-function Intro() {
-  const history = useHistory();
+type IntroProps = {
+  onPage: (page: number) => void
+}
+function Intro(props: IntroProps) {
+  const { onPage } = props;
   const [ visible, setVisible ] = useState({
     documentStartVisible: false,
     documentEndVisible: false,
@@ -122,7 +124,7 @@ function Intro() {
     else if (!noticeEndDate) return alert('공고 종료 날짜를 선택해 주세요.');
     else {
       onSetFormValues('image', image);
-      history.push('/admin/create/common');
+      onPage(2)
     }
   };
 
@@ -130,7 +132,9 @@ function Intro() {
     <Ul>
       <Li>
         <Styled.Title>공고 제목</Styled.Title>
-        <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)} />
+        <Styled.InputText
+          value={title}
+          onChange={e => onSetFormValues('title', e.target.value)} />
       </Li>
       <Li>
         <Styled.Title>메인 이미지</Styled.Title>
@@ -155,7 +159,9 @@ function Intro() {
       </Li>
       <Li>
         <Styled.Title>공고 설명</Styled.Title>
-        <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)} />
+        <Styled.TextArea
+          value={description}
+          onChange={e => onSetFormValues('description', e.target.value)} />
       </Li>
       <Li>
         <Styled.Title>모집 기간</Styled.Title>

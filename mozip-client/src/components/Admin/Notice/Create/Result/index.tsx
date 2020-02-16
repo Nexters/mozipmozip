@@ -4,11 +4,14 @@ import moment from 'moment';
 import { useAdmin, useBase } from '../../../../../hooks';
 import { ButtonWrapper, Li, Title, Ul } from '../styled';
 import { NoticeQuestion } from '../../../../../modules/admin';
-import { useHistory } from 'react-router';
 import Button from '../../../../common/Button';
 
-function Result() {
-  const history = useHistory();
+type ResultProps = {
+  onPage: (page: number) => void
+}
+
+function Result(props: ResultProps) {
+  const { onPage } = props;
   const { admin, onPostNotice } = useAdmin();
   const { onFileUpload, base } = useBase();
   const { title, image, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, questions } = admin;
@@ -32,7 +35,7 @@ function Result() {
     });
   };
 
-  const handlePrevPage = () => history.goBack();
+  const handlePrevPage = () => onPage(4)
   const handleCreateNotice = async () => {
     const { formData } = image;
     // await onFileUpload(formData); // url 요청
@@ -93,7 +96,7 @@ function Result() {
     try {
       onPostNotice(submitObj);
       alert('공고가 등록 되었습니다.');
-      history.push('/admin');
+      // history.push('/admin');
     } catch (e) {
       alert('공고 등록 실패!');
       console.log(e);

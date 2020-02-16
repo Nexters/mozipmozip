@@ -41,7 +41,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
           :
           (
             path === 'create' ?
-              <Create subPath={subPath} history={history} />
+              <Create/>
               :
               ''// 진행자 현황 보는 페이지 컴포넌트?
           )

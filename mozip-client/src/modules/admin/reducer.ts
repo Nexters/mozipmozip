@@ -17,22 +17,22 @@ const initialState: AdminState = {
   questions: {
     common: [
       { title: '공통질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '공통질문2', type: 'url', maxLength: 0, questionScore: 20 },
-      { title: '공통질문3공통질문3공통질문3공통질문3공통질문3공통질문3', type: 'url', maxLength: 0, questionScore: 40 },
+      { title: '공통질문2', type: 'link', maxLength: 0, questionScore: 20 },
+      { title: '공통질문3공통질문3공통질문3공통질문3공통질문3공통질문3', type: 'link', maxLength: 0, questionScore: 40 },
     ],
     programmer: [
       { title: '개발자질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '개발자질문12', type: 'url', maxLength: 0, questionScore: 20 },
+      { title: '개발자질문12', type: 'link', maxLength: 0, questionScore: 20 },
       {
         title: '개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13',
-        type: 'url',
+        type: 'link',
         maxLength: 0,
         questionScore: 40,
       } ],
     designer: [
       { title: '디자공통질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '공인디자통질문2', type: 'url', maxLength: 0, questionScore: 20 },
-      { title: '공통질문3공통인디자인질문3공통질문3공통질문3공통질문3공통질문3', type: 'url', maxLength: 0, questionScore: 40 } ],
+      { title: '공인디자통질문2', type: 'link', maxLength: 0, questionScore: 20 },
+      { title: '공통질문3공통인디자인질문3공통질문3공통질문3공통질문3공통질문3', type: 'link', maxLength: 0, questionScore: 40 } ],
   },
   // create end
   noticeList: [],

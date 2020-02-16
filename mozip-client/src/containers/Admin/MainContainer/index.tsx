@@ -9,7 +9,7 @@ function MainContainer() {
     <Styled.Container>
       <Styled.Banner src={banner} />
       <Styled.BottomSection>
-        <Link to={'/admin/create/intro'}>
+        <Link to={'/admin/create'}>
           <Button text={'리쿠르팅 등록하기'} />
         </Link>
       </Styled.BottomSection>

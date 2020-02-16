@@ -19,7 +19,7 @@ export type NoticeStatus = 'DRAFT' | 'PUBLISHED' | 'DOCUMENT' | 'INTERVIEW' | 'E
 
 export type NoticeQuestion = {
   title: string
-  type: 'long' | 'url'
+  type: 'long' | 'link' | 'file'
   maxLength: number
   questionScore: number
 }
