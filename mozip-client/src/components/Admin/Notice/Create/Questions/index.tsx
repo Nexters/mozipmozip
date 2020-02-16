@@ -41,20 +41,34 @@ function Questions(props: QuestionsProps) {
     if (!title) return alert(`질문${lastIndex + 1} 제목을 입력해 주세요.`);
     if (type === 'long') { // default type is long -> '주관식'
       if (!maxLength) return alert(`질문${lastIndex + 1} 최대 글자수를 입력해 주세요.`);
-    };
+    }
+    ;
     if (!questionScore) return alert(`질문${lastIndex + 1} 배점을 입력해 주세요.`);
     else return onAddQuestion(pageType);
   };
 
   const handlePage = (buttonType: string) => {
-    if (pageType === 'common') onPage(buttonType === 'prev' ? 1 : 2);
-    else if (pageType === 'programmer') onPage(buttonType === 'prev' ? 2 : 3);
-    else onPage(buttonType === 'prev' ? 3 : 4);
+    if (pageType === 'common') onPage(buttonType === 'prev' ? 1 : 3);
+    else if (pageType === 'programmer') onPage(buttonType === 'prev' ? 2 : 4);
+    else onPage(buttonType === 'prev' ? 3 : 5);
+  };
+
+  const getTitle = (pageType: 'common' | 'designer' | 'programmer') => {
+    switch (pageType) {
+      case 'common':
+        return '공통질문';
+      case 'designer':
+        return '디자이너 질문';
+      case 'programmer':
+        return '개발자 질문';
+      default:
+        return 'Unhandled Type';
+    }
   };
 
   return (
     <>
-      <Title className='bold'>공통 질문</Title>
+      <Title className='bold'>{getTitle(pageType)}</Title>
       <Ul>
         {handleMapList(questions[pageType])}
         <Li>

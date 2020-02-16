@@ -8,7 +8,7 @@ const initialState: AdminState = {
     formData: '', // original
     resizeData: '', // resize
   },
-  description: '공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 ㅍ',
+  description: '',
   documentStartDate: '',
   documentEndDate: '',
   interviewStartDate: '',
@@ -17,26 +17,20 @@ const initialState: AdminState = {
   questions: {
     common: [
       { title: '공통질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '공통질문2', type: 'link', maxLength: 0, questionScore: 20 },
-      { title: '공통질문3공통질문3공통질문3공통질문3공통질문3공통질문3', type: 'link', maxLength: 0, questionScore: 40 },
     ],
     programmer: [
       { title: '개발자질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '개발자질문12', type: 'link', maxLength: 0, questionScore: 20 },
-      {
-        title: '개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13개발자질문13',
-        type: 'link',
-        maxLength: 0,
-        questionScore: 40,
-      } ],
+    ],
     designer: [
       { title: '디자공통질문1', type: 'long', maxLength: 10, questionScore: 40 },
-      { title: '공인디자통질문2', type: 'link', maxLength: 0, questionScore: 20 },
-      { title: '공통질문3공통인디자인질문3공통질문3공통질문3공통질문3공통질문3', type: 'link', maxLength: 0, questionScore: 40 } ],
+  ],
   },
   // create end
   noticeList: [],
-  error: '',
+  error: {
+    createNoticeError: '',
+    getNoticeError: ''
+  },
   status: {
     createNoticeStatus: 'wait',
     getNoticeStatus: 'wait',
@@ -48,6 +42,9 @@ export default function(state: AdminState = initialState, action: AdminAction) {
     case 'admin/SET_FORM_VALUES': {
       const { name, value } = action.payload;
       return { ...state, [name]: value };
+    }
+    case 'admin/CLEAR_ERROR': {
+      return {...state, error: {...state.error, [action.payload]: ''}};
     }
     case 'admin/ADD_QUESTION': {
       const { name } = action.payload;
@@ -81,6 +78,15 @@ export default function(state: AdminState = initialState, action: AdminAction) {
         },
       };
     }
+    case 'admin/POST_NOTICE_REQUEST': {
+      return {...state, status: {...state.status, createNoticeStatus: 'pending'}}
+    }
+    case 'admin/POST_NOTICE_SUCCESS': {
+      return {...state, status: {...state.status, createNoticeStatus: 'success'}}
+    }
+    case 'admin/POST_NOTICE_FAILURE': {
+      return {...state, status: {...state.status, createNoticeStatus: 'fail'},  error: {...state.error, createNoticeError: action.payload }}
+    }
     case 'admin/GET_NOTICES_REQUEST': {
       return { ...state, status: { ...state.status, getNoticeStatus: 'pending' } };
     }
@@ -93,7 +99,7 @@ export default function(state: AdminState = initialState, action: AdminAction) {
       };
     }
     case 'admin/GET_NOTICES_FAILURE': {
-      return { ...state, status: { ...state.status, getNoticeStatus: 'fail' }, error: action.payload };
+      return { ...state, status: { ...state.status, getNoticeStatus: 'fail' }, error: {...state.error, getNoticeError: action.payload }};
     }
     default:
       return state;
