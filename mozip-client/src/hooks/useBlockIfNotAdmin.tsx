@@ -3,14 +3,11 @@ import {useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useHistory} from 'react-router-dom';
 
-type UseIsAdmin = {
-  children: FunctionComponent
-}
 
-export default function useIsAdmin(props: UseIsAdmin){
-  const { children } = props;
+export default function useBlockIfNotAdmin(){
+  // 어드민 user x => main page redirect
   const users = useSelector((state: RootState) => state.users);
   const history = useHistory();
-  const {userInfo: {name, admin}} = users;
-  // if(!admin)
+  const {userInfo: {admin}} = users;
+  if(!admin) history.push('/')
 }

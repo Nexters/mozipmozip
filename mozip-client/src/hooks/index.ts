@@ -5,4 +5,4 @@ export {default as useUsers} from './useUsers';
 
 export {default as useBlockIfNotLogin} from './useBlockIfNotLogin'
 export {default as useBlockIfLogin} from './useBlockIfLogin'
-export {default as useIsAdmin} from './useIsAdmin'
+export {default as useBlockIfNotAdmin} from './useBlockIfNotAdmin'

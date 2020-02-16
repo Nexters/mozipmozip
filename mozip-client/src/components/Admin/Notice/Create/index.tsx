@@ -5,6 +5,7 @@ import RegisterTitle from '../../RegisterTitle';
 import CommonQuestion from './CommonQuestion';
 import GroupQuestions from './GroupQuestions';
 import Result from './Result';
+import {useBlockIfNotAdmin} from "../../../../hooks";
 
 type CreateProps = {
   subPath: string
