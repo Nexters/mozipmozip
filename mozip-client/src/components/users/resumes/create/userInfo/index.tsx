@@ -1,6 +1,7 @@
 import React from 'react';
 import Banner from '../../../banner';
-import InputBox, { CheckBoxGroup } from '../../../../common/inputBox';
+import InputBox from '../../../inputBox';
+import CheckBoxGroup from '../../../CheckBox';
 import * as styled from './styled';
 import { useResumes } from '../../../../../hooks';
 
@@ -16,7 +17,7 @@ type UserInfoProps = {
 function UserInfo({ history }: UserInfoProps) {
   const { resumes, onSaveUserInfo } = useResumes();
   const checkName = (name: string) => {
-    if (/[`~!@#$%^&*|\\\'\";:\/?]/.test(name))
+    if (/[`~!@#$%^&*|\\'";:/?]/.test(name))
       alert('특수기호가 없는 이름을 입력해주세요');
     else onSaveUserInfo('name', name);
   };
@@ -39,22 +40,44 @@ function UserInfo({ history }: UserInfoProps) {
         )
       : onSaveUserInfo('jobTypes', [...resumes.jobTypes, target.value]);
   };
-  const handleNextPage = () => {
+  const handleNextPage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!resumes.name) alert('이름을 입력해주세요');
     else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
     else if (!resumes.email) alert('이메일을 입력해주세요');
     else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
     else history.push('/resumes/create/answers');
   };
-  const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    handleNextPage();
-  };
+
+  const categories = [
+    {
+      name: '이름',
+      title: '이름',
+      validation: (name: string) => /[`~!@#$%^&*|\\'";:/?]/.test(name),
+    },
+    {
+      name: '전화번호',
+      title: '전화번호',
+      placeholder: '010-XXXX-XXXX',
+      validation: (phone: string) => /^\d{3}-\d{3,4}-\d{4}$/.test(phone),
+    },
+    {
+      name: '이메일',
+      title: '이메일',
+      type: 'email',
+    },
+    {
+      name: '직무선택',
+      title: '직무선택',
+      type: 'checkbox',
+    },
+  ];
+
   return (
-    <styled.UserInfo>
+    <styled.Main>
       <Banner />
       <styled.FormBg>
-        <styled.Form>
+        <styled.Form onSubmit={handleNextPage}>
           <InputBox name="이름" placeholder="" validationCheck={checkName} />
           <InputBox
             name="전화번호"
@@ -79,10 +102,10 @@ function UserInfo({ history }: UserInfoProps) {
               onToggle={onToggle}
             />
           )}
-          <styled.Button onClick={onClick}>다음</styled.Button>
+          <styled.Button>다음</styled.Button>
         </styled.Form>
       </styled.FormBg>
-    </styled.UserInfo>
+    </styled.Main>
   );
 }
 
