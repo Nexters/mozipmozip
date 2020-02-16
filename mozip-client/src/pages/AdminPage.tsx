@@ -31,7 +31,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
   ];
 
   const { match: { params: { path, subPath } }, history } = props;
-  useBlockIfNotAdmin();
+  // useBlockIfNotAdmin();
   return (
     <>
       <Header categories={categories} />

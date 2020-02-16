@@ -39,6 +39,7 @@ function Intro() {
         else onSetFormValues('documentStartDate', date._d);
       }//validation
       else onSetFormValues('documentStartDate', date._d); // endDate no exist
+      handleVisible('documentStartVisible'); // calendar off
     } else if (name === 'documentEndDate') {
       if (documentStartDate) {
         const startTime = new Date(documentStartDate).getTime();
@@ -47,6 +48,7 @@ function Intro() {
         else onSetFormValues('documentEndDate', date._d);
       }//validation
       else onSetFormValues('documentEndDate', date._d); // endDate no exist
+      handleVisible('documentEndVisible'); // calendar off
     } else if (name === 'interviewStartDate') {
       if (interviewEndDate) {
         const endTime = new Date(interviewEndDate).getTime();
@@ -55,6 +57,7 @@ function Intro() {
         else onSetFormValues('interviewStartDate', date._d);
       }//validation
       else onSetFormValues('interviewStartDate', date._d); // endDate no exist
+      handleVisible('interviewStartVisible'); // calendar off
     } else if (name === 'interviewEndDate') {
       if (interviewStartDate) {
         const startTime = new Date(interviewStartDate).getTime();
@@ -63,6 +66,7 @@ function Intro() {
         else onSetFormValues('interviewEndDate', date._d);
       }//validation
       else onSetFormValues('interviewEndDate', date._d); // endDate no exist
+      handleVisible('interviewEndVisible'); // calendar off
     } else {
       if (!documentStartDate) alert('서류 시작 날짜륾 먼저 선택해 주세요.');
       else if (!documentEndDate) alert('서류 종료 날짜륾 먼저 선택해 주세요.');
@@ -74,9 +78,9 @@ function Intro() {
         const iEndDate = new Date(interviewEndDate).getTime();
         if (dEndDate > noticeEndValue || iEndDate > noticeEndValue) alert('최종 발표 날짜는 가장 늦어야해~!');
         else onSetFormValues('noticeEndDate', date._d);
+        handleVisible('noticeEndVisible'); // calendar off
       }
     }
-    handleVisible(name); // calendar off
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,7 +171,7 @@ function Intro() {
               <CalendarComponent
                 name="documentStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -181,7 +185,7 @@ function Intro() {
               <CalendarComponent
                 name="documentEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -197,7 +201,7 @@ function Intro() {
               <CalendarComponent
                 name="interviewStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -211,7 +215,7 @@ function Intro() {
               <CalendarComponent
                 name="interviewEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -227,7 +231,7 @@ function Intro() {
               <CalendarComponent
                 name="noticeEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>

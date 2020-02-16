@@ -9,11 +9,11 @@ const initialState: AdminState = {
     resizeData: '', // resize
   },
   description: '공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 공고 설명 ㅍ',
-  documentStartDate: new Date('May 16, 2019 17:22:10'),
-  documentEndDate: new Date('May 18, 2019 17:22:10'),
-  interviewStartDate: new Date('November 18, 2019 17:22:10'),
-  interviewEndDate: new Date('November 30, 2019 17:22:10'),
-  noticeEndDate: new Date('January 30, 2020 17:22:10'),
+  documentStartDate: '',
+  documentEndDate: '',
+  interviewStartDate: '',
+  interviewEndDate: '',
+  noticeEndDate: '',
   questions: {
     common: [
       { title: '공통질문1', type: 'long', maxLength: 10, questionScore: 40 },
