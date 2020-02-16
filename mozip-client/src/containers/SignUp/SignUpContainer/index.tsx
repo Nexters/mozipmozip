@@ -13,7 +13,7 @@ type SignUpContainerProps = {
 function SignUpContainer({history}: SignUpContainerProps) {
   const [clickedIndex, setClickedIndex] = useState(0);
   const [state, setState] = useState({
-    admin: !!clickedIndex,
+    admin: false,
     adminCode: '',
     email: '',
     name: '',
@@ -25,7 +25,7 @@ function SignUpContainer({history}: SignUpContainerProps) {
 
   const handleClickTab = (index: number) => {
     setClickedIndex(index); // tab 바꾸고
-    setState({...state, admin: !state.admin});
+    setState({...state, admin: !!index});
   };
 
   const handleState = (name: string, value: string) => setState({...state, [name]: value});

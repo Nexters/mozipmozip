@@ -1,72 +1,62 @@
-import React, { Fragment, useCallback } from 'react';
+import React, {Fragment, useCallback} from 'react';
 import * as Styled from './style';
 
-function RegisterTitle(props: { subPath: string }) {
-  const { subPath } = props;
+function RegisterTitle(props: { page: number }) {
+  const {page} = props;
 
-  const getProgressNumber = (subPath: string) => {
-    switch (subPath) {
-      case 'intro':
-        return 0;
-      case 'common':
-        return 1;
-      case 'group':
-        return 2;
-      case 'result':
-        return 3;
-      default:
-        throw new Error('Unhandled SubPath');
-    }
-  };
-
-  const getProgressTitle = (param: string | number) => {
-    if (param === 0 || param === 'intro') return '리쿠르팅 소개';
-    else if (param === 1 || param === 'common') return '공통 질문';
-    else if (param === 2 || param === 'group') return '직군 별 질문';
-    else return '최종 확인';
+  const getProgressTitle = (page: number, flag = false) => {
+    if (page === 1) return '리쿠르팅 소개';
+    else if (page === 2) return '공통 질문';
+    else if (page === 4 && flag) return '최종확인';
+    else if (page === 3 || page === 4) return '직군 별 질문';
+    else if (page === 5) return '최종 확인';
   };
 
 
-  const drawProgressShape = useCallback((subPath: string) => {
-    const arr = [ '', '', '', '' ];
+  const isClassActive = (page: number, i: number) => {
+    if (page < 4) return page - 1 === i ? 'active' : '';
+    else if (page === 4) return i == 2 ? 'active' : '';
+    else return i === 3 ? 'active' : '';
+  };
+
+  const drawProgressShape = useCallback((page: number) => {
+    const arr = ['', '', '', ''];
     return arr.map((v, i) => {
-      const targetIndex = getProgressNumber(subPath);
       return (
         <Fragment key={i}>
-          <Styled.Circle className={(targetIndex === i ? ' active' : '')} />
-          {i !== 3 && <Styled.Line />}
+          <Styled.Circle className={isClassActive(page, i)}/>
+          {i !== 3 && <Styled.Line/>}
         </Fragment>
       );
     });
-  }, [ subPath ]);
+  }, [page]);
 
-  const drawProgressText = useCallback((subPath: string) => {
-    const arr = [ '', '', '', '' ];
+  const drawProgressText = useCallback((page: number) => {
+    const arr = ['', '', '', ''];
     return arr.map((v, i) => {
-      const targetIndex = getProgressNumber(subPath);
-      const text = getProgressTitle(i);
+      const text = getProgressTitle(i + 1, true);
       return (
         <Styled.Text
           key={i}
-          className={(targetIndex === i ? ' active' : '')}
+          className={isClassActive(page, i)}
         >
           {text}
         </Styled.Text>
       );
     });
-  }, [ subPath ]);
+  }, [page]);
 
   return (
     <Styled.Container>
       <Styled.Title>공고 등록</Styled.Title>
       <Styled.Wrapper>
-        <Styled.SubTitle>{getProgressTitle(subPath)} {subPath !== 'result' && '작성'}</Styled.SubTitle>
+        <Styled.SubTitle>{getProgressTitle(page)}</Styled.SubTitle>
         <Styled.ProgressBar>
           <Styled.Half>
-            {drawProgressShape(subPath)}
+            {drawProgressShape(page)}
           </Styled.Half>
           <Styled.Half>
-            {drawProgressText(subPath)}
+            {drawProgressText(page)}
           </Styled.Half>
         </Styled.ProgressBar>
       </Styled.Wrapper>

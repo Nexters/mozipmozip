@@ -15,7 +15,7 @@ export const requestHandler = async (params: any) => {
       ...args,
       url: process.env.REACT_APP_URL + path,
       timeout: 5000,
-      headers: params.headers ? params.header : {}
+      headers: params.headers ? params.headers : {}
     };
     console.log('[Request]: ' + JSON.stringify(config, null, 2));
     const data = await axios(config);

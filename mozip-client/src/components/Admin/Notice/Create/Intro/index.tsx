@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import * as Styled from './styled';
-import { useHistory } from 'react-router';
 import moment from 'moment';
 
 import Button from '../../../../common/Button';
@@ -12,8 +11,11 @@ import { makeFormData } from '../../../../../lib/form';
 import { hasKey } from '../../../../../modules/admin';
 import uploadImg from '../../../../../static/images/uploadImg.png';
 
-function Intro() {
-  const history = useHistory();
+type IntroProps = {
+  onPage: (page: number) => void
+}
+function Intro(props: IntroProps) {
+  const { onPage } = props;
   const [ visible, setVisible ] = useState({
     documentStartVisible: false,
     documentEndVisible: false,
@@ -39,6 +41,7 @@ function Intro() {
         else onSetFormValues('documentStartDate', date._d);
       }//validation
       else onSetFormValues('documentStartDate', date._d); // endDate no exist
+      handleVisible('documentStartVisible'); // calendar off
     } else if (name === 'documentEndDate') {
       if (documentStartDate) {
         const startTime = new Date(documentStartDate).getTime();
@@ -47,6 +50,7 @@ function Intro() {
         else onSetFormValues('documentEndDate', date._d);
       }//validation
       else onSetFormValues('documentEndDate', date._d); // endDate no exist
+      handleVisible('documentEndVisible'); // calendar off
     } else if (name === 'interviewStartDate') {
       if (interviewEndDate) {
         const endTime = new Date(interviewEndDate).getTime();
@@ -55,6 +59,7 @@ function Intro() {
         else onSetFormValues('interviewStartDate', date._d);
       }//validation
       else onSetFormValues('interviewStartDate', date._d); // endDate no exist
+      handleVisible('interviewStartVisible'); // calendar off
     } else if (name === 'interviewEndDate') {
       if (interviewStartDate) {
         const startTime = new Date(interviewStartDate).getTime();
@@ -63,6 +68,7 @@ function Intro() {
         else onSetFormValues('interviewEndDate', date._d);
       }//validation
       else onSetFormValues('interviewEndDate', date._d); // endDate no exist
+      handleVisible('interviewEndVisible'); // calendar off
     } else {
       if (!documentStartDate) alert('서류 시작 날짜륾 먼저 선택해 주세요.');
       else if (!documentEndDate) alert('서류 종료 날짜륾 먼저 선택해 주세요.');
@@ -74,9 +80,9 @@ function Intro() {
         const iEndDate = new Date(interviewEndDate).getTime();
         if (dEndDate > noticeEndValue || iEndDate > noticeEndValue) alert('최종 발표 날짜는 가장 늦어야해~!');
         else onSetFormValues('noticeEndDate', date._d);
+        handleVisible('noticeEndVisible'); // calendar off
       }
     }
-    handleVisible(name); // calendar off
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,7 +124,7 @@ function Intro() {
     else if (!noticeEndDate) return alert('공고 종료 날짜를 선택해 주세요.');
     else {
       onSetFormValues('image', image);
-      history.push('/admin/create/common');
+      onPage(2)
     }
   };
 
@@ -126,7 +132,9 @@ function Intro() {
     <Ul>
       <Li>
         <Styled.Title>공고 제목</Styled.Title>
-        <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)} />
+        <Styled.InputText
+          value={title}
+          onChange={e => onSetFormValues('title', e.target.value)} />
       </Li>
       <Li>
         <Styled.Title>메인 이미지</Styled.Title>
@@ -151,7 +159,9 @@ function Intro() {
       </Li>
       <Li>
         <Styled.Title>공고 설명</Styled.Title>
-        <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)} />
+        <Styled.TextArea
+          value={description}
+          onChange={e => onSetFormValues('description', e.target.value)} />
       </Li>
       <Li>
         <Styled.Title>모집 기간</Styled.Title>
@@ -167,7 +177,7 @@ function Intro() {
               <CalendarComponent
                 name="documentStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -181,7 +191,7 @@ function Intro() {
               <CalendarComponent
                 name="documentEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -197,7 +207,7 @@ function Intro() {
               <CalendarComponent
                 name="interviewStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -211,7 +221,7 @@ function Intro() {
               <CalendarComponent
                 name="interviewEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
@@ -227,7 +237,7 @@ function Intro() {
               <CalendarComponent
                 name="noticeEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
