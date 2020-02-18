@@ -42,6 +42,13 @@ function Header({ categories }: IHeaderProps) {
       );
     });
   };
+
+  const handleLogout = () => {
+    const res = window.confirm('로그아웃 하시겠습니까?');
+    if(res) onSignOut();
+    else return null;
+  };
+
   useEffect(()=>{
     if(!name) onGetCurrentUser() // 쿠키 있고 name 없으면 유저정보 get
   },[]);
@@ -67,7 +74,7 @@ function Header({ categories }: IHeaderProps) {
                 <div className="header_half">
                   <span className="header_name"
                         style={{marginRight:'60px', cursor: 'pointer', color: '#94999E'}}
-                        onClick={onSignOut}>
+                        onClick={handleLogout}>
                     로그아웃</span>
                   <span className="header_name bold">{name}</span>
                 </div>

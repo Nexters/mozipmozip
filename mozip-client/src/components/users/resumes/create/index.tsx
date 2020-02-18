@@ -1,6 +1,7 @@
 import React from 'react';
 import UserInfo from './userInfo';
 import Answers from './answers';
+import {useBlockIfNotLogin} from "../../../../hooks";
 
 type CreateProps = {
   subPath: string;
@@ -11,6 +12,7 @@ type CreateProps = {
 
 function Create(props: CreateProps) {
   const { subPath, history } = props;
+  useBlockIfNotLogin();
   return (
     <>
       {subPath === 'userInfo' && <UserInfo history={history} />}

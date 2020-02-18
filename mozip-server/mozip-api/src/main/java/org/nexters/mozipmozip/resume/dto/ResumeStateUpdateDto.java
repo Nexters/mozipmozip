@@ -1,8 +1,8 @@
 package org.nexters.mozipmozip.resume.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
 import javax.validation.constraints.NotNull;
@@ -15,11 +15,9 @@ public class ResumeStateUpdateDto {
     private Long id;
     private ResumeState state;
 
-    public Resume of() {
-        return Resume.builder()
-                .id(this.id)
-                .state(this.state)
-                .build();
+    @Builder
+    public ResumeStateUpdateDto(final Long id, final ResumeState state) {
+        this.id = id;
+        this.state = state;
     }
-
 }

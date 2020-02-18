@@ -1,42 +1,35 @@
-import React, {useState} from 'react';
-import CalendarComponent from "../../../../common/Admin/Calendar/Calendar";
-import {useAdmin} from "../../../../../hooks";
-import moment from "moment";
-import {convertToJimpObject, imageResize, getBase64fromJimp} from "../../../../../lib/jimp";
-import {Ul, Li, Title, SubLayer, SubTitle, Button, Between, AlignCenter} from "../styled"; // Create CommonQuestion Styled Component
+import React, { useState } from 'react';
 import * as Styled from './styled';
-import {makeFormData} from "../../../../../lib/form";
-import {hasKey} from "../../../../../modules/admin";
+import moment from 'moment';
 
+import Button from '../../../../common/Button';
+import CalendarComponent from '../../../../common/Admin/Calendar/Calendar';
+import { useAdmin } from '../../../../../hooks';
+import { convertToJimpObject, getBase64fromJimp, imageResize } from '../../../../../lib/jimp';
+import { ButtonWrapper, Li, SubLayer, Ul } from '../styled'; // Create CommonQuestion Styled Component
+import { makeFormData } from '../../../../../lib/form';
+import { hasKey } from '../../../../../modules/admin';
+import uploadImg from '../../../../../static/images/uploadImg.png';
 
 type IntroProps = {
-  history: {
-    push: (url: string) => void
-  }
+  onPage: (page: number) => void
 }
-
-type Image = {
-  // data: string | null | ArrayBuffer
-  resizeData: string | null
-  fileName: string | null
-}
-
 function Intro(props: IntroProps) {
-  const {history} = props;
-  const [visible, setVisible] = useState({
+  const { onPage } = props;
+  const [ visible, setVisible ] = useState({
     documentStartVisible: false,
     documentEndVisible: false,
     interviewStartVisible: false,
     interviewEndVisible: false,
-    noticeEndVisible: false
+    noticeEndVisible: false,
   });
-  const {admin, onSetFormValues} = useAdmin();
-  const {documentStartVisible, documentEndVisible, interviewEndVisible, interviewStartVisible, noticeEndVisible} = visible;
-  const {title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, image} = admin;
-  const {resizeData, name} = image;
-  const calendarStyle = {marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px'};
+  const { admin, onSetFormValues } = useAdmin();
+  const { documentStartVisible, documentEndVisible, interviewEndVisible, interviewStartVisible, noticeEndVisible } = visible;
+  const { title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, image } = admin;
+  const { resizeData, name } = image;
+  const calendarStyle = { marginLeft: 'none', position: 'absolute', zIndex: '1001', marginTop: '5px' };
   const handleVisible = (name: string) => {
-    return hasKey(visible, name) ? setVisible({...visible, [name]: !visible[name]}) : '';
+    return hasKey(visible, name) ? setVisible({ ...visible, [name]: !visible[name] }) : '';
   };
 
   const handleDate = (name: string, date: any) => { // date type is Moment
@@ -48,6 +41,7 @@ function Intro(props: IntroProps) {
         else onSetFormValues('documentStartDate', date._d);
       }//validation
       else onSetFormValues('documentStartDate', date._d); // endDate no exist
+      handleVisible('documentStartVisible'); // calendar off
     } else if (name === 'documentEndDate') {
       if (documentStartDate) {
         const startTime = new Date(documentStartDate).getTime();
@@ -56,6 +50,7 @@ function Intro(props: IntroProps) {
         else onSetFormValues('documentEndDate', date._d);
       }//validation
       else onSetFormValues('documentEndDate', date._d); // endDate no exist
+      handleVisible('documentEndVisible'); // calendar off
     } else if (name === 'interviewStartDate') {
       if (interviewEndDate) {
         const endTime = new Date(interviewEndDate).getTime();
@@ -64,6 +59,7 @@ function Intro(props: IntroProps) {
         else onSetFormValues('interviewStartDate', date._d);
       }//validation
       else onSetFormValues('interviewStartDate', date._d); // endDate no exist
+      handleVisible('interviewStartVisible'); // calendar off
     } else if (name === 'interviewEndDate') {
       if (interviewStartDate) {
         const startTime = new Date(interviewStartDate).getTime();
@@ -72,6 +68,7 @@ function Intro(props: IntroProps) {
         else onSetFormValues('interviewEndDate', date._d);
       }//validation
       else onSetFormValues('interviewEndDate', date._d); // endDate no exist
+      handleVisible('interviewEndVisible'); // calendar off
     } else {
       if (!documentStartDate) alert('서류 시작 날짜륾 먼저 선택해 주세요.');
       else if (!documentEndDate) alert('서류 종료 날짜륾 먼저 선택해 주세요.');
@@ -83,17 +80,17 @@ function Intro(props: IntroProps) {
         const iEndDate = new Date(interviewEndDate).getTime();
         if (dEndDate > noticeEndValue || iEndDate > noticeEndValue) alert('최종 발표 날짜는 가장 늦어야해~!');
         else onSetFormValues('noticeEndDate', date._d);
+        handleVisible('noticeEndVisible'); // calendar off
       }
     }
-    handleVisible(name); // calendar off
   };
 
   const handleImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.persist();
-    const {name, files} = e.target;
+    const { name, files } = e.target;
     if (files && files.length > 0) {
       const file = files[0];
-      const formData = makeFormData({file}); // 파일업로드는 마지막에
+      const formData = makeFormData({ file }); // 파일업로드는 마지막에
       const reader = new FileReader();
       reader.onload = async () => {
         try {
@@ -104,7 +101,7 @@ function Intro(props: IntroProps) {
               .then((base64: string | undefined) => base64 ? onSetFormValues('image', {
                 formData,
                 resizeData: base64,
-                name: file.name
+                name: file.name,
               }) : '')
               .catch(console.log);
           }
@@ -127,43 +124,50 @@ function Intro(props: IntroProps) {
     else if (!noticeEndDate) return alert('공고 종료 날짜를 선택해 주세요.');
     else {
       onSetFormValues('image', image);
-      history.push('/admin/create/common');
+      onPage(2)
     }
   };
 
   return (
-    <>
-      <Ul>
-        <Li>
-          <Title>제목</Title>
-          <Styled.InputText onChange={e => onSetFormValues('title', e.target.value)}/>
-        </Li>
-        <Li>
-          <Title>메인 이미지</Title>
-          <SubLayer>
-            {resizeData ?
-              <Styled.ImagePreview src={resizeData} alt=""/>
-              :
-              <>
-                <label htmlFor="intro-file-input">
-                  <Styled.DefaultImage>+</Styled.DefaultImage>
-                </label>
-                <Styled.FileInput name="description" onChange={handleImage}/>
-              </>}
-            <Styled.NameLayer>
-              <span>이미지 업로드</span>
-              <input type="text" readOnly disabled value={name ? name : ''}/>
-            </Styled.NameLayer>
-          </SubLayer>
-        </Li>
-        <Li>
-          <Title>설명</Title>
-          <Styled.TextArea onChange={e => onSetFormValues('description', e.target.value)}/>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <Title>기간</Title>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>서류 모집</SubTitle>
+    <Ul>
+      <Li>
+        <Styled.Title>공고 제목</Styled.Title>
+        <Styled.InputText
+          value={title}
+          onChange={e => onSetFormValues('title', e.target.value)} />
+      </Li>
+      <Li>
+        <Styled.Title>메인 이미지</Styled.Title>
+        <SubLayer style={{
+          flexDirection: 'inherit',
+          alignItems: 'flex-end',
+        }}>
+          {resizeData ?
+            <Styled.ImagePreview src={resizeData} alt="" />
+            :
+            <>
+              <Styled.DefaultImage />
+              <Styled.FileInput name="description" onChange={handleImage} />
+            </>}
+          <Styled.NameLayer>
+            <Styled.UploadButton htmlFor="intro-file-input">
+              <img src={uploadImg} alt="" /> 업로드 하기
+            </Styled.UploadButton>
+            <Styled.FileName readOnly disabled value={name ? name : ''} />
+          </Styled.NameLayer>
+        </SubLayer>
+      </Li>
+      <Li>
+        <Styled.Title>공고 설명</Styled.Title>
+        <Styled.TextArea
+          value={description}
+          onChange={e => onSetFormValues('description', e.target.value)} />
+      </Li>
+      <Li>
+        <Styled.Title>모집 기간</Styled.Title>
+        <SubLayer>
+          <Styled.DateBar>
+            <Styled.SubTitle>서류 모집</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('documentStartVisible')}
@@ -173,11 +177,11 @@ function Intro(props: IntroProps) {
               <CalendarComponent
                 name="documentStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('documentEndVisible')}
@@ -187,15 +191,13 @@ function Intro(props: IntroProps) {
               <CalendarComponent
                 name="documentEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>면접</SubTitle>
+          </Styled.DateBar>
+          <Styled.DateBar>
+            <Styled.SubTitle>면접</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('interviewStartVisible')}
@@ -205,11 +207,11 @@ function Intro(props: IntroProps) {
               <CalendarComponent
                 name="interviewStartDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
-            <Between>~</Between>
+            <Styled.Between>~</Styled.Between>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('interviewEndVisible')}
@@ -219,15 +221,13 @@ function Intro(props: IntroProps) {
               <CalendarComponent
                 name="interviewEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <Li style={{alignItems: 'center'}}>
-          <SubLayer style={{alignItems: 'center'}}>
-            <SubTitle style={{marginRight: '31px'}}>최종 발표</SubTitle>
+          </Styled.DateBar>
+          <Styled.DateBar>
+            <Styled.SubTitle>최종 발표</Styled.SubTitle>
             <div>
               <Styled.CalendarInput
                 onClick={() => handleVisible('noticeEndVisible')}
@@ -237,18 +237,19 @@ function Intro(props: IntroProps) {
               <CalendarComponent
                 name="noticeEndDate"
                 style={calendarStyle}
-                defaultDate={new Date()}
+                // defaultDate={new Date()}
                 onDate={handleDate}
               />}
             </div>
-          </SubLayer>
-        </Li>
-        <AlignCenter>
-          <Button padding="17px 24px;">임시 저장</Button>
-          <Button padding="17px 91px;" onClick={handleNextPage}>다음</Button>
-        </AlignCenter>
-      </Ul>
-    </>
+          </Styled.DateBar>
+        </SubLayer>
+      </Li>
+      <ButtonWrapper>
+        <Button text={'임시저장'} width='153px' height='64px' color='#61CB9F'
+                border='1px solid #61CB9F' background='#ffffff' />
+        <Button onClick={handleNextPage} text={'다음'} width='207px' height='64px' />
+      </ButtonWrapper>
+    </Ul>
   );
 }
 

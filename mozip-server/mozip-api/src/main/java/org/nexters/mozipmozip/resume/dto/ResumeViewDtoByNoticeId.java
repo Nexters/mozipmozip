@@ -23,11 +23,11 @@ public class ResumeViewDtoByNoticeId {
 
     @Builder
     public ResumeViewDtoByNoticeId(final Long id,
-                         final ResumeState state,
-                         final String name,
-                         final ResumeOccupation occupation,
-                         final ResumeJobType resumeJobType,
-                         final List<String> jobTypes) {
+                                   final ResumeState state,
+                                   final String name,
+                                   final ResumeOccupation occupation,
+                                   final ResumeJobType resumeJobType,
+                                   final List<String> jobTypes) {
         this.id = id;
         this.state = state;
         this.name = name;
@@ -38,7 +38,7 @@ public class ResumeViewDtoByNoticeId {
 
     public static ResumeViewDtoByNoticeId of(final Resume resume) {
         return ResumeViewDtoByNoticeId.builder()
-                .id(resume.getNotice().getId())
+                .id(resume.getNoticeId())
                 .state(resume.getState())
                 .name(resume.getName())
                 .occupation(resume.getOccupation())
