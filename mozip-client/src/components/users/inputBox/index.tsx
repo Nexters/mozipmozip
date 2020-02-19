@@ -3,18 +3,26 @@ import * as styled from './styled';
 
 type InputBoxProps = {
   name: string;
+  title: string;
   placeholder: string;
-  validationCheck: (name: string) => void;
-};
-type CheckBoxProps = {
-  name: string;
-  valueList: string[];
-  onToggle: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  type: string;
+  validation: (value: string) => boolean;
+  setState: (value: string) => void;
 };
 
-function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
+function InputBox({
+  name,
+  title,
+  placeholder,
+  type,
+  validation,
+  setState,
+}: InputBoxProps) {
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    validationCheck(e.target.value);
+    console.log(validation);
+    console.log(validation(e.target.value));
+    if (validation(e.target.value)) alert(`올바른 ${title}을 입력해주세요`);
+    else setState(e.target.value);
     handleBlurInput(e);
   };
 
@@ -34,12 +42,13 @@ function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
   return (
     <styled.Main>
       <styled.TitleBg>
-        <styled.Title htmlFor={name}>{name}</styled.Title>
+        <styled.Title htmlFor={name}>{title}</styled.Title>
       </styled.TitleBg>
       <styled.InputBg>
         <styled.Input
           id={name}
           name={name}
+          type={type}
           placeholder={placeholder}
           onBlur={onBlur}
           onFocus={handleFocusInput}

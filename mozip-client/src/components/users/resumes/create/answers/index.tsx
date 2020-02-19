@@ -14,21 +14,10 @@ const getAnswerBox = (
   question: string,
   questionNo: number,
   maxLength: number,
-) => (
-  <AnswerBox
-    question={question}
-    idx={questionNo}
-    maxLength={maxLength}
-    key={'answer' + questionNo}
-  />
-);
+) => <AnswerBox question={question} idx={questionNo} maxLength={maxLength} />;
 
 const getPortfolioBox = (question: string, questionNo: number) => (
-  <PortfolioBox
-    question={question}
-    questionNo={questionNo}
-    key={'answer' + questionNo}
-  />
+  <PortfolioBox question={question} questionNo={questionNo} />
 );
 
 const categories = [
@@ -69,8 +58,10 @@ function Answers({ history }: AnswersProps) {
     <styled.Main onSubmit={handleSubmit}>
       <Banner />
       <ul>
-        {categories.map(({ question, questionNo, maxLength, child }) => (
-          <li>{child && child(question, questionNo, maxLength)}</li>
+        {categories.map(({ question, questionNo, maxLength, child }, idx) => (
+          <li key={`answer${idx}`}>
+            {child && child(question, questionNo, maxLength)}
+          </li>
         ))}
       </ul>
       <styled.BtnGroup>

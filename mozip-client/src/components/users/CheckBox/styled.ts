@@ -6,8 +6,8 @@ export const Main = styled.div`
 `;
 
 export const Title = styled.div`
-  font-size: 17px;
-  line-height: 25px;
+  font-size: 13px;
+  line-height: 19px;
   color: #46494e;
 `;
 

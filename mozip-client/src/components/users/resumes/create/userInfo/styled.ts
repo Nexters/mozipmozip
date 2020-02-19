@@ -23,4 +23,7 @@ export const Button = styled.button`
   font-weight: bold;
   font-size: 20px;
   line-height: 30px;
+  &:hover {
+    cursor: pointer;
+  }
 `;

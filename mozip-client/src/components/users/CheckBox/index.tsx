@@ -1,16 +1,22 @@
 import React from 'react';
 import * as styled from './styled';
 
-type CheckBoxProps = {
+type CheckBoxGroupProps = {
   name: string;
+  title: string;
   valueList: string[];
   onToggle: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 };
 
-function CheckBoxGroup({ name, valueList, onToggle }: CheckBoxProps) {
+function CheckBoxGroup({
+  name,
+  title,
+  valueList,
+  onToggle,
+}: CheckBoxGroupProps) {
   return (
     <styled.Main>
-      <styled.Title>{name}</styled.Title>
+      <styled.Title>{title}</styled.Title>
       <styled.CheckboxGroup>
         {valueList.map((value, idx) => (
           <styled.CheckboxBg key={'checkbox' + idx}>
