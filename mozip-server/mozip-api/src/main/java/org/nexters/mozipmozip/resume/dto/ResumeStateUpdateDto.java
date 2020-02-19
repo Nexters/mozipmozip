@@ -1,7 +1,7 @@
 package org.nexters.mozipmozip.resume.dto;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
@@ -9,15 +9,10 @@ import javax.validation.constraints.NotNull;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class ResumeStateUpdateDto {
 
-    @NotNull(message = "업데이트시 반드시 아이디는 있어야 한다.")
-    private Long id;
+    @NotNull(message = "업데이트시 상태는 반드시 존재해야 한다.")
     private ResumeState state;
 
-    @Builder
-    public ResumeStateUpdateDto(final Long id, final ResumeState state) {
-        this.id = id;
-        this.state = state;
-    }
 }
