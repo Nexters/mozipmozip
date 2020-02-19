@@ -16,7 +16,6 @@ import java.util.List;
 public class ResumeViewDtoById {
 
     private Long id;
-    private Long userId;
     private Long noticeId;
     private ResumeState state;
     private String name;
@@ -32,7 +31,6 @@ public class ResumeViewDtoById {
 
     @Builder
     public ResumeViewDtoById(final Long id,
-                             final Long userId,
                              final Long noticeId,
                              final ResumeState state,
                              final String name,
@@ -46,7 +44,6 @@ public class ResumeViewDtoById {
                              final String portFolioURL,
                              final List<ResumeAnswerItem> resumeAnswerItems) {
         this.id = id;
-        this.userId = userId;
         this.noticeId = noticeId;
         this.state = state;
         this.name = name;
@@ -64,7 +61,6 @@ public class ResumeViewDtoById {
     public static ResumeViewDtoById of(final Resume resume) {
         return ResumeViewDtoById.builder()
                 .id(resume.getNoticeId())
-                .userId(resume.getUser().getId())
                 .noticeId(resume.getNoticeId())
                 .state(resume.getState())
                 .name(resume.getName())
