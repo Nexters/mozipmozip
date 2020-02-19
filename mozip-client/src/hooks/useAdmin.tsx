@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {
   setFormValues,
+  clearError,
   setQuestionValue,
   addQuestion,
   postNoticeRequest,
@@ -13,6 +14,7 @@ export default function useAdmin() {
   const dispatch = useDispatch();
   const admin = useSelector((state: RootState) => state.admin);
   const onSetFormValues = useCallback((name: string, value: any) => dispatch(setFormValues(name, value)), [dispatch]);
+  const onClearError = useCallback((keyName: string) => dispatch(clearError(keyName)), [dispatch]);
   const onSetQuestionValue = useCallback((args: SetQuestion) =>
     dispatch(setQuestionValue({...args})), [dispatch]);
   const onAddQuestion = useCallback((name: string) => dispatch(addQuestion(name)), [dispatch]);
@@ -22,6 +24,7 @@ export default function useAdmin() {
   return {
     admin,
     onSetFormValues,
+    onClearError,
     onSetQuestionValue,
     onAddQuestion,
 

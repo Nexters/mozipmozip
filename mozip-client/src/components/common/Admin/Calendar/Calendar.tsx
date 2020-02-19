@@ -18,7 +18,6 @@ const defaultCalendarValue = now.clone();
 type CalendarProps = {
   name: 'documentStartDate' | 'documentEndDate' | 'interviewStartDate' | 'interviewEndDate' | 'noticeEndDate'
   style: object
-  defaultDate: Date
   onDate: (name: string, date: Moment | null) => void,
 }
 
@@ -28,7 +27,7 @@ export default function CalendarComponent(props: CalendarProps) {
     showDateInput: true,
     disabled: false,
     open: false,
-    value: props.defaultDate,
+    value: now,
   });
   // const disabledTime = (date: Date) => {
   //
@@ -39,7 +38,7 @@ export default function CalendarComponent(props: CalendarProps) {
       style={style}
       onChange={date => onDate(name, date)}
       format={getFormat(state.showTime)}
-      defaultValue={defaultCalendarValue}
+      defaultValue={now}
     />
   );
 }

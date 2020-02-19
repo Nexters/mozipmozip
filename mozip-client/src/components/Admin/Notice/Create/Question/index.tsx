@@ -47,7 +47,7 @@ function Question(props: QuestionProps) {
               onChange={e => handleQuestionValue('type', e.target.value)}>
               <option value="long">주관식</option>
               <option value="file">파일 업로드</option>
-              <option value="url">링크 입력</option>
+              <option value="link">링크 입력</option>
             </Styled.QuestionSelect>
           </Styled.QuestionItemBox>
           {type === 'long' && // 주관식 case

@@ -1,9 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import MainContainer from '../containers/Admin/MainContainer';
-import Create from '../components/Admin/Notice/Create';
+import { Create, List } from '../components/Admin/Notice';
 import Header from '../components/common/Header';
-import { List } from '../components/Admin/Notice';
+import {useBlockIfNotAdmin} from "../hooks";
 
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
@@ -31,6 +31,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
   ];
 
   const { match: { params: { path, subPath } }, history } = props;
+  // useBlockIfNotAdmin();
   return (
     <>
       <Header categories={categories} />
@@ -40,7 +41,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
           :
           (
             path === 'create' ?
-              <Create subPath={subPath} history={history} />
+              <Create/>
               :
               <List />
           )
