@@ -11,6 +11,7 @@ import org.nexters.mozipmozip.resume.dto.ResumeViewDto;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoById;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByNoticeId;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByUserId;
+import org.nexters.mozipmozip.user.domain.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/v1/resumes")
 public class ResumeController {
 
+    public static final String SESSION_KEY = "userInfo";
     private final ResumeService resumeService;
 
     @GetMapping
@@ -84,19 +87,19 @@ public class ResumeController {
     }
 
     @PostMapping
-    public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
-        Long userId = resumeCreateDTO.getUserId();
+    public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO, HttpSession httpSession) {
+        User userInfo = (User)httpSession.getAttribute(SESSION_KEY);
         Long noticeId = resumeCreateDTO.getNoticeId();
-        Resume createdResume = resumeService.save(userId, noticeId, resumeCreateDTO.of());
+        Resume createdResume = resumeService.save(userInfo.getId(), noticeId, resumeCreateDTO.of());
         return ResponseEntity.created(URI.create("/api/v1/resumes/" + createdResume.getId()))
                 .body(createdResume);
     }
 
     @PatchMapping
-    public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
-        Long userId = resumeUpdateDto.getUserId();
+    public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto, HttpSession httpSession) {
+        User userInfo = (User)httpSession.getAttribute(SESSION_KEY);
         Long noticeId = resumeUpdateDto.getNoticeId();
-        return ResponseEntity.ok().body(resumeService.save(userId, noticeId, resumeUpdateDto.of()));
+        return ResponseEntity.ok().body(resumeService.save(userInfo.getId(), noticeId, resumeUpdateDto.of()));
     }
 
     @PatchMapping("/state")

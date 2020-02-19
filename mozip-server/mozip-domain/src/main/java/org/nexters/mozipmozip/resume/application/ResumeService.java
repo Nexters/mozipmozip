@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
-import org.nexters.mozipmozip.user.application.UserService;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 public class ResumeService {
 
     private final ResumeRepository resumeRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public List<Resume> getResumes() {
@@ -42,7 +42,7 @@ public class ResumeService {
     }
 
     public Resume save(final Long userId, final Long noticeId, final Resume resume) {
-        resume.setUser(this.userService.getUser(userId));
+        resume.setUser(userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다")));
         resume.setNoticeId(noticeId);
         return this.resumeRepository.save(resume);
     }
