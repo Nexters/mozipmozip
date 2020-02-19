@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import MainContainer from '../containers/Admin/MainContainer';
-import Create from '../components/Admin/Notice/Create';
+import { Create, List } from '../components/Admin/Notice';
 import Header from '../components/common/Header';
 import {useBlockIfNotAdmin} from "../hooks";
 
@@ -43,7 +43,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
             path === 'create' ?
               <Create/>
               :
-              ''// 진행자 현황 보는 페이지 컴포넌트?
+              <List />
           )
       }
     </>

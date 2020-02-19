@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import { useAdmin } from "../../../../hooks";
-import {Ul, Li} from "../Create/styled";
-import {Notice, NoticeStatus} from "../../../../modules/admin";
-import moment from "moment";
+import React, { useEffect } from 'react';
+import moment from 'moment';
+import * as Styled from './style';
+import { useAdmin } from '../../../../hooks';
+import { Notice, NoticeStatus } from '../../../../modules/admin';
 
 const switchNoticeStatus = (noticeStats: NoticeStatus) => {
   switch (noticeStats) {
@@ -24,40 +24,38 @@ const switchNoticeStatus = (noticeStats: NoticeStatus) => {
 
 function List() {
   const { admin, onGetNotices } = useAdmin();
-  const { status: {getNoticeStatus}, noticeList } = admin;
+  const { status: { getNoticeStatus }, noticeList } = admin;
   const handleNoticeList = (noticeList: Notice[]) => {
-    return noticeList.map( (v,i) => {
-      const { id, title, description, startDateTime, endDateTime, noticeStatus} = v;
+    return noticeList.map(notice => {
+      const { id, title, startDateTime, endDateTime, noticeStatus } = notice;
       return (
-        <tr key={id}>
-          <td>{title}</td>
-          <td>{switchNoticeStatus(noticeStatus)}</td>
-          <td>{startDateTime}</td>
-        </tr>
+        <Styled.Tr key={'notice' + id}>
+          <Styled.Td>{title}</Styled.Td>
+          <Styled.Td>{switchNoticeStatus(noticeStatus)}</Styled.Td>
+          <Styled.Td>{moment(startDateTime).format('YYYY. MM. DD') + ' ~ ' + moment(endDateTime).format('YYYY. MM. DD')}</Styled.Td>
+        </Styled.Tr>
       );
-    })
+    });
   };
 
-  useEffect(()=>{
-    onGetNotices()
-  },[]);
+  useEffect(() => {
+    onGetNotices();
+  }, []);
   return (
-    <Ul>
-      <Li>
-        <table>
-          <thead>
-          <tr>
-            <td style={{width: "40%"}}>공고</td>
-            <td style={{width: "30%"}}>상태</td>
-            <td style={{width: "30%"}}>기간</td>
-          </tr>
-          </thead>
-          <tbody>
+    <Styled.Container>
+      <Styled.Table>
+        <Styled.Thead>
+          <Styled.Tr>
+            <td style={{ width: '393px' }}>공고</td>
+            <td style={{ width: '363px' }}>상태</td>
+            <td>기간</td>
+          </Styled.Tr>
+        </Styled.Thead>
+        <Styled.Tbody>
           {getNoticeStatus === 'success' && handleNoticeList(noticeList)}
-          </tbody>
-        </table>
-      </Li>
-    </Ul>
+        </Styled.Tbody>
+      </Styled.Table>
+    </Styled.Container>
   );
 }
 
