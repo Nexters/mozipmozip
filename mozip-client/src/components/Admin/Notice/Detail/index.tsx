@@ -7,6 +7,7 @@ import moment from "moment";
 import {useAdmin} from "../../../../hooks";
 import {useHistory} from "react-router-dom";
 import {NoticeQuestion} from "../../../../modules/admin";
+import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
 function Detail() {
   const {admin, onPostNotice, onClearError} = useAdmin();
@@ -36,6 +37,57 @@ function Detail() {
       );
     });
   };
+
+  const handlePieChart = () => {
+    return ['temp','temp'].map( (v: string, i) => {
+      return (
+        <>
+          <div>전체 지원자</div>
+          <div style={{display: 'flex', alignItems:'center'}}>
+            <ReactMinimalPieChart
+              animate={false}
+              animationDuration={500}
+              animationEasing="ease-out"
+              style={{width: '250px', height: '250px'}}
+              data={[
+                {
+                  color: '#E38627',
+                  title: 'One',
+                  value: 10
+                },
+                {
+                  color: '#C13C37',
+                  title: 'Two',
+                  value: 15
+                },
+                {
+                  color: '#6A2135',
+                  title: 'Three',
+                  value: 20
+                }
+              ]}
+              label={false}
+              labelPosition={50}
+              lengthAngle={360}
+              lineWidth={100}
+              onClick={undefined}
+              onMouseOut={undefined}
+              onMouseOver={undefined}
+              paddingAngle={0}
+              radius={40}
+              rounded={false}
+              startAngle={0}
+              viewBoxSize={[
+                50,
+                50
+              ]}
+            />
+            <div>개발자/디자이너/일반인</div>
+          </div>
+        </>
+      )
+    })
+  }
   return (
     <CreateStyled.Container>
       <Styled.Title>{title}</Styled.Title>
@@ -62,6 +114,9 @@ function Detail() {
         </Li>
         <Li style={{flexDirection: 'column'}}>
           <Title className='bold' style={{marginBottom: '33px'}}>지원개요</Title>
+          <div>
+            {handlePieChart()}
+          </div>
         </Li>
       </Ul>
     </CreateStyled.Container>
