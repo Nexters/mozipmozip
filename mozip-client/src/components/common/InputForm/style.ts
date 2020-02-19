@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const Container = styled.section`
+const Container = styled.article`
   width: 314px;
-  margin-bottom: 14px;
+  margin-bottom: 9px;
 `;
 
-const TextWrapper = styled.article`
+const TextWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -25,8 +25,9 @@ const ErrorText = styled.div`
 `;
 
 const InputWrapper = styled.article`
-  padding: 10px;
   width: 100%;
+  height: 42px;
+  padding: 10px;
   border: 1px solid #d0d3d8;
   box-sizing: border-box;
   border-radius: 4px;

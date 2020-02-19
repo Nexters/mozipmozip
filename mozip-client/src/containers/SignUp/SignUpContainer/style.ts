@@ -17,22 +17,37 @@ const Container = styled.section`
   display: flex;
   justify-content: space-between;
   width: 886px;
+  height: 622px;
   background: #ffffff;
   border: 1px solid #d0d3d8;
   border-radius: 8px;
-  padding: 52px 58px 64px 54px;
 `;
 
 const LeftWrapper = styled.form`
+  width: 425px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 345px;
 `;
 
 const TabContainer = styled.section`
-  margin-bottom: 48px;
+  display: flex;
+  justify-content: space-between;
+  width: 314px;
+  margin-bottom: 22px;
 `;
 
 const Tab = styled.article<ITabProps>`
-  margin-right: 40px;
   display: inline-flex;
+  margin-right: 8px;
   padding-bottom: 7px;
   font-size: 20px;
   line-height: 30px;
@@ -46,7 +61,7 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 47px;
+  margin-top: 33px;
   width: 317px;
   height: 70px;
   background: #61cb9f;
@@ -58,25 +73,16 @@ const Button = styled.button`
 `;
 
 const RightWrapper = styled.article`
-  display: flex;
-  align-items: center;
-`;
-
-//TODO 이미지로 변경
-const Circle = styled.div`
-  width: 339px;
-  height: 339px;
-  background: #f4f4f4;
-  border-radius: 50%;
+  width: 461px;
 `;
 
 export {
   Main,
   Container,
   LeftWrapper,
+  InputWrapper,
   TabContainer,
   Tab,
   Button,
   RightWrapper,
-  Circle,
 };
