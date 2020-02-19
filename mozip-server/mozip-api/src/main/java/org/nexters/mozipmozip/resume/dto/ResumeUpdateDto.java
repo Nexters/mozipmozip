@@ -19,7 +19,6 @@ public class ResumeUpdateDto {
 
     @NotNull(message = "업데이트시 반드시 아이디는 있어야 한다.")
     private Long id;
-    private Long userId;
     private Long noticeId;
     private ResumeState state;
     private String name;
