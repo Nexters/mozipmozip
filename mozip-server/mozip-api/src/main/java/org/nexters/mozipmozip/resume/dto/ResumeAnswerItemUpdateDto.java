@@ -11,11 +11,13 @@ import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
 public class ResumeAnswerItemUpdateDto {
 
     private Long id;
+    private Integer questionNo;
     private String answer;
 
     public ResumeAnswerItem of() {
         return ResumeAnswerItem.builder()
                 .id(this.id)
+                .questionNo(this.questionNo)
                 .answer(this.answer)
                 .build();
     }
