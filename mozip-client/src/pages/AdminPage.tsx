@@ -3,6 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import MainContainer from '../containers/Admin/MainContainer';
 import Create from '../components/Admin/Notice/Create';
 import Header from '../components/common/Header';
+import { List } from '../components/Admin/Notice';
 
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
@@ -41,7 +42,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
             path === 'create' ?
               <Create subPath={subPath} history={history} />
               :
-              ''// 진행자 현황 보는 페이지 컴포넌트?
+              <List />
           )
       }
     </>
