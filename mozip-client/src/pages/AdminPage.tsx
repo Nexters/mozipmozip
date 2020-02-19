@@ -1,9 +1,10 @@
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 import MainContainer from '../containers/Admin/MainContainer';
 import Create from '../components/Admin/Notice/Create';
 import Header from '../components/common/Header';
 import {useBlockIfNotAdmin} from "../hooks";
+import {Detail, List} from "../components/Admin/Notice";
 
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
@@ -30,22 +31,22 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
     },
   ];
 
-  const { match: { params: { path, subPath } }, history } = props;
+  const {match: {params: {path, subPath}}, history} = props;
+
   // useBlockIfNotAdmin();
+
+  const handleRoute = (path: string) => {
+    if (!path) return <MainContainer/>;
+    else {
+      if (path === 'create') return <Create/>;
+      else if (path === 'list') return <List/>;
+      else if (path === 'detail') return <Detail/>;
+    }
+  };
   return (
     <>
-      <Header categories={categories} />
-      {
-        !path ?
-          <MainContainer />
-          :
-          (
-            path === 'create' ?
-              <Create/>
-              :
-              ''// 진행자 현황 보는 페이지 컴포넌트?
-          )
-      }
+      <Header categories={categories}/>
+      {handleRoute(path)}
     </>
   );
 }
