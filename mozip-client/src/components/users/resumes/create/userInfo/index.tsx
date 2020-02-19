@@ -42,10 +42,7 @@ function UserInfo({ history }: UserInfoProps) {
   };
   const handleNextPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!resumes.name) alert('이름을 입력해주세요');
-    else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
-    else if (!resumes.email) alert('이메일을 입력해주세요');
-    else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
+    if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
     else history.push('/resumes/create/answers');
   };
 

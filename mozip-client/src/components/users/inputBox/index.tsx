@@ -43,6 +43,7 @@ function InputBox({ name, placeholder, validationCheck }: InputBoxProps) {
           placeholder={placeholder}
           onBlur={onBlur}
           onFocus={handleFocusInput}
+          required
         />
       </styled.InputBg>
     </styled.Main>

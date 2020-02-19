@@ -1,9 +1,9 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import Header from '../components/common/Header';
-import Main from '../components/users/resumes/main';
 import Create from '../components/users/resumes/create';
 import { useResumes } from '../hooks';
+import MainContainer from '../containers/Main/MainContainer';
 
 function Resumes(
   props: RouteComponentProps<{ path: string; subPath: string }>,
@@ -40,7 +40,7 @@ function Resumes(
     <>
       <Header categories={categories} />
       {!path ? (
-        <Main />
+        <MainContainer />
       ) : path === 'create' ? (
         <Create subPath={subPath} history={history} />
       ) : (
