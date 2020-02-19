@@ -16,6 +16,7 @@
 
   .header_half {
     display: flex;
+
     .header_title {
       display: flex;
       align-items: center;
@@ -55,11 +56,23 @@
         margin-left: 60px;
       }
     }
+  }
+}
 
-    .header_name {
-      font-size: 19px;
-      line-height: 40px;
-      color: #46494E;
+.header_name_wrapper {
+  display: flex;
+
+  & > a + a {
+    margin-left: 70px;
+  }
+
+  .header_name {
+    font-size: 17px;
+    line-height: 40px;
+    color: #46494E;
+
+    &:hover {
+      color: #7DC9A2;
     }
   }
 }

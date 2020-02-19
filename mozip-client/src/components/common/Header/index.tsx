@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Navigation from '../Navigation';
 import './index.scss';
-import {useUsers} from "../../../hooks";
+import { useUsers } from '../../../hooks';
 
 import logo from '../../../static/images/logo.png';
 import logoTitle from '../../../static/images/logo-title.png';
@@ -16,7 +16,7 @@ function Header({ categories }: IHeaderProps) {
   const [ navigation, setNavigation ] = useState();
   const history = useHistory();
   const { onGetCurrentUser, users, onSignOut } = useUsers();
-  const { userInfo: {name, admin} } = users;
+  const { userInfo: { name, admin } } = users;
 
   const handleClickLogo = () => {
     setClickedIndex(-1);
@@ -45,13 +45,13 @@ function Header({ categories }: IHeaderProps) {
 
   const handleLogout = () => {
     const res = window.confirm('로그아웃 하시겠습니까?');
-    if(res) onSignOut();
+    if (res) onSignOut();
     else return null;
   };
 
-  useEffect(()=>{
-    if(!name) onGetCurrentUser() // 쿠키 있고 name 없으면 유저정보 get
-  },[]);
+  useEffect(() => {
+    if (!name) onGetCurrentUser(); // 쿠키 있고 name 없으면 유저정보 get
+  }, []);
   return (
     <>
       {navigation && <Navigation items={navigation} index={clickedIndex} />}
@@ -73,18 +73,25 @@ function Header({ categories }: IHeaderProps) {
               <a>
                 <div className="header_half">
                   <span className="header_name"
-                        style={{marginRight:'60px', cursor: 'pointer', color: '#94999E'}}
+                        style={{ marginRight: '60px', cursor: 'pointer', color: '#94999E' }}
                         onClick={handleLogout}>
                     로그아웃</span>
                   <span className="header_name bold">{name}</span>
                 </div>
               </a>
               :
-              <Link to={'/signin'}>
-                <div className="header_half">
-                  <span className="header_name bold">로그인</span>
-                </div>
-              </Link>
+              <div className="header_name_wrapper">
+                <Link to={'/signup'}>
+                  <div className="header_half">
+                    <span className="header_name bold">회원가입</span>
+                  </div>
+                </Link>
+                <Link to={'/signin'}>
+                  <div className="header_half">
+                    <span className="header_name bold">로그인</span>
+                  </div>
+                </Link>
+              </div>
           }
         </div>
       </div>
