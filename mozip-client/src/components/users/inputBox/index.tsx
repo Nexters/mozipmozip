@@ -1,8 +1,12 @@
-import React, { FocusEvent } from 'react';
+import React, { FocusEvent, useState } from 'react';
 import * as styled from './styled';
+import { useResumes } from '../../../hooks';
+import { hasKey } from '../../../modules/admin';
+
+type nameProps = 'email' | 'name' | 'phoneNumber';
 
 type InputBoxProps = {
-  name: string;
+  name: nameProps;
   title: string;
   placeholder: string;
   type: string;
@@ -18,12 +22,20 @@ function InputBox({
   validation,
   setState,
 }: InputBoxProps) {
+  const { resumes, onSaveUserInfo } = useResumes();
+  const [curText, setCurText] = useState(
+    hasKey(resumes, name) ? resumes[name] : '',
+  );
   const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     console.log(validation);
     console.log(validation(e.target.value));
+    if (!e.target.value) return;
     if (validation(e.target.value)) alert(`올바른 ${title}을 입력해주세요`);
     else setState(e.target.value);
     handleBlurInput(e);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurText(e.target.value);
   };
 
   const handleFocusInput = (e: FocusEvent<HTMLInputElement>) => {
@@ -52,6 +64,8 @@ function InputBox({
           placeholder={placeholder}
           onBlur={onBlur}
           onFocus={handleFocusInput}
+          onChange={handleChange}
+          value={curText}
           required
         />
       </styled.InputBg>

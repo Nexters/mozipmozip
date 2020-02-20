@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Banner from '../../../banner';
 import InputBox from '../../../inputBox';
 import CheckBoxGroup from '../../../CheckBox';
@@ -11,11 +11,22 @@ type UserInfoProps = {
   };
 };
 
+type nameProps = 'email' | 'name' | 'phoneNumber';
+
+type InputBoxProps = {
+  name: nameProps;
+  title: string;
+  placeholder: string;
+  type: string;
+  validation: (value: string) => boolean;
+  setState: (value: string) => void;
+};
+
 function UserInfo({ history }: UserInfoProps) {
   const { resumes, onSaveUserInfo } = useResumes();
   const ProgrammerJobTypes = ['Server', 'Web', 'Android', 'iOS'];
   const DesignerJobTypes = ['UX', 'UI', 'GUI'];
-  const inputCategories = [
+  const inputCategories: InputBoxProps[] = [
     {
       name: 'name',
       title: '이름',

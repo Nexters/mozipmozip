@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as styled from './styled';
+import { useResumes } from '../../../hooks';
 
 type CheckBoxGroupProps = {
   name: string;
@@ -14,6 +15,17 @@ function CheckBoxGroup({
   valueList,
   onToggle,
 }: CheckBoxGroupProps) {
+  const { resumes, onSaveUserInfo } = useResumes();
+  const [list, setList] = useState(resumes.jobTypes);
+  const handleToggle = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    onToggle(e);
+    const target = e.target as HTMLInputElement;
+    setList(
+      list.includes(target.value)
+        ? list.filter(i => i !== target.value)
+        : [...list, target.value],
+    );
+  };
   return (
     <styled.Main>
       <styled.Title>{title}</styled.Title>
@@ -26,7 +38,8 @@ function CheckBoxGroup({
               name={name}
               id={value}
               className="checkbox-custom"
-              onClick={onToggle}
+              onClick={handleToggle}
+              checked={list.includes(value)}
             />
             <styled.CheckboxLabel htmlFor={value}>{value}</styled.CheckboxLabel>
           </styled.CheckboxBg>
