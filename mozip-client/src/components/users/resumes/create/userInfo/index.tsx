@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Banner from '../../../banner';
-import InputBox, { CheckBoxGroup } from '../../../../common/inputBox';
+import InputBox from '../../../inputBox';
+import CheckBoxGroup from '../../../CheckBox';
 import * as styled from './styled';
 import { useResumes } from '../../../../../hooks';
-
-const ProgrammerJobTypes: string[] = ['Server', 'Web', 'Android', 'iOS'];
-const DesignerJobTypes: string[] = ['UX', 'UI', 'GUI'];
 
 type UserInfoProps = {
   history: {
@@ -13,76 +11,91 @@ type UserInfoProps = {
   };
 };
 
+type nameProps = 'email' | 'name' | 'phoneNumber';
+
+type InputBoxProps = {
+  name: nameProps;
+  title: string;
+  placeholder: string;
+  type: string;
+  validation: (value: string) => boolean;
+  setState: (value: string) => void;
+};
+
 function UserInfo({ history }: UserInfoProps) {
   const { resumes, onSaveUserInfo } = useResumes();
-  const checkName = (name: string) => {
-    if (/[`~!@#$%^&*|\\\'\";:\/?]/.test(name))
-      alert('특수기호가 없는 이름을 입력해주세요');
-    else onSaveUserInfo('name', name);
+  const ProgrammerJobTypes = ['Server', 'Web', 'Android', 'iOS'];
+  const DesignerJobTypes = ['UX', 'UI', 'GUI'];
+  const inputCategories: InputBoxProps[] = [
+    {
+      name: 'name',
+      title: '이름',
+      type: 'text',
+      placeholder: '',
+      validation: (value: string) => /[`~!@#$%^&*|\\'";:/?]/.test(value),
+      setState: (value: string) => onSaveUserInfo('name', value),
+    },
+    {
+      name: 'phoneNumber',
+      title: '전화번호',
+      type: 'text',
+      placeholder: '010-XXXX-XXXX',
+      validation: (value: string) => !/^\d{3}-\d{3,4}-\d{4}$/.test(value),
+      setState: (value: string) => onSaveUserInfo('phoneNumber', value),
+    },
+    {
+      name: 'email',
+      title: '이메일',
+      placeholder: '(ex) nexters@gmail.com',
+      type: 'email',
+      validation: (value: string) =>
+        !/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/.test(
+          value,
+        ),
+      setState: (value: string) => onSaveUserInfo('email', value),
+    },
+  ];
+  const checkoutCategory = {
+    name: 'jobTypes',
+    title: '직무선택',
+    valueList:
+      resumes.occupation === 'DESIGNER' ? DesignerJobTypes : ProgrammerJobTypes,
+    onToggle: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+      let target = e.target as HTMLInputElement;
+      resumes.jobTypes.includes(target.value)
+        ? onSaveUserInfo(
+            'jobTypes',
+            resumes.jobTypes.filter(i => i !== target.value),
+          )
+        : onSaveUserInfo('jobTypes', [...resumes.jobTypes, target.value]);
+    },
   };
-  const checkPhone = (phone: string) => {
-    if (!/^\d{3}-\d{3,4}-\d{4}$/.test(phone))
-      alert('올바른 형식의 전화번호를 입력해주세요');
-    else onSaveUserInfo('phoneNumber', phone);
-  };
-  const checkEmail = (email: string) => {
-    const regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    if (!regExp.test(email)) alert('올바른 형식의 이메일을 입력해주세요');
-    else onSaveUserInfo('email', email);
-  };
-  const onToggle = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    let target = e.target as HTMLInputElement;
-    resumes.jobTypes.includes(target.value)
-      ? onSaveUserInfo(
-          'jobTypes',
-          resumes.jobTypes.filter(i => i !== target.value),
-        )
-      : onSaveUserInfo('jobTypes', [...resumes.jobTypes, target.value]);
-  };
-  const handleNextPage = () => {
-    if (!resumes.name) alert('이름을 입력해주세요');
-    else if (!resumes.phoneNumber) alert('전화번호를 입력해주세요');
-    else if (!resumes.email) alert('이메일을 입력해주세요');
-    else if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
+
+  const handleNextPage = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!resumes.jobTypes.length) alert('직무를 선택해주세요');
     else history.push('/resumes/create/answers');
   };
-  const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    handleNextPage();
-  };
+
   return (
-    <styled.UserInfo>
+    <styled.Main>
       <Banner />
       <styled.FormBg>
-        <styled.Form>
-          <InputBox name="이름" placeholder="" validationCheck={checkName} />
-          <InputBox
-            name="전화번호"
-            placeholder="010-XXXX-XXXX"
-            validationCheck={checkPhone}
-          />
-          <InputBox
-            name="이메일"
-            placeholder="(ex) nexters@gmail.com"
-            validationCheck={checkEmail}
-          />
-          {resumes.occupation === 'DESIGNER' ? (
-            <CheckBoxGroup
-              name="직무선택"
-              valueList={DesignerJobTypes}
-              onToggle={onToggle}
-            />
-          ) : (
-            <CheckBoxGroup
-              name="직무선택"
-              valueList={ProgrammerJobTypes}
-              onToggle={onToggle}
-            />
-          )}
-          <styled.Button onClick={onClick}>다음</styled.Button>
+        <styled.Form onSubmit={handleNextPage}>
+          <ul>
+            {inputCategories.map((elem, idx) => (
+              <li key={`inputBox${idx}`}>
+                <InputBox {...elem} />
+              </li>
+            ))}
+            <li>
+              <CheckBoxGroup {...checkoutCategory} />
+            </li>
+          </ul>
+          <styled.Button>다음</styled.Button>
         </styled.Form>
       </styled.FormBg>
-    </styled.UserInfo>
+    </styled.Main>
   );
 }
 
