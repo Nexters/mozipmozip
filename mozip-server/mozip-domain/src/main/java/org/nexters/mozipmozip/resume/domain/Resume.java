@@ -65,10 +65,6 @@ public class Resume extends JpaBasePersistable {
     @Column(name = "occupation", nullable = false)
     private ResumeOccupation occupation = ResumeOccupation.PROGRAMMER;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "job", nullable = false)
-    private ResumeJobType resumeJobType = ResumeJobType.STUDENT;
-
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SELECT)
     @CollectionTable(
@@ -87,7 +83,7 @@ public class Resume extends JpaBasePersistable {
     @Column(name = "portfolio_url")
     private String portFolioURL;
 
-    @OneToMany(mappedBy = "resume", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "resume", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SELECT)
     @JsonManagedReference
     private List<ResumeAnswerItem> resumeAnswerItems;
@@ -101,7 +97,6 @@ public class Resume extends JpaBasePersistable {
                   final String phoneNumber,
                   final String email,
                   final ResumeOccupation occupation,
-                  final ResumeJobType resumeJobType,
                   final List<String> jobTypes,
                   final String blogURL,
                   final String githubURL,
@@ -115,7 +110,6 @@ public class Resume extends JpaBasePersistable {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.occupation = occupation;
-        this.resumeJobType = resumeJobType;
         this.jobTypes = jobTypes;
         this.blogURL = blogURL;
         this.githubURL = githubURL;

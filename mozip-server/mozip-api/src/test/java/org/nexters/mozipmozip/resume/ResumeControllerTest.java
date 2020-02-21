@@ -94,8 +94,7 @@ public class ResumeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].state").exists())
-                .andExpect(jsonPath("$[0].occupation").exists())
-                .andExpect(jsonPath("$[0].resumeJobType").exists());
+                .andExpect(jsonPath("$[0].occupation").exists());
     }
 
     @Test
@@ -120,7 +119,6 @@ public class ResumeControllerTest {
                 .andExpect(jsonPath("$.portFolioURL").value(this.resumeFixture.getPortFolioURL()))
                 .andExpect(jsonPath("$.state").exists())
                 .andExpect(jsonPath("$.occupation").exists())
-                .andExpect(jsonPath("$.resumeJobType").exists())
                 .andExpect(jsonPath("$.resumeAnswerItems").exists());
     }
 
@@ -137,8 +135,7 @@ public class ResumeControllerTest {
         ).andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value(this.resumeFixture.getName()))
                 .andExpect(jsonPath("$[0].state").exists())
-                .andExpect(jsonPath("$[0].occupation").exists())
-                .andExpect(jsonPath("$[0].resumeJobType").exists());
+                .andExpect(jsonPath("$[0].occupation").exists());
     }
 
     @Test

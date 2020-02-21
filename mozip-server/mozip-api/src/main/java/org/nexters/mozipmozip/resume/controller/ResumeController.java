@@ -53,7 +53,6 @@ public class ResumeController {
                 .phoneNumber(resume.getPhoneNumber())
                 .email(resume.getEmail())
                 .occupation(resume.getOccupation())
-                .resumeJobType(resume.getResumeJobType())
                 .jobTypes(resume.getJobTypes())
                 .blogURL(resume.getBlogURL())
                 .githubURL(resume.getGithubURL())
