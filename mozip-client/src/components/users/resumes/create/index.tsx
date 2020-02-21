@@ -13,7 +13,7 @@ type CreateProps = {
 
 function Create(props: CreateProps) {
   const { subPath, history } = props;
-  // useBlockIfNotLogin();
+  useBlockIfNotLogin();
   return (
     <>
       {subPath === 'userInfo' && <UserInfo history={history} />}
