@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
-import org.nexters.mozipmozip.resume.domain.ResumeJobType;
 import org.nexters.mozipmozip.resume.domain.ResumeOccupation;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
@@ -22,7 +21,6 @@ public class ResumeViewDtoById {
     private String phoneNumber;
     private String email;
     private ResumeOccupation occupation;
-    private ResumeJobType resumeJobType;
     private List<String> jobTypes;
     private String blogURL;
     private String githubURL;
@@ -37,7 +35,6 @@ public class ResumeViewDtoById {
                              final String phoneNumber,
                              final String email,
                              final ResumeOccupation occupation,
-                             final ResumeJobType resumeJobType,
                              final List<String> jobTypes,
                              final String blogURL,
                              final String githubURL,
@@ -50,7 +47,6 @@ public class ResumeViewDtoById {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.occupation = occupation;
-        this.resumeJobType = resumeJobType;
         this.jobTypes = jobTypes;
         this.blogURL = blogURL;
         this.githubURL = githubURL;
@@ -67,7 +63,6 @@ public class ResumeViewDtoById {
                 .phoneNumber(resume.getPhoneNumber())
                 .email(resume.getEmail())
                 .occupation(resume.getOccupation())
-                .resumeJobType(resume.getResumeJobType())
                 .jobTypes(resume.getJobTypes())
                 .blogURL(resume.getBlogURL())
                 .githubURL(resume.getGithubURL())

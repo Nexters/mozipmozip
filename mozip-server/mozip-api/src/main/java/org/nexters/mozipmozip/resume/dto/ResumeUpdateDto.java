@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.nexters.mozipmozip.resume.domain.Resume;
-import org.nexters.mozipmozip.resume.domain.ResumeJobType;
 import org.nexters.mozipmozip.resume.domain.ResumeOccupation;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
 
@@ -25,7 +24,6 @@ public class ResumeUpdateDto {
     private String phoneNumber;
     private String email;
     private ResumeOccupation occupation;
-    private ResumeJobType resumeJobType;
     private List<String> jobTypes;
     private String blogURL;
     private String githubURL;
@@ -40,7 +38,6 @@ public class ResumeUpdateDto {
                 .phoneNumber(this.phoneNumber)
                 .email(this.email)
                 .occupation(this.occupation)
-                .resumeJobType(this.resumeJobType)
                 .jobTypes(this.jobTypes)
                 .blogURL(this.blogURL)
                 .githubURL(this.githubURL)
