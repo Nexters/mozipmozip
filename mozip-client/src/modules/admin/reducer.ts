@@ -52,7 +52,7 @@ const initialState: AdminState = {
     designer: [
       {title: '디자이너로 4행시 지어주세요.', type: 'long', maxLength: 350, questionScore: 40},
       {title: '가고싶은 회사가 어디에요?', type: 'long', maxLength: 250, questionScore: 40},
-      {title: '디자인 잘하는 비결 알려주세', type: 'long', maxLength: 410, questionScore: 20},
+      {title: '디자인 잘하는 비결 알려주세요', type: 'long', maxLength: 410, questionScore: 20},
     ],
   },
 

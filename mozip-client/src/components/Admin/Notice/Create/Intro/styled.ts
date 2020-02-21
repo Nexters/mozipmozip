@@ -15,11 +15,12 @@ export const ImagePreview = styled.img`
   margin-right: 30px;
 `;
 
-export const DefaultImage = styled.div`
+export const DefaultImage = styled.img` // 발표 후 > div 로 바꿔야해
   width: 227px;
   height: 136px;
   margin-right: 30px;
-  background: #F0F1F2;
+  //background: #F0F1F2;
+  //background: url('../../../../../static/images/cats.jpeg')
 `;
 
 export const FileInput = styled.input.attrs({

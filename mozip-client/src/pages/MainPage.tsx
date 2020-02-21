@@ -2,8 +2,9 @@ import React from 'react';
 import { useResumes, useUsers } from '../hooks';
 import Header from '../components/common/Header';
 import MainContainer from '../containers/Main/MainContainer';
+import {RouteComponentProps} from 'react-router-dom'
 
-function MainPage() {
+function MainPage({history}: RouteComponentProps) {
   const { onSaveUserInfo } = useResumes();
   const { users } = useUsers();
   const { userInfo: { name } } = users;
@@ -30,7 +31,7 @@ function MainPage() {
 
   return (
     <>
-      <Header categories={name ? categories : [ { title: '' } ]} />
+      <Header categories={name ? categories : [ { title: '' } ]}/>
       <MainContainer />
     </>
   );

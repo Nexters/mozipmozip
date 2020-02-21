@@ -38,56 +38,7 @@ function Detail({id}: { id: number }) {
     });
   };
 
-  const handlePieChart = () => {
-    return ['temp', 'temp'].map((v: string, i) => {
-      return (
-        <Fragment key={`pieChart${i}`}>
-          <div>전체 지원자</div>
-          <div style={{display: 'flex', alignItems: 'center'}}>
-            <ReactMinimalPieChart
-              animate={false}
-              animationDuration={500}
-              animationEasing="ease-out"
-              style={{width: '250px', height: '250px'}}
-              data={[
-                {
-                  color: '#E38627',
-                  title: 'One',
-                  value: 10
-                },
-                {
-                  color: '#C13C37',
-                  title: 'Two',
-                  value: 15
-                },
-                {
-                  color: '#6A2135',
-                  title: 'Three',
-                  value: 20
-                }
-              ]}
-              label={false}
-              labelPosition={50}
-              lengthAngle={360}
-              lineWidth={100}
-              onClick={undefined}
-              onMouseOut={undefined}
-              onMouseOver={undefined}
-              paddingAngle={0}
-              radius={40}
-              rounded={false}
-              startAngle={0}
-              viewBoxSize={[
-                50,
-                50
-              ]}
-            />
-            <div>개발자/디자이너/일반인</div>
-          </div>
-        </Fragment>
-      );
-    });
-  };
+
   useEffect(()=> {
     onGetNoticeOne(id);
   },[]);
@@ -118,7 +69,82 @@ function Detail({id}: { id: number }) {
         <Li style={{flexDirection: 'column'}}>
           <Title className='bold' style={{marginBottom: '33px'}}>지원개요</Title>
           <div>
-            {handlePieChart()}
+            <Fragment>
+              <div>전체 지원자</div>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <ReactMinimalPieChart
+                  animate={false}
+                  animationDuration={500}
+                  animationEasing="ease-out"
+                  style={{width: '250px', height: '250px'}}
+                  data={[
+                    {
+                      color: '#46494E',
+                      title: '개발자',
+                      value: 40
+                    },
+                    {
+                      color: '#48B788',
+                      title: '디자이너',
+                      value: 60
+                    }]}
+                  label={false}
+                  labelPosition={50}
+                  lengthAngle={360}
+                  lineWidth={100}
+                  onClick={undefined}
+                  onMouseOut={undefined}
+                  onMouseOver={undefined}
+                  paddingAngle={0}
+                  radius={40}
+                  rounded={false}
+                  startAngle={0}
+                  viewBoxSize={[
+                    50,
+                    50
+                  ]}
+                />
+                <div>개발자 / 디자이너</div>
+              </div>
+            </Fragment>
+            <Fragment>
+              <div>지원자 유입경로</div>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <ReactMinimalPieChart
+                  animate={false}
+                  animationDuration={500}
+                  animationEasing="ease-out"
+                  style={{width: '250px', height: '250px'}}
+                  data={[
+                    {
+                      color: '#8CDEB2',
+                      title: '페이스북 / Nexters',
+                      value: 60
+                    },
+                    {
+                      color: '#B5ECCE',
+                      title: '에브리타임',
+                      value: 40
+                    }]}
+                  label={false}
+                  labelPosition={50}
+                  lengthAngle={360}
+                  lineWidth={100}
+                  onClick={undefined}
+                  onMouseOut={undefined}
+                  onMouseOver={undefined}
+                  paddingAngle={0}
+                  radius={40}
+                  rounded={false}
+                  startAngle={0}
+                  viewBoxSize={[
+                    50,
+                    50
+                  ]}
+                />
+                <div>페이스북 Nexters/에브리 타임</div>
+              </div>
+            </Fragment>
           </div>
         </Li>
       </Ul>

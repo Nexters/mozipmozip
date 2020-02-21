@@ -104,7 +104,7 @@ function Result(props: ResultProps) {
   useEffect(() => {
     if (createNoticeStatus === 'success') {
       alert('공고가 등록되었습니다.');
-      history.push('/create/list');
+      history.push('/admin/notices');
     }
     if (createNoticeError) {
       alert('공고 등록을 실패 하였습니다.');

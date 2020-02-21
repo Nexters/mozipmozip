@@ -1,5 +1,5 @@
 import {
-  clearError, getCurrentUserFailure, getCurrentUserRequest, getCurrentUserSuccess,
+  clearError, getCurrentUserFailure, getCurrentUserRequest, getCurrentUserSuccess, resetStatus,
   setFormValues,
   signInFailure,
   signInRequest,
@@ -33,6 +33,7 @@ export type UsersState = {
 export type UsersAction =
   | ReturnType<typeof setFormValues>
   | ReturnType<typeof clearError>
+  | ReturnType<typeof resetStatus>
   | ReturnType<typeof signUpRequest>
   | ReturnType<typeof signUpSuccess>
   | ReturnType<typeof signUpFailure>

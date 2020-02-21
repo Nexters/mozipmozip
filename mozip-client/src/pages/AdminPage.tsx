@@ -16,15 +16,15 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
       navigation: [
         {
           title: '디자이너',
-          link: '',
+          link: '/admin/progress',
         },
         {
           title: '개발자',
-          link: '',
+          link: '/admin/progress',
         },
         {
           title: '면접',
-          link: '',
+          link: '/admin/progress',
         },
       ],
     },

@@ -39,7 +39,9 @@ function SignInContainer(props: SignInContainerProps) {
 
   useEffect(() => {
     if (signIn === 'success' && userInfo ) {
-      // hasKey(userInfo, 'admin')  ? history.push('/admin') : history.push('/')
+      if (hasKey(userInfo, 'admin') && userInfo['name']) {
+        userInfo['admin'] ? history.push('/admin') : history.push('/');
+      }
     }
   }, [signIn, userInfo]);
 
