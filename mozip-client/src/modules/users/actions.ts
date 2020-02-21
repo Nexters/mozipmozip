@@ -2,6 +2,8 @@ export const SET_FORM_VALUES = 'users/SET_FORM_VALUES' as const;
 export const setFormValues = (name: string, value: any) => ({type: SET_FORM_VALUES, payload: {name, value}});
 export const CLEAR_ERROR = 'users/CLEAR_ERROR'as const
 export const clearError = (keyName: string) => ({type: CLEAR_ERROR, payload: keyName});
+export const RESET_STATUS = 'users/RESET_STATUS'as const;
+export const resetStatus = () => ({type: RESET_STATUS});
 
 export type SignUpRequest = {
   admin: boolean

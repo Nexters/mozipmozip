@@ -15,13 +15,12 @@ function Header({categories}: IHeaderProps) {
   const [clickedIndex, setClickedIndex] = useState(-1);
   const [navigation, setNavigation] = useState();
   const history = useHistory();
-  const {onGetCurrentUser, users, onSignOut} = useUsers();
-  const {userInfo: {name, admin}, status: {signOut}} = users;
+  const {users, onGetCurrentUser, onSignOut, onResetStatus} = useUsers();
+  const {userInfo: {name, admin}, status: {signIn, signOut}} = users;
 
   const handleClickLogo = () => {
     setClickedIndex(-1);
     setNavigation(undefined);
-    history.push(admin ? '/admin' : '/');
   };
   const handleClickCategory = (index: number) => setClickedIndex(index);
   const showNavigation = (navigation: any) => setNavigation(navigation);
@@ -51,19 +50,23 @@ function Header({categories}: IHeaderProps) {
     else return null;
   };
   useEffect(()=>{
-    if(signOut === 'success') history.push('/signIn')
+    if(signOut === 'success') {
+      history.push('/signIn'); // 이동 후
+      onResetStatus(); // signout status reset ( infinity rendering 방지 )
+    }
   },[signOut]);
 
   useEffect(() => {
     if (!name) onGetCurrentUser(); // 쿠키 있고 name 없으면 유저정보 get
-  }, []);
+  }, [signIn]);
+
   return (
     <>
       {navigation && <Navigation items={navigation} index={clickedIndex}/>}
       <div className="header_wrapper">
         <div className="header_layout">
           <div className="header_half">
-            <Link to='/'>
+            <Link to={admin ? '/admin' : '/'}>
               <div className="header_title" onClick={handleClickLogo}>
                 <img className="logo" src={logo}/>
                 <img className="logo_title" src={logoTitle}/>

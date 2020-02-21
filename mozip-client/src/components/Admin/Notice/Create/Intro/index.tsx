@@ -10,6 +10,7 @@ import { ButtonWrapper, Li, SubLayer, Ul } from '../styled'; // Create CommonQue
 import { makeFormData } from '../../../../../lib/form';
 import { hasKey } from '../../../../../modules/admin';
 import uploadImg from '../../../../../static/images/uploadImg.png';
+import cats from '../../../../../static/images/cats.jpeg';
 
 type IntroProps = {
   onPage: (page: number) => void
@@ -115,7 +116,7 @@ function Intro(props: IntroProps) {
 
   const handleNextPage = () => {// next page > preview base64 data must save in store
     if (!title) return alert('제목을 입력해 주세요.');
-    else if (!resizeData) return alert('배너 이미지를 선택해 주세요.');
+    // else if (!resizeData) return alert('배너 이미지를 선택해 주세요.');
     else if (!description) return alert('리쿠르팅 설명을 입력해 주세요.');
     else if (!documentStartDate) return alert('서류 시작 날짜를 선택해 주세요.');
     else if (!documentEndDate) return alert('서류 종료 날짜를 선택해 주세요.');
@@ -146,14 +147,14 @@ function Intro(props: IntroProps) {
             <Styled.ImagePreview src={resizeData} alt="" />
             :
             <>
-              <Styled.DefaultImage />
+              <Styled.DefaultImage src={cats} alt=""/>
               <Styled.FileInput name="description" onChange={handleImage} />
             </>}
           <Styled.NameLayer>
             <Styled.UploadButton htmlFor="intro-file-input">
               <img src={uploadImg} alt="" /> 업로드 하기
             </Styled.UploadButton>
-            <Styled.FileName readOnly disabled value={name ? name : ''} />
+            <Styled.FileName readOnly disabled value={name ? name : '야옹이.png'} />
           </Styled.NameLayer>
         </SubLayer>
       </Li>
