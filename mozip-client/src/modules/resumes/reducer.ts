@@ -11,6 +11,7 @@ const initialState: UserState = {
   portfolioURL: '',
   resumeAnswerItems: [],
   state: 'DRAFT',
+  noticeId: 1,
 };
 
 export default function(state: UserState = initialState, action: UserAction) {

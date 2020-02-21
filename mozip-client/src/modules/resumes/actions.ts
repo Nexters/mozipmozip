@@ -20,6 +20,7 @@ export type UserState = {
   portfolioURL: string;
   resumeAnswerItems: resumeAnswerType[];
   state: 'DRAFT';
+  noticeId: number;
 };
 //사가 액션 - request, success, failure
 export const POST_RESUMES_REQUEST = 'resumes/POST_RESUMES_REQUEST' as const;
