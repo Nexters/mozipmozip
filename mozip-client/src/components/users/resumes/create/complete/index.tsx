@@ -9,17 +9,17 @@ type CompleteProps = {
   };
 };
 
-const OccupationType = [];
-function Complete(props: CompleteProps) {
+function Complete({ history }: CompleteProps) {
   const { resumes } = useResumes();
+  const target = resumes.occupation === 'DESIGNER' ? '디자이너' : '개발자';
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    alert('미구현띠,,');
+    history.push('/');
   };
   return (
     <styled.Main>
       <Banner />
-      <styled.Occupation>NEXTERS 17기 디자이너</styled.Occupation>
+      <styled.Occupation>{`NEXTERS 17기 ${target}`}</styled.Occupation>
       <styled.EndMessage>지원이 완료되었습니다!</styled.EndMessage>
       <styled.Button onClick={handleClick}>내 지원서 확인</styled.Button>
     </styled.Main>

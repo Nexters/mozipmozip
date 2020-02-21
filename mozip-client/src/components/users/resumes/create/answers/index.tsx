@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as styled from './styled';
 import Banner from '../../../banner';
 import { AnswerBox, PortfolioBox } from '../../../answerBox';
@@ -43,7 +43,6 @@ function Answers({ history }: AnswersProps) {
     e.preventDefault();
     onSaveUserInfo('state', 'REGISTRATION');
     onPostNotice(resumes);
-    history.push('/resumes/create/complete');
   };
   const handleTemporarySave = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -51,6 +50,10 @@ function Answers({ history }: AnswersProps) {
     e.preventDefault();
     alert('임시저장 되었습니다');
   };
+  useEffect(() => {
+    if (resumes.status === 'success') history.push('/resumes/create/complete');
+    else if (resumes.status === 'fail') alert('제출이 실패했습니다');
+  }, [resumes.status, history]);
   return (
     <styled.Main onSubmit={handleSubmit}>
       <Banner />
