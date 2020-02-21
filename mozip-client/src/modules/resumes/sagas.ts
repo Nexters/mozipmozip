@@ -15,6 +15,7 @@ function* postResumesSaga() {
     // call(a,b) a의 함수에 b를 넣어서 실행
     // promise가 resolve 될 때 까지 다음 yield를 실행하지 않음
     const { data } = yield call(requestHandler, {
+      method: 'post',
       path: '/api/v1/resumes',
       data: action.payload,
     });
