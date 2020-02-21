@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useCallback} from 'react';
 import moment from 'moment';
 import * as Styled from './style';
-import { useAdmin } from '../../../../hooks';
-import { Notice, NoticeStatus } from '../../../../modules/admin';
+import {useAdmin} from '../../../../hooks';
+import {Notice, NoticeStatus} from '../../../../modules/admin';
+import {useHistory} from 'react-router-dom';
 
 const switchNoticeStatus = (noticeStats: NoticeStatus) => {
   switch (noticeStats) {
@@ -23,20 +24,24 @@ const switchNoticeStatus = (noticeStats: NoticeStatus) => {
 
 
 function List() {
-  const { admin, onGetNotices } = useAdmin();
-  const { status: { getNoticeStatus }, noticeList } = admin;
-  const handleNoticeList = (noticeList: Notice[]) => {
+  const {admin, onGetNotices} = useAdmin();
+  const {status: {getNoticeStatus}, noticeList} = admin;
+  const history = useHistory();
+
+  const handleRoute = useCallback((id: number) => history.push(`/admin/notices?id=${id}`),[history]);
+
+  const handleNoticeList = useCallback((noticeList: Notice[]) => {
     return noticeList.map(notice => {
-      const { id, title, startDateTime, endDateTime, noticeStatus } = notice;
+      const {id, title, startDateTime, endDateTime, noticeStatus} = notice;
       return (
-        <Styled.Tr key={'notice' + id}>
+        <Styled.Tr key={'notice' + id} onClick={()=>handleRoute(id)}>
           <Styled.Td>{title}</Styled.Td>
           <Styled.Td>{switchNoticeStatus(noticeStatus)}</Styled.Td>
           <Styled.Td>{moment(startDateTime).format('YYYY. MM. DD') + ' ~ ' + moment(endDateTime).format('YYYY. MM. DD')}</Styled.Td>
         </Styled.Tr>
       );
     });
-  };
+  },[noticeList]);
 
   useEffect(() => {
     onGetNotices();
@@ -46,8 +51,8 @@ function List() {
       <Styled.Table>
         <Styled.Thead>
           <Styled.Tr>
-            <td style={{ width: '393px' }}>공고</td>
-            <td style={{ width: '363px' }}>상태</td>
+            <td style={{width: '393px'}}>공고</td>
+            <td style={{width: '363px'}}>상태</td>
             <td>기간</td>
           </Styled.Tr>
         </Styled.Thead>

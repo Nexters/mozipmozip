@@ -25,6 +25,7 @@ export const Thead = styled.thead`
 `;
 
 export const Tr = styled.tr`
+  cursor: pointer;
   & + & {
     border-top: 1px solid #E8E8E8;
   }
@@ -38,7 +39,7 @@ export const Tbody = styled.tbody`
 
 export const Td = styled.td`
   padding: 38px 24px;
-  font-size: 19px;
+  font-size: 18px;
   line-height: 28px;
   color: #000000;
 `;

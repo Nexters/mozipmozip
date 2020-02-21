@@ -33,6 +33,6 @@ export function successHandler(response: any) {
 
 function errorHandler(e: Error) {
   console.log('-----------------------------------------------------');
-  console.log('[Error]: ' + JSON.stringify(e.message, null, 2));
+  console.log('[Error]: ' + JSON.stringify(e, null, 2));
   throw e
 }

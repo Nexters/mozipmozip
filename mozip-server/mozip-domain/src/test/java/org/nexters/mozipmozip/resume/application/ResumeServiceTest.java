@@ -62,7 +62,6 @@ public class ResumeServiceTest {
 
         assertThat(resume.getOccupation()).isEqualTo(resumeFixture.getOccupation());
         assertThat(resume.getState()).isEqualTo(resumeFixture.getState());
-        assertThat(resume.getResumeJobType()).isEqualTo(resumeFixture.getResumeJobType());
         assertThat(resume.getJobTypes()).isEqualTo(resumeFixture.getJobTypes());
         assertThat(resume.getBlogURL()).isEqualTo(resumeFixture.getBlogURL());
         assertThat(resume.getGithubURL()).isEqualTo(resumeFixture.getGithubURL());
@@ -81,7 +80,6 @@ public class ResumeServiceTest {
 
         assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
         assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
-        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
         assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
         assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
         assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());
@@ -100,7 +98,6 @@ public class ResumeServiceTest {
 
         assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
         assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
-        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
         assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
         assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
         assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());
@@ -119,7 +116,6 @@ public class ResumeServiceTest {
 
         assertThat(resumeList.get(0).getOccupation()).isEqualTo(this.resumeFixture.getOccupation());
         assertThat(resumeList.get(0).getState()).isEqualTo(this.resumeFixture.getState());
-        assertThat(resumeList.get(0).getResumeJobType()).isEqualTo(this.resumeFixture.getResumeJobType());
         assertThat(resumeList.get(0).getJobTypes()).isEqualTo(this.resumeFixture.getJobTypes());
         assertThat(resumeList.get(0).getBlogURL()).isEqualTo(this.resumeFixture.getBlogURL());
         assertThat(resumeList.get(0).getGithubURL()).isEqualTo(this.resumeFixture.getGithubURL());

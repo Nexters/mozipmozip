@@ -3,19 +3,18 @@ import { all } from 'redux-saga/effects';
 import admin from './admin';
 import base from './base';
 import resumes from './resumes';
-import users from './users'
+import users from './users';
 
-import baseSaga from "./base/sagas";
-import adminSaga from "./admin/sagas";
-import usersSaga from "./users/sagas";
+import baseSaga from './base/sagas';
+import adminSaga from './admin/sagas';
+import usersSaga from './users/sagas';
 import resumesSaga from './resumes/sagas';
-
 
 const rootReducer = combineReducers({
   admin,
   resumes,
   base,
-  users
+  users,
 });
 
 export function* rootSaga() {

@@ -1,5 +1,5 @@
 import 'rc-calendar/assets/index.css';
-import React, {useState, Fragment} from 'react';
+import React, {useState} from 'react';
 import Calendar from 'rc-calendar';
 import moment, {Moment} from 'moment';
 import 'moment/locale/zh-cn';

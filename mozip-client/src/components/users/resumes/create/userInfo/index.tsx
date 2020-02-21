@@ -83,8 +83,8 @@ function UserInfo({ history }: UserInfoProps) {
       <styled.FormBg>
         <styled.Form onSubmit={handleNextPage}>
           <ul>
-            {inputCategories.map((elem, idx) => (
-              <li key={`inputBox${idx}`}>
+            {inputCategories.map(elem => (
+              <li key={elem.name}>
                 <InputBox {...elem} />
               </li>
             ))}
