@@ -37,7 +37,7 @@ INSERT INTO `resume` (`resume_id`, `created_at`, `created_by`, `deleted`, `last_
                       `portfolio_url`, `job`, `state`, `user_id`)
 VALUES (1, '2020-02-16 05:07:54.006000', 'dudwl7676', 0, '2020-02-16 05:07:54.006000', 'dudwl7676',
         'https://hzoou.tistory.com/', 'dudwl7676@naver.com',
-        'hzoou', '라영지', 1, 'PROGRAMMER', '010-1234-5678', 'https://hzoou.tistory.com/', 'STUDENT', 'PUBLISHED', 1);
+        'hzoou', '라영지', 1, 'PROGRAMMER', '010-1234-5678', 'https://hzoou.tistory.com/', 'STUDENT', 'REGISTRATION', 1);
 
 
 INSERT INTO `resume_answer_item` (`resume_answer_item_id`, `created_at`, `created_by`, `deleted`, `last_modified_at`,

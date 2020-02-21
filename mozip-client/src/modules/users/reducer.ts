@@ -43,7 +43,7 @@ export default function (state: UsersState = initialState, action: UsersAction) 
     case "users/SIGN_OUT_REQUEST":
       return {...state, status: {...state.status, signOut: "pending"}};
     case "users/SIGN_OUT_SUCCESS":
-      return {...state, status: {...state.status, signOut: "success"}, userInfo: {name: '', email: '', admin: false}};
+      return {...state, status: {...initialState.status, signOut: "success"}, userInfo: {name: '', email: '', admin: false}};
     case "users/SIGN_OUT_FAILURE":
       return {...state, status: {...state.status, signOut: "fail"}, error: {...state.error, signOut: action.payload}};
     default:

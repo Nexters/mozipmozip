@@ -15,7 +15,7 @@ function MainContainer() {
           <Styled.ButtonWrapper>
             <Link to={'./resumes/create/userInfo'}>
               <Styled.Button
-                background="#61CB9F"
+                background="#262A2F"
                 className="bold"
                 onClick={() => onSaveUserInfo('occupation', 'PROGRAMMER')}
               >

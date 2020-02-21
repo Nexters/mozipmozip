@@ -3,12 +3,9 @@ import {
   clearError,
   addQuestion,
   setQuestionValue,
-  postNoticeRequest,
-  postNoticeSuccess,
-  postNoticeFailure,
-  getNoticesRequest,
-  getNoticesSuccess,
-  getNoticesFailure,
+  postNoticeRequest, postNoticeSuccess, postNoticeFailure,
+  getNoticesRequest, getNoticesSuccess, getNoticesFailure,
+  getNoticeOneRequest, getNoticeOneSuccess, getNoticeOneFailure
 } from "./actions";
 
 export function hasKey<o>(obj: o, key: keyof any): key is keyof o  {
@@ -57,10 +54,12 @@ export type AdminState = {
   error: {
     createNoticeError: Error | ''
     getNoticeError: Error | ''
+    getNoticeOneError: Error | ''
   }
   status: {
     createNoticeStatus: Status
     getNoticeStatus: Status
+    getNoticeOneStatus: Status
   }
 }
 
@@ -76,6 +75,9 @@ export type AdminAction =
   | ReturnType<typeof getNoticesRequest>
   | ReturnType<typeof getNoticesSuccess>
   | ReturnType<typeof getNoticesFailure>
+  | ReturnType<typeof getNoticeOneRequest>
+  | ReturnType<typeof getNoticeOneSuccess>
+  | ReturnType<typeof getNoticeOneFailure>
 
 
 

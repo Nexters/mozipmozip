@@ -1,4 +1,4 @@
-import {take, call, all, put} from 'redux-saga/effects';
+import {take, call, all, put, takeLatest} from 'redux-saga/effects';
 import {
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE,
@@ -44,10 +44,11 @@ function* signInSage() {
   }
 }
 
+
 function* getCurrentUserSaga(){
   while (true) {
     try {
-      const action = yield take(GET_CURRENT_USER_REQUEST);
+      yield take(GET_CURRENT_USER_REQUEST);
       const {data} = yield call(requestHandler, {
         path: '/api/v1/users/current',
         method: 'get',
@@ -58,6 +59,7 @@ function* getCurrentUserSaga(){
     }
   }
 }
+
 
 function* signOutSaga(){
   while (true) {
