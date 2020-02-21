@@ -3,11 +3,16 @@ export type OccupationType = 'PROGRAMMER' | 'DESIGNER';
 export type StateType = 'DRAFT' | 'COMPLETE';
 export type UserAction =
   | ReturnType<typeof setOccupation>
-  | ReturnType<typeof setUserInfo>;
-type resumeAnswerType = {
+  | ReturnType<typeof setUserInfo>
+  | ReturnType<typeof postResumesFailure>
+  | ReturnType<typeof postResumesRequest>
+  | ReturnType<typeof postResumesSuccess>;
+export type resumeAnswerType = {
   questionNo: number;
   answer: string;
 };
+export type Status = 'wait' | 'pending' | 'success' | 'fail';
+
 //TODO: jobTypes를 string 배열로 해서 중복 체크 기능 추가
 export type UserState = {
   blogURL: string;
@@ -20,6 +25,8 @@ export type UserState = {
   portfolioURL: string;
   resumeAnswerItems: resumeAnswerType[];
   state: 'DRAFT';
+  noticeId: number;
+  status: Status;
 };
 //사가 액션 - request, success, failure
 export const POST_RESUMES_REQUEST = 'resumes/POST_RESUMES_REQUEST' as const;

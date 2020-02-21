@@ -12,16 +12,17 @@ type AnswerBoxProps = {
 type PortfolioBoxProps = {
   questionNo: number;
   question: string;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
-function PortfolioBox({ questionNo, question }: PortfolioBoxProps) {
+function PortfolioBox({ questionNo, question, onClick }: PortfolioBoxProps) {
   return (
     <styled.PortfolioMain>
       <styled.QuestionTag>
         {questionNo}. {question}
       </styled.QuestionTag>
       <styled.UploadBtnBox>
-        <styled.UploadBtn>
+        <styled.UploadBtn onClick={onClick}>
           <img src={uploadImg} alt="" /> 업로드 하기
         </styled.UploadBtn>
         <styled.UploadFileNameBox>이윤희.pdf</styled.UploadFileNameBox>
