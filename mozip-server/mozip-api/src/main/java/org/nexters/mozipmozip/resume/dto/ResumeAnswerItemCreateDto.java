@@ -10,11 +10,13 @@ import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
 @NoArgsConstructor
 public class ResumeAnswerItemCreateDto {
 
+    private Integer questionNo;
     private String answer;
 
     public ResumeAnswerItem of() {
 
         return ResumeAnswerItem.builder()
+                .questionNo(this.questionNo)
                 .answer(this.answer)
                 .build();
     }

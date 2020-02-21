@@ -28,6 +28,11 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
     },
     {
       title: '리쿠르팅 목록',
+      navigation: [
+        {
+          link: '/admin/list'
+        }
+      ]
     },
   ];
 

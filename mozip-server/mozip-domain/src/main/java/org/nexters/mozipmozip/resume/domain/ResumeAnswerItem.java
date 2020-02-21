@@ -33,6 +33,9 @@ public class ResumeAnswerItem extends JpaBasePersistable {
     @JoinColumn(name = "notice_form_question_item_id")
     private NoticeFormQuestionItem noticeFormQuestionItem;
 
+    @Column(name = "question_no", nullable = false)
+    private Integer questionNo;
+
     @Column(name = "answer", nullable = false)
     private String answer;
 
@@ -54,8 +57,10 @@ public class ResumeAnswerItem extends JpaBasePersistable {
 
     @Builder
     public ResumeAnswerItem(final Long id,
+                            final Integer questionNo,
                             final String answer) {
         this.id = id;
         this.answer = answer;
+        this.questionNo = questionNo;
     }
 }

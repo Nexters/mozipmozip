@@ -18,7 +18,6 @@ import java.util.List;
 public class ResumeCreateDto {
 
     private ResumeState state;
-    private Long userId;
     private Long noticeId;
     @NotBlank(message = "지원서에서 지원자의 이름은 비어있을수 없다.")
     private String name;

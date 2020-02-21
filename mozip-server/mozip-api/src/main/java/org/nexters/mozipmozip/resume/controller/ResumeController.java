@@ -3,7 +3,6 @@ package org.nexters.mozipmozip.resume.controller;
 import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.application.ResumeService;
 import org.nexters.mozipmozip.resume.domain.Resume;
-import org.nexters.mozipmozip.resume.domain.ResumeState;
 import org.nexters.mozipmozip.resume.dto.ResumeCreateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeStateUpdateDto;
 import org.nexters.mozipmozip.resume.dto.ResumeUpdateDto;
@@ -11,6 +10,8 @@ import org.nexters.mozipmozip.resume.dto.ResumeViewDto;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoById;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByNoticeId;
 import org.nexters.mozipmozip.resume.dto.ResumeViewDtoByUserId;
+import org.nexters.mozipmozip.user.domain.User;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/v1/resumes")
 public class ResumeController {
 
+    public static final String SESSION_KEY = "userInfo";
     private final ResumeService resumeService;
 
     @GetMapping
@@ -45,7 +47,6 @@ public class ResumeController {
         Resume resume = resumeService.getResumeById(id);
         return ResumeViewDtoById.builder()
                 .id(resume.getId())
-                .userId(resume.getUser().getId())
                 .noticeId(resume.getNoticeId())
                 .state(resume.getState())
                 .name(resume.getName())
@@ -69,9 +70,10 @@ public class ResumeController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/users/{id}")
-    public ResponseEntity getAllByUserId(@PathVariable Long id) {
-        return ResponseEntity.ok().body(resumeService.getResumesByUserId(id)
+    @GetMapping("/users")
+    public ResponseEntity getAllByUserId(HttpSession httpSession) {
+        User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
+        return ResponseEntity.ok().body(resumeService.getResumesByUserId(userInfo.getId())
                 .stream()
                 .map(ResumeViewDtoByUserId::of)
                 .collect(Collectors.toList()));
@@ -84,26 +86,31 @@ public class ResumeController {
     }
 
     @PostMapping
-    public ResponseEntity createResume(@RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
-        Long userId = resumeCreateDTO.getUserId();
+    public ResponseEntity createResume(HttpSession httpSession,
+                                       @RequestBody @Valid ResumeCreateDto resumeCreateDTO) {
+        User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
         Long noticeId = resumeCreateDTO.getNoticeId();
-        Resume createdResume = resumeService.save(userId, noticeId, resumeCreateDTO.of());
-        return ResponseEntity.created(URI.create("/api/v1/resumes/" + createdResume.getId()))
-                .body(createdResume);
+        Resume createdResume = resumeService.save(userInfo.getId(), noticeId, resumeCreateDTO.of());
+        return ResponseEntity.ok().body(createdResume);
     }
 
     @PatchMapping
-    public ResponseEntity modifyResume(@RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
-        Long userId = resumeUpdateDto.getUserId();
+    public ResponseEntity modifyResume(HttpSession httpSession,
+                                       @RequestBody @Valid ResumeUpdateDto resumeUpdateDto) {
+        User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
         Long noticeId = resumeUpdateDto.getNoticeId();
-        return ResponseEntity.ok().body(resumeService.save(userId, noticeId, resumeUpdateDto.of()));
+        return ResponseEntity.ok().body(resumeService.save(userInfo.getId(), noticeId, resumeUpdateDto.of()));
     }
 
     @PatchMapping("/state")
-    public ResponseEntity modifyResumeState(@RequestBody @Valid ResumeStateUpdateDto resumeStateUpdateDto) {
-        Long resumeId = resumeStateUpdateDto.getId();
-        ResumeState state = resumeStateUpdateDto.getState();
-        return ResponseEntity.ok().body(resumeService.modify(resumeId, state));
+    public ResponseEntity modifyResumeState(HttpSession httpSession,
+                                            @RequestBody @Valid ResumeStateUpdateDto resumeStateUpdateDto) {
+        User userInfo = (User) httpSession.getAttribute(SESSION_KEY);
+        if (!userInfo.getIsAdmin()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        
+        return ResponseEntity.ok().body(resumeService.modifyState(userInfo.getId(), resumeStateUpdateDto.getState()));
     }
 
 }

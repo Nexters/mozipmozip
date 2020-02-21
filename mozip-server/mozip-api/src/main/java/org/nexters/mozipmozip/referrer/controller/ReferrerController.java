@@ -21,4 +21,9 @@ public class ReferrerController {
         return ResponseEntity.created(URI.create("/api/v1/referrers/" + savedReferrer.getId()))
                 .body(savedReferrer);
     }
+
+    @GetMapping
+    public ResponseEntity getAllReferrer() {
+        return ResponseEntity.ok(referrerService.getAllReferrers());
+    }
 }

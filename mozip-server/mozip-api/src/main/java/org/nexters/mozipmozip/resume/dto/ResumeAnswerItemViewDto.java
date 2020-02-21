@@ -9,15 +9,18 @@ import org.nexters.mozipmozip.resume.domain.ResumeAnswerItem;
 @Getter
 public class ResumeAnswerItemViewDto {
 
+    private Integer questionNo;
     private String answer;
 
     @Builder
-    public ResumeAnswerItemViewDto(final String answer) {
+    public ResumeAnswerItemViewDto(final Integer questionNo, final String answer) {
+        this.questionNo = questionNo;
         this.answer = answer;
     }
 
     public static ResumeAnswerItemViewDto of(final ResumeAnswerItem resumeAnswerItem) {
         return ResumeAnswerItemViewDto.builder()
+                .questionNo(resumeAnswerItem.getQuestionNo())
                 .answer(resumeAnswerItem.getAnswer())
                 .build();
     }

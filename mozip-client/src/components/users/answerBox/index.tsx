@@ -1,4 +1,4 @@
-import React, { FocusEvent, useState } from 'react';
+import React, { FocusEvent, useState, useMemo } from 'react';
 import * as styled from './styled';
 import uploadImg from '../../../static/images/uploadImg.png';
 import useResumes from '../../../hooks/useResumes';
@@ -32,7 +32,14 @@ function PortfolioBox({ questionNo, question }: PortfolioBoxProps) {
 
 function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const { resumes, onSaveUserInfo } = useResumes();
-  const [textLength, setTextLength] = useState(0);
+  const initialQuestion = useMemo(
+    () =>
+      resumes.resumeAnswerItems.filter(({ questionNo }) => questionNo === idx),
+    [resumes.resumeAnswerItems, idx],
+  );
+  const initialText = initialQuestion.length ? initialQuestion[0].answer : '';
+  const [curText, setCurText] = useState(initialText);
+  const [textLength, setTextLength] = useState(initialText.length);
   const handleFocusInput = (e: FocusEvent<HTMLTextAreaElement>) => {
     const inputWrapper = e.target.parentElement;
     inputWrapper && controlFocusClass(inputWrapper, true);
@@ -43,10 +50,9 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
     inputWrapper && controlFocusClass(inputWrapper, false);
     const qnum =
       e.target.dataset.questionNo && parseInt(e.target.dataset.questionNo);
-    const answer = e.target.value;
     onSaveUserInfo('resumeAnswerItems', [
       ...resumes.resumeAnswerItems.filter(item => item.questionNo !== qnum),
-      { questionNo: qnum, answer: answer },
+      { questionNo: qnum, answer: curText },
     ]);
   };
   const controlFocusClass = (target: HTMLElement, focus: boolean) => {
@@ -55,6 +61,15 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
   const handleKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const target = e.target as HTMLTextAreaElement;
     setTextLength(target.value.length);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCurText(e.target.value);
+    const qnum =
+      e.target.dataset.questionNo && parseInt(e.target.dataset.questionNo);
+    onSaveUserInfo('resumeAnswerItems', [
+      ...resumes.resumeAnswerItems.filter(item => item.questionNo !== qnum),
+      { questionNo: qnum, answer: curText },
+    ]);
   };
   return (
     <styled.Main>
@@ -68,6 +83,8 @@ function AnswerBox({ question, idx, maxLength }: AnswerBoxProps) {
           data-question-no={idx}
           maxLength={maxLength}
           onKeyUp={handleKeyUp}
+          onChange={handleChange}
+          value={curText}
           required
         />
       </styled.TextBoxBg>

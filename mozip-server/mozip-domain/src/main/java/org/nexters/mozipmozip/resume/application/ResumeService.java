@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.nexters.mozipmozip.resume.domain.Resume;
 import org.nexters.mozipmozip.resume.domain.ResumeRepository;
 import org.nexters.mozipmozip.resume.domain.ResumeState;
-import org.nexters.mozipmozip.user.application.UserService;
+import org.nexters.mozipmozip.user.domain.User;
+import org.nexters.mozipmozip.user.domain.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,7 @@ import java.util.NoSuchElementException;
 public class ResumeService {
 
     private final ResumeRepository resumeRepository;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public List<Resume> getResumes() {
@@ -42,15 +43,22 @@ public class ResumeService {
     }
 
     public Resume save(final Long userId, final Long noticeId, final Resume resume) {
-        resume.setUser(this.userService.getUser(userId));
+        User user = this.userRepository
+                .findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("해당 유저가 없습니다"));
+
+        resume.setUser(user);
         resume.setNoticeId(noticeId);
         return this.resumeRepository.save(resume);
     }
 
-    public Resume modify(final Long resumeId, ResumeState resumeState) {
-        Resume resume = getResumeById(resumeId);
+    public Resume modifyState(final Long resumeId, ResumeState resumeState) {
+        Resume resume = this.resumeRepository
+                .findById(resumeId)
+                .orElseThrow(() -> new NoSuchElementException("존재 하지 않는 지원서입니다."));
+
         resume.setState(resumeState);
-        return resume;
+        return this.resumeRepository.save(resume);
     }
 
     public Resume delete(final Long resumeId) {
