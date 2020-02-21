@@ -21,6 +21,7 @@ export const Description = styled.div`
   font-size: 15px;
   line-height: 22px;
   letter-spacing: -0.03em;
+  word-break: keep-all;
   color: #262A2F;
 `;
 
@@ -52,6 +53,7 @@ export const Question = styled.div`
   font-size: 17px;
   line-height: 160%;
   color: #262A2F;
+  word-break: keep-all;
 `;
 
 export const QuestionOption = styled.div`

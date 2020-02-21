@@ -3,15 +3,16 @@ import {RouteComponentProps} from 'react-router-dom';
 import MainContainer from '../containers/Admin/MainContainer';
 import Create from '../components/Admin/Notice/Create';
 import Header from '../components/common/Header';
-import {useBlockIfNotAdmin} from "../hooks";
+import {useBlockIfNotAdmin, useBlockIfNotLogin} from "../hooks";
 import {Detail, List} from "../components/Admin/Notice";
-import  queryString from 'query-string'
+import queryString from 'query-string'
 
 // 관리자 아니면 redirect 하는 기능 필요
 function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>) {
   const categories = [
     {
       title: '진행중인 리쿠르팅',
+      link: '/admin/progress',
       navigation: [
         {
           title: '디자이너',
@@ -35,7 +36,8 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
 
   const {match: {params: {path, subPath}}, history, location} = props;
   const {id} = queryString.parse(location.search);
-  // useBlockIfNotAdmin();
+  useBlockIfNotLogin();
+  useBlockIfNotAdmin();
 
   const handleRoute = (path: string) => {
     if (!path) return <MainContainer/>;

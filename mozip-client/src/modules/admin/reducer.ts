@@ -16,10 +16,10 @@ const initialState: AdminState = {
   // noticeEndDate: '',
   // questions: {
   //   common: [
-  //     {title: '공통질문1', type: 'long', maxLength: 10, questionScore: 40},
+  //     {id: 0, title: '공통질문1', type: 'long', maxLength: 10, questionScore: 40},
   //   ],
   //   programmer: [
-  //     {title: '개발자질문1', type: 'long', maxLength: 10, questionScore: 40},
+  //     {id: 0, title: '개발자질문1', type: 'long', maxLength: 10, questionScore: 40},
   //   ],
   //   designer: [
   //     {title: '디자공통질문1', type: 'long', maxLength: 10, questionScore: 40},
