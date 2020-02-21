@@ -36,8 +36,8 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
 
   const {match: {params: {path, subPath}}, history, location} = props;
   const {id} = queryString.parse(location.search);
-  useBlockIfNotLogin();
-  useBlockIfNotAdmin();
+  // useBlockIfNotLogin();
+  // useBlockIfNotAdmin();
 
   const handleRoute = (path: string) => {
     if (!path) return <MainContainer/>;

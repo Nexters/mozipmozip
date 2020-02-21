@@ -5,6 +5,8 @@ import InputForm from '../../../components/common/InputForm';
 import logo from '../../../static/images/logo.png';
 import logoTitle from '../../../static/images/logo-title.png';
 import {useUsers} from "../../../hooks";
+import { useHistory } from 'react-router-dom';
+import {hasKey} from "../../../modules/admin";
 
 type SignInContainerProps = {
   history: {
@@ -13,9 +15,9 @@ type SignInContainerProps = {
 }
 
 function SignInContainer(props: SignInContainerProps) {
-  const {history} = props;
+  const history = useHistory();
   const {users, onClearError, onSignIn} = useUsers();
-  const {status: {signIn}, error: {signIn: signInError}} = users;
+  const {status: {signIn}, error: {signIn: signInError}, userInfo} = users;
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -36,8 +38,10 @@ function SignInContainer(props: SignInContainerProps) {
   const handleState = (name: string, value: string) => setState({...state, [name]: value});
 
   useEffect(() => {
-    if (signIn === 'success') history.push('/');
-  }, [signIn]);
+    if (signIn === 'success' && userInfo ) {
+      // hasKey(userInfo, 'admin')  ? history.push('/admin') : history.push('/')
+    }
+  }, [signIn, userInfo]);
 
   useEffect(() => {
     if (signInError) {
