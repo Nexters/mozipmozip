@@ -59,41 +59,41 @@ function Result(props: ResultProps) {
           occupation: v.toUpperCase(),
         };
       })];
-    // const submitObj = {
-    //   title,
-    //   description,
-    //   displayImagePath,
-    //   documentStartDate,
-    //   documentEndDate,
-    //   interviewStartDate,
-    //   interviewEndDate,
-    //   noticeEndDate,
-    //   noticeStatus: 'PUBLISHED', // 여기도 질문
-    //   noticeForms
-    // };
-
     const submitObj = {
-      title: 'mozipmozip',
-      description: 'string',
+      title,
+      description,
       displayImagePath: 'string',
-      documentStartDate: new Date,
-      documentEndDate: new Date,
-      interviewStartDate: new Date,
-      interviewEndDate: new Date,
-      noticeEndDate: new Date,
+      documentStartDate,
+      documentEndDate,
+      interviewStartDate,
+      interviewEndDate,
+      noticeEndDate,
       noticeStatus: 'PUBLISHED', // 여기도 질문
-      noticeForms: [{
-        jobTypes: ['string'], // 뭐지 jobTypes는?
-        noticeFormQuestionItems: [{
-          content: 'string', //뭐지 content?
-          maxLength: 100,
-          title: 'string',
-          questionScore: 0,
-          type: 'LONG',
-        }],
-        occupation: 'COMMON',
-      }],
-    }; // 임시
+      noticeForms
+    };
+
+    // const submitObj = {
+    //   title: 'mozipmozip',
+    //   description: 'string',
+    //   displayImagePath: 'string',
+    //   documentStartDate: new Date,
+    //   documentEndDate: new Date,
+    //   interviewStartDate: new Date,
+    //   interviewEndDate: new Date,
+    //   noticeEndDate: new Date,
+    //   noticeStatus: 'PUBLISHED', // 여기도 질문
+    //   noticeForms: [{
+    //     jobTypes: ['string'], // 뭐지 jobTypes는?
+    //     noticeFormQuestionItems: [{
+    //       content: 'string', //뭐지 content?
+    //       maxLength: 100,
+    //       title: 'string',
+    //       questionScore: 0,
+    //       type: 'LONG',
+    //     }],
+    //     occupation: 'COMMON',
+    //   }],
+    // }; // 임시
     onPostNotice(submitObj); // api request
   };
 

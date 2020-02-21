@@ -1,4 +1,4 @@
-import {take, call, all, put, select} from 'redux-saga/effects';
+import {take, call, all, put, select, takeEvery} from 'redux-saga/effects';
 import {
   GET_NOTICES_FAILURE,
   GET_NOTICES_REQUEST,
@@ -14,12 +14,12 @@ function* postNoticeSaga() {
     try {
       const action = yield take(POST_NOTICE_REQUEST);
       const { admin: {image}} = yield select();
-      const {data} = yield call(requestHandler, {
-        path: '/api/v1/files',
-        method: 'post',
-        headers: {'content-type': 'multipart/form-data'},
-        data: image.formData
-      });
+      // const {data} = yield call(requestHandler, {
+      //   path: '/api/v1/files',
+      //   method: 'post',
+      //   headers: {'content-type': 'multipart/form-data'},
+      //   data: image.formData
+      // });
       const { data: res} = yield call(requestHandler, {
         path: '/api/v1/notices',
         method: 'post',
@@ -33,15 +33,17 @@ function* postNoticeSaga() {
 }
 
 function* getNoticesSaga() {
-  try {
-    yield take(GET_NOTICES_REQUEST);
-    const result = yield call(requestHandler, {
-      path: '/api/v1/notices',
-      method: 'get',
-    });
-    yield put({type: GET_NOTICES_SUCCESS, payload: result});
-  } catch (e) {
-    yield put({type: GET_NOTICES_FAILURE, payload: e});
+  while(true){ // while 안돌리면 안하면 한번만 가져오고 다시 요청하면 request에서 멈춤
+    try {
+      yield take(GET_NOTICES_REQUEST);
+      const result = yield call(requestHandler, {
+        path: '/api/v1/notices',
+        method: 'get',
+      });
+      yield put({type: GET_NOTICES_SUCCESS, payload: result});
+    } catch (e) {
+      yield put({type: GET_NOTICES_FAILURE, payload: e});
+    }
   }
 }
 

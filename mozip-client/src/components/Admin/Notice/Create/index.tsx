@@ -7,7 +7,7 @@ import Questions from "./Questions";
 
 
 function Create() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(5);
   return (
     <Styled.Container>
       <RegisterTitle page={page} />

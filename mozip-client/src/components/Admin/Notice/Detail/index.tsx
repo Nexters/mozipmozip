@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {Li, Title, Ul} from "../Create/styled";
 import * as ResultStyled from "../Create/Result/style";
 import * as CreateStyled from '../Create/styled';
@@ -10,12 +10,12 @@ import {NoticeQuestion} from "../../../../modules/admin";
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
 function Detail() {
-  const {admin, onPostNotice, onClearError} = useAdmin();
+  const {admin} = useAdmin();
   const history = useHistory();
   const {
     title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, questions,
-    status: {createNoticeStatus}, error: {createNoticeError}
   } = admin;
+
   const getFormatTime = (date: Date) => {
     return moment(date).format('YYYY.MM.DD');
   };
@@ -23,7 +23,7 @@ function Detail() {
     return questions.map((v, i) => {
       const {questionScore, maxLength, type, title} = v;
       return (
-        <ResultStyled.QuestionWrapper key={i}>
+        <ResultStyled.QuestionWrapper key={`detail ${i}`}>
           <ResultStyled.QuestionIndex>질문 {i + 1}</ResultStyled.QuestionIndex>
           <div>
             <ResultStyled.Question>{title}</ResultStyled.Question>
@@ -41,7 +41,7 @@ function Detail() {
   const handlePieChart = () => {
     return ['temp','temp'].map( (v: string, i) => {
       return (
-        <>
+        <Fragment key={`pieChart${i}`}>
           <div>전체 지원자</div>
           <div style={{display: 'flex', alignItems:'center'}}>
             <ReactMinimalPieChart
@@ -84,7 +84,7 @@ function Detail() {
             />
             <div>개발자/디자이너/일반인</div>
           </div>
-        </>
+        </Fragment>
       )
     })
   }

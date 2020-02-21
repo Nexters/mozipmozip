@@ -8,7 +8,7 @@ import logo from '../../../static/images/logo.png';
 import logoTitle from '../../../static/images/logo-title.png';
 
 interface IHeaderProps {
-  categories?: { title: string, link?: string, navigation?: { title?: string, link: string }[] }[];
+  categories?: { title: string, link?: string, navigation?: { title: string, link: string }[] }[];
 }
 
 function Header({categories}: IHeaderProps) {
@@ -31,6 +31,7 @@ function Header({categories}: IHeaderProps) {
       return (
         <li
           key={'category' + index}
+          style={link && window.location.pathname.indexOf(link) > -1 ? {color: '#7DC9A2'} : {}}
           className={'header_category bold' + (index === clickedIndex ? ' clicked' : '')}
           onClick={() => {
             handleClickCategory(index);
