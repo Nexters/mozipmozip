@@ -24,7 +24,9 @@ export const GET_NOTICES_REQUEST = 'admin/GET_NOTICES_REQUEST' as const;
 export const GET_NOTICES_SUCCESS = 'admin/GET_NOTICES_SUCCESS' as const;
 export const GET_NOTICES_FAILURE = 'admin/GET_NOTICES_FAILURE' as const;
 
-
+export const GET_NOTICE_ONE_REQUEST = 'admin/GET_NOTICE_ONE_REQUEST' as const;
+export const GET_NOTICE_ONE_SUCCESS = 'admin/GET_NOTICE_ONE_SUCCESS' as const;
+export const GET_NOTICE_ONE_FAILURE = 'admin/GET_NOTICE_ONE_FAILURE' as const;
 
 type NoticeFormQuestionItem = {
   content: string
@@ -60,3 +62,7 @@ export const postNoticeFailure = (e: Error) => ({type: POST_NOTICE_FAILURE, payl
 export const getNoticesRequest = () => ({type: GET_NOTICES_REQUEST});
 export const getNoticesSuccess = (res: any) => ({type: GET_NOTICES_SUCCESS, payload: res});
 export const getNoticesFailure = (e: Error) => ({type: GET_NOTICES_FAILURE, payload: e});
+
+export const getNoticeOneRequest = (id: number) => ({type: GET_NOTICE_ONE_REQUEST, payload: id});
+export const getNoticeOneSuccess = (res: any) => ({type: GET_NOTICE_ONE_SUCCESS, payload: res});
+export const getNoticeOneFailure = (e: Error) => ({type: GET_NOTICE_ONE_FAILURE, payload: e});

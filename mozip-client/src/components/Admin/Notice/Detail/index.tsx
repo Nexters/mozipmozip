@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useCallback} from 'react';
 import {Li, Title, Ul} from "../Create/styled";
 import * as ResultStyled from "../Create/Result/style";
 import * as CreateStyled from '../Create/styled';
@@ -9,7 +9,7 @@ import {useHistory} from "react-router-dom";
 import {NoticeQuestion} from "../../../../modules/admin";
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
-function Detail() {
+function Detail({id}: {id: number}) {
   const {admin} = useAdmin();
   const history = useHistory();
   const {

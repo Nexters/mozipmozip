@@ -60,11 +60,13 @@ const initialState: AdminState = {
   noticeList: [],
   error: {
     createNoticeError: '',
-    getNoticeError: ''
+    getNoticeError: '',
+    getNoticeOneError: ''
   },
   status: {
     createNoticeStatus: 'wait',
     getNoticeStatus: 'wait',
+    getNoticeOneStatus: 'wait'
   },
 };
 
@@ -139,6 +141,25 @@ export default function (state: AdminState = initialState, action: AdminAction) 
         status: {...state.status, getNoticeStatus: 'fail'},
         error: {...state.error, getNoticeError: action.payload}
       };
+    }
+    case 'admin/GET_NOTICE_ONE_REQUEST': {
+      return {
+        ...state,
+        status: {...state.status, getNoticeOneStatus: 'pending'}
+      }
+    }
+    case 'admin/GET_NOTICE_ONE_SUCCESS': {
+      return {
+        ...state,
+        ...action.payload,
+        status: {...state.status, getNoticeOneStatus: 'success'}
+      }
+    }
+    case 'admin/GET_NOTICE_ONE_FAILURE': {
+      return {
+        ...state,
+        status: {...state.status, getNoticeOneStatus: 'fail'}
+      }
     }
     default:
       return state;

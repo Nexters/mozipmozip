@@ -41,7 +41,7 @@ function AdminPage(props: RouteComponentProps<{ path: string, subPath: string }>
     if (!path) return <MainContainer/>;
     else {
       if (path === 'create') return <Create/>;
-      else if (path === 'notices' && id) return <Detail/>;
+      else if (path === 'notices' && id) return <Detail id={parseInt(id as string)}/>;
       else if (path === 'notices' && !id) return <List/>;
     }
   };
