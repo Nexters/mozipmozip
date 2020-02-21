@@ -7,7 +7,7 @@ import {
   setQuestionValue,
   addQuestion,
   postNoticeRequest,
-  SetQuestion, NoticeObject, getNoticesRequest,
+  SetQuestion, NoticeObject, getNoticesRequest, getNoticeOneRequest,
 } from "../modules/admin";
 
 export default function useAdmin() {
@@ -20,6 +20,7 @@ export default function useAdmin() {
   const onAddQuestion = useCallback((name: string) => dispatch(addQuestion(name)), [dispatch]);
   const onPostNotice = useCallback((submitObj: NoticeObject) => dispatch(postNoticeRequest(submitObj)), [dispatch]);
   const onGetNotices = useCallback(() => dispatch(getNoticesRequest()), [dispatch]);
+  const onGetNoticeOne = useCallback((id: number) => dispatch(getNoticeOneRequest(id)), [dispatch]);
 
   return {
     admin,
@@ -29,6 +30,7 @@ export default function useAdmin() {
     onAddQuestion,
 
     onPostNotice,
-    onGetNotices
+    onGetNotices,
+    onGetNoticeOne
   };
 }

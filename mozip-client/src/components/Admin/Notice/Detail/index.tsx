@@ -2,15 +2,15 @@ import React, {Fragment, useEffect, useCallback} from 'react';
 import {Li, Title, Ul} from "../Create/styled";
 import * as ResultStyled from "../Create/Result/style";
 import * as CreateStyled from '../Create/styled';
-import * as Styled from './styled'
+import * as Styled from './styled';
 import moment from "moment";
 import {useAdmin} from "../../../../hooks";
 import {useHistory} from "react-router-dom";
 import {NoticeQuestion} from "../../../../modules/admin";
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 
-function Detail({id}: {id: number}) {
-  const {admin} = useAdmin();
+function Detail({id}: { id: number }) {
+  const {admin, onGetNoticeOne} = useAdmin();
   const history = useHistory();
   const {
     title, description, documentStartDate, documentEndDate, interviewStartDate, interviewEndDate, noticeEndDate, questions,
@@ -39,11 +39,11 @@ function Detail({id}: {id: number}) {
   };
 
   const handlePieChart = () => {
-    return ['temp','temp'].map( (v: string, i) => {
+    return ['temp', 'temp'].map((v: string, i) => {
       return (
         <Fragment key={`pieChart${i}`}>
           <div>전체 지원자</div>
-          <div style={{display: 'flex', alignItems:'center'}}>
+          <div style={{display: 'flex', alignItems: 'center'}}>
             <ReactMinimalPieChart
               animate={false}
               animationDuration={500}
@@ -85,9 +85,12 @@ function Detail({id}: {id: number}) {
             <div>개발자/디자이너/일반인</div>
           </div>
         </Fragment>
-      )
-    })
-  }
+      );
+    });
+  };
+  useEffect(()=> {
+    onGetNoticeOne(id);
+  },[]);
   return (
     <CreateStyled.Container>
       <Styled.Title>{title}</Styled.Title>
